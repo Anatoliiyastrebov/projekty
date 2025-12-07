@@ -3,7 +3,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CategoryCard } from '@/components/CategoryCard';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Heart, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 const Index: React.FC = () => {
   const { t } = useLanguage();
@@ -36,11 +36,6 @@ const Index: React.FC = () => {
 
         {/* Categories Section */}
         <section className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold text-center text-foreground mb-8 flex items-center justify-center gap-2">
-            <Heart className="w-6 h-6 text-primary" />
-            {t('selectCategory')}
-          </h2>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <CategoryCard
               type="infant"
