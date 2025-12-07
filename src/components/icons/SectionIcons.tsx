@@ -26,6 +26,8 @@ import {
   Brain,
   Candy,
   Bone,
+  Ruler,
+  HelpCircle,
 } from 'lucide-react';
 
 const iconMap: Record<string, React.FC<{ className?: string }>> = {
@@ -38,6 +40,7 @@ const iconMap: Record<string, React.FC<{ className?: string }>> = {
   baby: Baby,
   calendar: Calendar,
   scale: Scale,
+  ruler: Ruler,
   wind: Wind,
   sparkles: Sparkles,
   flower: Flower2,
@@ -46,6 +49,7 @@ const iconMap: Record<string, React.FC<{ className?: string }>> = {
   'alert-triangle': AlertTriangle,
   'file-text': FileText,
   info: Info,
+  'help-circle': HelpCircle,
   smile: Smile,
   shield: Shield,
   scissors: Scissors,

@@ -149,6 +149,20 @@ export const validateForm = (
     }
   }
 
+  // Special validation: if illness_antibiotics has "took_antibiotics" or "took_other_medications" selected, additional field is required
+  if (formData['illness_antibiotics'] && additionalData) {
+    const illnessAntibioticsValue = formData['illness_antibiotics'];
+    const illnessAntibioticsArray = Array.isArray(illnessAntibioticsValue) ? illnessAntibioticsValue : [illnessAntibioticsValue];
+    const hasAntibiotics = illnessAntibioticsArray.includes('took_antibiotics');
+    const hasOtherMedications = illnessAntibioticsArray.includes('took_other_medications');
+    if (hasAntibiotics || hasOtherMedications) {
+      const illnessAntibioticsAdditional = additionalData['illness_antibiotics_additional'];
+      if (!illnessAntibioticsAdditional || illnessAntibioticsAdditional.trim() === '') {
+        errors['illness_antibiotics_additional'] = t.required;
+      }
+    }
+  }
+
   // Validate contact
   if (!contactData.username || contactData.username.trim() === '') {
     errors['contact_username'] = t.required;
@@ -276,26 +290,58 @@ export const sendToTelegram = async (markdown: string): Promise<{ success: boole
     allEnvValues: allViteEnvKeys.map(key => ({ key, hasValue: !!import.meta.env[key] }))
   });
 
-  // Validate that tokens are set
-  if (!BOT_TOKEN || !CHAT_ID || BOT_TOKEN.trim() === '' || CHAT_ID.trim() === '') {
-    const errorMsg = `Telegram Bot Token or Chat ID not configured. 
+  // Validate that BOT_TOKEN is set (CHAT_ID is optional - can be set later)
+  if (!BOT_TOKEN || BOT_TOKEN.trim() === '') {
+    const errorMsg = `Telegram Bot Token not configured. 
     
 Please check:
 1. Go to Netlify → Site settings → Environment variables
-2. Make sure these variables are set:
+2. Make sure this variable is set:
    - Key: VITE_TELEGRAM_BOT_TOKEN, Value: your_bot_token
-   - Key: VITE_TELEGRAM_CHAT_ID, Value: your_chat_id
-3. After adding variables, go to Deploys → Trigger deploy → Clear cache and deploy site
+3. After adding variable, go to Deploys → Trigger deploy → Clear cache and deploy site
 4. Wait for the build to complete
+
+Note: VITE_TELEGRAM_CHAT_ID is optional. If not set, you can add it later.
 
 Current status:
 - VITE_TELEGRAM_BOT_TOKEN: ${BOT_TOKEN ? 'SET' : 'NOT SET'}
-- VITE_TELEGRAM_CHAT_ID: ${CHAT_ID ? 'SET' : 'NOT SET'}
+- VITE_TELEGRAM_CHAT_ID: ${CHAT_ID ? 'SET (optional)' : 'NOT SET (optional)'}
 - All VITE_ variables found: ${allViteEnvKeys.join(', ') || 'NONE'}`;
     
     console.error('Environment variables check failed:', {
       BOT_TOKEN: BOT_TOKEN ? 'SET (hidden)' : 'NOT SET',
-      CHAT_ID: CHAT_ID ? 'SET (hidden)' : 'NOT SET',
+      CHAT_ID: CHAT_ID ? 'SET (hidden)' : 'NOT SET (optional)',
+      allViteEnvKeys,
+      mode: import.meta.env.MODE
+    });
+    return { success: false, error: errorMsg };
+  }
+
+  // CHAT_ID is optional - if not set, we'll use a default or handle it differently
+  // For now, if CHAT_ID is not set, we'll return an error with instructions
+  if (!CHAT_ID || CHAT_ID.trim() === '') {
+    const errorMsg = `Telegram Chat ID not configured. 
+    
+Please check:
+1. Go to Netlify → Site settings → Environment variables
+2. Add this variable:
+   - Key: VITE_TELEGRAM_CHAT_ID, Value: your_chat_id
+   
+Note: CHAT_ID is the ID of the chat where the bot will send messages.
+If you're sending to a bot, you need the chat ID of your personal chat with the bot.
+You can get your chat ID by messaging @userinfobot on Telegram.
+
+3. After adding variable, go to Deploys → Trigger deploy → Clear cache and deploy site
+4. Wait for the build to complete
+
+Current status:
+- VITE_TELEGRAM_BOT_TOKEN: SET
+- VITE_TELEGRAM_CHAT_ID: NOT SET
+- All VITE_ variables found: ${allViteEnvKeys.join(', ') || 'NONE'}`;
+    
+    console.error('CHAT_ID not set:', {
+      BOT_TOKEN: 'SET (hidden)',
+      CHAT_ID: 'NOT SET',
       allViteEnvKeys,
       mode: import.meta.env.MODE
     });

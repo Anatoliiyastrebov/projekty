@@ -36,6 +36,24 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
         // If "no_issues" is deselected, just remove it
         onChange([]);
       }
+    } else if (question.id === 'illness_antibiotics') {
+      // Special handling for illness_antibiotics: rarely_ill and often_ill are mutually exclusive
+      if (optionValue === 'rarely_ill' && checked) {
+        // If "rarely_ill" is selected, remove "often_ill" if it exists
+        const filteredValues = currentValues.filter((v) => v !== 'often_ill');
+        onChange([...filteredValues, optionValue]);
+      } else if (optionValue === 'often_ill' && checked) {
+        // If "often_ill" is selected, remove "rarely_ill" if it exists
+        const filteredValues = currentValues.filter((v) => v !== 'rarely_ill');
+        onChange([...filteredValues, optionValue]);
+      } else {
+        // For other options or unchecking, normal behavior
+        if (checked) {
+          onChange([...currentValues, optionValue]);
+        } else {
+          onChange(currentValues.filter((v) => v !== optionValue));
+        }
+      }
     } else {
       // For other options
       if (checked) {

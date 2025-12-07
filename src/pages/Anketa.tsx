@@ -104,6 +104,19 @@ const Anketa: React.FC = () => {
         });
       }
     }
+    // If illness_antibiotics changed and no longer has "took_antibiotics" or "took_other_medications", clear additional field error
+    if (questionId === 'illness_antibiotics') {
+      const illnessAntibioticsArray = Array.isArray(value) ? value : [value];
+      const hasAntibiotics = illnessAntibioticsArray.includes('took_antibiotics');
+      const hasOtherMedications = illnessAntibioticsArray.includes('took_other_medications');
+      if (!hasAntibiotics && !hasOtherMedications) {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors['illness_antibiotics_additional'];
+          return newErrors;
+        });
+      }
+    }
     // If allergies changed and "other" is not selected, clear additional field error
     if (questionId === 'allergies') {
       const allergiesArray = Array.isArray(value) ? value : [value];
