@@ -295,10 +295,14 @@ export const sendToTelegram = async (markdown: string): Promise<{ success: boole
     const errorMsg = `Telegram Bot Token not configured. 
     
 Please check:
-1. Go to Netlify → Site settings → Environment variables
+1. Go to your hosting platform:
+   - Netlify: Site settings → Environment variables
+   - Vercel: Project settings → Environment variables
 2. Make sure this variable is set:
    - Key: VITE_TELEGRAM_BOT_TOKEN, Value: your_bot_token
-3. After adding variable, go to Deploys → Trigger deploy → Clear cache and deploy site
+3. After adding variable, rebuild the site:
+   - Netlify: Deploys → Trigger deploy → Clear cache and deploy site
+   - Vercel: Deployments → Redeploy (or push to GitHub for auto-deploy)
 4. Wait for the build to complete
 
 Note: VITE_TELEGRAM_CHAT_ID is optional. If not set, you can add it later.
@@ -323,7 +327,9 @@ Current status:
     const errorMsg = `Telegram Chat ID not configured. 
     
 Please check:
-1. Go to Netlify → Site settings → Environment variables
+1. Go to your hosting platform:
+   - Netlify: Site settings → Environment variables
+   - Vercel: Project settings → Environment variables
 2. Add this variable:
    - Key: VITE_TELEGRAM_CHAT_ID, Value: your_chat_id
    
@@ -331,7 +337,9 @@ Note: CHAT_ID is the ID of the chat where the bot will send messages.
 If you're sending to a bot, you need the chat ID of your personal chat with the bot.
 You can get your chat ID by messaging @userinfobot on Telegram.
 
-3. After adding variable, go to Deploys → Trigger deploy → Clear cache and deploy site
+3. After adding variable, rebuild the site:
+   - Netlify: Deploys → Trigger deploy → Clear cache and deploy site
+   - Vercel: Deployments → Redeploy (or push to GitHub for auto-deploy)
 4. Wait for the build to complete
 
 Current status:
