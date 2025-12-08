@@ -305,7 +305,6 @@ const illnessAntibioticsOptions: QuestionOption[] = [
   { value: 'often_ill', label: { ru: 'Часто болеет', en: 'Often ill', de: 'Oft krank' } },
   { value: 'took_antibiotics', label: { ru: 'Принимал антибиотики', en: 'Took antibiotics', de: 'Antibiotika genommen' } },
   { value: 'took_other_medications', label: { ru: 'Принимал другие лекарства', en: 'Took other medications', de: 'Andere Medikamente genommen' } },
-  { value: 'both', label: { ru: 'И часто болеет, и принимал антибиотики', en: 'Both often ill and took antibiotics', de: 'Sowohl oft krank als auch Antibiotika genommen' } },
 ];
 
 const illnessAntibioticsInfantOptions: QuestionOption[] = [
