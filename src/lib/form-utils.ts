@@ -244,11 +244,12 @@ export const generateMarkdown = (
           answerText = value;
         }
 
-        // Compact format: Question: Answer
-        md += `${questionPrefix}${label}: ${answerText}`;
+        // Enhanced format: Question in bold, Answer in bold with arrow
+        md += `${questionPrefix}**${label}**\n`;
+        md += `➤ **${answerText}**`;
         
         if (additional && additional.trim() !== '') {
-          md += ` (${additional})`;
+          md += `\n   _${additional}_`;
         }
         
         md += `\n`;
@@ -256,14 +257,16 @@ export const generateMarkdown = (
     });
   });
 
-  // Contact section (compact)
+  // Contact section (enhanced)
   const cleanUsername = contactData.username.replace(/^@/, '').trim();
   const link = contactData.method === 'telegram'
     ? `https://t.me/${cleanUsername}`
     : `https://instagram.com/${cleanUsername}`;
 
-  md += `\n**${t.mdContacts}**\n`;
-  md += `@${cleanUsername} | ${link}\n`;
+  md += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+  md += `**${t.mdContacts}**\n`;
+  md += `➤ **@${cleanUsername}**\n`;
+  md += `🔗 ${link}\n`;
 
   return md;
 };
