@@ -42,6 +42,20 @@ const Anketa: React.FC = () => {
   const isEnvConfigured = useMemo(() => {
     const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
     const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+    
+    // Debug logging
+    const allViteEnvKeys = Object.keys(import.meta.env).filter(key => key.startsWith('VITE_'));
+    console.log('Environment variables check:', {
+      hasToken: !!BOT_TOKEN,
+      hasChatId: !!CHAT_ID,
+      tokenLength: BOT_TOKEN?.length || 0,
+      chatIdLength: CHAT_ID?.length || 0,
+      allViteKeys: allViteEnvKeys,
+      mode: import.meta.env.MODE,
+      prod: import.meta.env.PROD,
+      dev: import.meta.env.DEV,
+    });
+    
     return !!(BOT_TOKEN && CHAT_ID && BOT_TOKEN.trim() !== '' && CHAT_ID.trim() !== '');
   }, []);
 
