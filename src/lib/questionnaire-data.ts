@@ -690,6 +690,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
           { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues', de: 'Keine Beschwerden' } },
           { value: 'sweats', label: { ru: 'Потеет во сне', en: 'Sweats at night', de: 'Schwitzt nachts' } },
           { value: 'grinds', label: { ru: 'Скрипит зубами', en: 'Grinds teeth', de: 'Knirscht mit den Zähnen' } },
+          { value: 'other', label: { ru: 'Другое', en: 'Other', de: 'Andere' } },
         ],
         required: true,
         hasAdditional: true,
@@ -794,6 +795,22 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
     title: { ru: 'Личные данные', en: 'Personal Information', de: 'Persönliche Daten' },
     icon: 'user',
     questions: [
+      {
+        id: 'name',
+        type: 'text',
+        label: { ru: 'Имя', en: 'Name', de: 'Vorname' },
+        icon: 'user',
+        required: true,
+        hasAdditional: false,
+      },
+      {
+        id: 'last_name',
+        type: 'text',
+        label: { ru: 'Фамилия', en: 'Last Name', de: 'Nachname' },
+        icon: 'user',
+        required: true,
+        hasAdditional: false,
+      },
       {
         id: 'age',
         type: 'number',
@@ -1097,6 +1114,22 @@ export const manQuestionnaire: QuestionnaireSection[] = [
     title: { ru: 'Личные данные', en: 'Personal Information', de: 'Persönliche Daten' },
     icon: 'user',
     questions: [
+      {
+        id: 'name',
+        type: 'text',
+        label: { ru: 'Имя', en: 'Name', de: 'Vorname' },
+        icon: 'user',
+        required: true,
+        hasAdditional: false,
+      },
+      {
+        id: 'last_name',
+        type: 'text',
+        label: { ru: 'Фамилия', en: 'Last Name', de: 'Nachname' },
+        icon: 'user',
+        required: true,
+        hasAdditional: false,
+      },
       {
         id: 'age',
         type: 'number',

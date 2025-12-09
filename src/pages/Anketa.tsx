@@ -155,6 +155,18 @@ const Anketa: React.FC = () => {
         });
       }
     }
+    // If sweats_grinds changed and "other" is not selected, clear additional field error
+    if (questionId === 'sweats_grinds') {
+      const sweatsGrindsArray = Array.isArray(value) ? value : [value];
+      const hasOther = sweatsGrindsArray.includes('other');
+      if (!hasOther) {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors['sweats_grinds_additional'];
+          return newErrors;
+        });
+      }
+    }
   };
 
   const handleAdditionalChange = (questionId: string, value: string) => {

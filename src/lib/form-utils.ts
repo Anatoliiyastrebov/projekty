@@ -149,6 +149,19 @@ export const validateForm = (
     }
   }
 
+  // Special validation: if sweats_grinds has "other" selected, additional field is required
+  if (formData['sweats_grinds'] && additionalData) {
+    const sweatsGrindsValue = formData['sweats_grinds'];
+    const sweatsGrindsArray = Array.isArray(sweatsGrindsValue) ? sweatsGrindsValue : [sweatsGrindsValue];
+    const hasOther = sweatsGrindsArray.includes('other');
+    if (hasOther) {
+      const sweatsGrindsAdditional = additionalData['sweats_grinds_additional'];
+      if (!sweatsGrindsAdditional || sweatsGrindsAdditional.trim() === '') {
+        errors['sweats_grinds_additional'] = t.required;
+      }
+    }
+  }
+
   // Special validation: if illness_antibiotics has "took_antibiotics" or "took_other_medications" selected, additional field is required
   if (formData['illness_antibiotics'] && additionalData) {
     const illnessAntibioticsValue = formData['illness_antibiotics'];
