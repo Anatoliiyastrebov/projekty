@@ -190,7 +190,7 @@ const Anketa: React.FC = () => {
     setDsgvoAccepted(false);
     setErrors({});
     clearFormData(type, language);
-    toast.success(language === 'ru' ? 'Форма очищена' : language === 'de' ? 'Formular gelöscht' : 'Form cleared');
+    toast.success(language === 'ru' ? 'Форма очищена' : 'Form cleared');
   };
 
   const markdown = useMemo(() => {
@@ -212,7 +212,7 @@ const Anketa: React.FC = () => {
     }
 
     if (!dsgvoAccepted) {
-      toast.error(language === 'ru' ? 'Необходимо принять условия DSGVO' : language === 'de' ? 'Sie müssen die DSGVO-Bedingungen akzeptieren' : 'You must accept GDPR terms');
+      toast.error(language === 'ru' ? 'Необходимо принять условия DSGVO' : 'You must accept GDPR terms');
       return;
     }
 
@@ -258,15 +258,11 @@ const Anketa: React.FC = () => {
             <AlertTitle>
               {language === 'ru' 
                 ? 'Переменные окружения не настроены' 
-                : language === 'de' 
-                ? 'Umgebungsvariablen nicht konfiguriert'
                 : 'Environment variables not configured'}
             </AlertTitle>
             <AlertDescription>
               {language === 'ru' 
                 ? 'Telegram Bot Token или Chat ID не настроены. Пожалуйста, настройте переменные окружения VITE_TELEGRAM_BOT_TOKEN и VITE_TELEGRAM_CHAT_ID в Netlify (Site settings → Environment variables) или Vercel (Project settings → Environment variables) и пересоберите сайт.'
-                : language === 'de'
-                ? 'Telegram Bot Token oder Chat ID nicht konfiguriert. Bitte setzen Sie die Umgebungsvariablen VITE_TELEGRAM_BOT_TOKEN und VITE_TELEGRAM_CHAT_ID in Netlify (Site settings → Environment variables) oder Vercel (Project settings → Environment variables) und stellen Sie die Site neu bereit.'
                 : 'Telegram Bot Token or Chat ID not configured. Please set VITE_TELEGRAM_BOT_TOKEN and VITE_TELEGRAM_CHAT_ID environment variables in Netlify (Site settings → Environment variables) or Vercel (Project settings → Environment variables) and rebuild the site.'}
             </AlertDescription>
           </Alert>

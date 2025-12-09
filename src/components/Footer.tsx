@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <div>
-            © {new Date().getFullYear()} {language === 'ru' ? 'Анкета по здоровью' : language === 'de' ? 'Gesundheitsfragebogen' : 'Health Questionnaire'}
+            © {new Date().getFullYear()} {language === 'ru' ? 'Анкета по здоровью' : 'Health Questionnaire'}
           </div>
           <div className="flex items-center gap-4">
             <Link

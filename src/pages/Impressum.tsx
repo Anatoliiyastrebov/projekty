@@ -37,20 +37,6 @@ const Impressum: React.FC = () => {
       responsibleLabel: 'Responsible for content according to § 18 Abs. 2 MStV:',
       country: 'Russia',
     },
-    de: {
-      title: 'Impressum',
-      backToHome: 'Zurück zur Startseite',
-      impressum: 'Impressum',
-      accordingTo: 'Angaben gemäß § 5 TMG',
-      nameLabel: 'Vor- und Nachname:',
-      name: 'Valentina Timofeeva',
-      addressLabel: 'Adresse:',
-      address: 'Russland, Stadt Omsk\n19 Rabochaya Str., H. 83, W. 28',
-      emailLabel: 'E-Mail:',
-      telegramLabel: 'Telegram:',
-      responsibleLabel: 'Verantwortlich für den Inhalt gemäß § 18 Abs. 2 MStV:',
-      country: 'Russland',
-    },
   };
 
   const content = impressumContent[language];

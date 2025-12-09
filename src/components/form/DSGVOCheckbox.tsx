@@ -15,13 +15,11 @@ export const DSGVOCheckbox: React.FC<DSGVOCheckboxProps> = ({ checked, onChange 
   const privacyPolicyLink = {
     ru: 'Политика конфиденциальности',
     en: 'Privacy Policy',
-    de: 'Datenschutzerklärung',
   };
 
   const userRightsNotice = {
     ru: 'Вы имеете право на доступ, исправление, удаление и ограничение обработки ваших данных в соответствии с GDPR.',
     en: 'You have the right to access, correct, delete, and restrict processing of your data in accordance with GDPR.',
-    de: 'Sie haben das Recht auf Zugang, Berichtigung, Löschung und Einschränkung der Verarbeitung Ihrer Daten gemäß DSGVO.',
   };
 
   return (

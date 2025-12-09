@@ -103,47 +103,6 @@ export const PrivacyPolicyDialog: React.FC<PrivacyPolicyDialogProps> = ({
         },
       ],
     },
-    de: {
-      title: 'Datenschutzerklärung',
-      sections: [
-        {
-          title: 'Verantwortlicher',
-          content: 'Verantwortlicher für die Datenverarbeitung ist die Person, die die Gesundheitsberatung durchführt. Für Anfragen zur Datenverarbeitung kontaktieren Sie uns bitte über die in der Umfrage angegebenen Kontaktdaten.',
-        },
-        {
-          title: 'Rechtsgrundlage der Verarbeitung',
-          content: 'Die Verarbeitung personenbezogener Daten erfolgt auf Grundlage Ihrer freiwilligen Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können Ihre Einwilligung jederzeit widerrufen.',
-        },
-        {
-          title: 'Welche Daten wir sammeln',
-          content: 'Wir sammeln personenbezogene Daten, die Sie im Fragebogen angeben: Name, Alter, Gewicht, Gesundheitsinformationen, Symptome, Beschwerden, Allergien, Krankengeschichte und Kontaktdaten (Telegram oder Instagram). Die Bereitstellung der Daten ist freiwillig, aber für die Beratung erforderlich.',
-        },
-        {
-          title: 'Warum wir Daten sammeln',
-          content: 'Daten werden ausschließlich für die Bereitstellung einer Gesundheitsberatung gesammelt. Wir verwenden diese Informationen zur Analyse Ihres Zustands und zur Vorbereitung von Empfehlungen. Die Daten werden nicht für automatisierte Entscheidungsfindung oder Profiling verwendet.',
-        },
-        {
-          title: 'Wohin Daten gesendet werden',
-          content: 'Daten werden über die offizielle Telegram-API an einen Telegram-Bot gesendet. Die Nachricht mit Ihrem Fragebogen wird an einen sicheren Chat zur Bearbeitung durch einen Berater gesendet. Telegram verarbeitet Daten in Übereinstimmung mit den geltenden Datenschutzgesetzen.',
-        },
-        {
-          title: 'Wie lange Daten gespeichert werden',
-          content: 'Daten werden im Telegram-Chat gespeichert, bis die Beratung abgeschlossen ist oder Sie Ihre Einwilligung widerrufen. Nach Abschluss der Beratung oder Widerruf der Einwilligung können Sie die Löschung Ihrer Daten anfordern. Wir löschen Ihre Daten innerhalb von 30 Tagen nach der Anfrage.',
-        },
-        {
-          title: 'Ihre Rechte',
-          content: 'Gemäß DSGVO haben Sie folgende Rechte: Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO), Einschränkung der Verarbeitung (Art. 18 DSGVO), Datenübertragbarkeit (Art. 20 DSGVO) und Widerspruch gegen die Verarbeitung (Art. 21 DSGVO). Sie können Ihre Einwilligung zur Datenverarbeitung jederzeit widerrufen, ohne dass die Rechtmäßigkeit der aufgrund der Einwilligung bis zum Widerruf erfolgten Verarbeitung berührt wird.',
-        },
-        {
-          title: 'Beschwerderecht',
-          content: 'Sie haben das Recht, bei einer Datenschutzaufsichtsbehörde Beschwerde einzulegen, wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen die DSGVO verstößt. In Deutschland ist dies der Bundesbeauftragte für den Datenschutz und die Informationsfreiheit (BfDI).',
-        },
-        {
-          title: 'Wie Sie Ihre Rechte ausüben können',
-          content: 'Um Ihre Rechte (Auskunft, Berichtigung, Löschung usw.) auszuüben, kontaktieren Sie uns über Telegram oder Instagram und geben Sie Ihren Namen und das Datum der Fragebogenausfüllung an. Wir bearbeiten Ihre Anfrage innerhalb von 30 Tagen nach Eingang.',
-        },
-      ],
-    },
   };
 
   const policy = privacyPolicy[language];
@@ -159,8 +118,6 @@ export const PrivacyPolicyDialog: React.FC<PrivacyPolicyDialogProps> = ({
           <DialogDescription>
             {language === 'ru'
               ? 'Информация о сборе и обработке персональных данных'
-              : language === 'de'
-              ? 'Informationen zur Erhebung und Verarbeitung personenbezogener Daten'
               : 'Information about collection and processing of personal data'}
           </DialogDescription>
         </DialogHeader>
