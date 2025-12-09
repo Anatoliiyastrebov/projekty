@@ -1,34 +1,45 @@
 import React, { useMemo } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { MessageCircle, Instagram, ExternalLink } from 'lucide-react';
+import { MessageCircle, Instagram, Phone, ExternalLink } from 'lucide-react';
 
 interface ContactSectionProps {
-  contactMethod: 'telegram' | 'instagram';
-  username: string;
+  telegram: string;
+  instagram: string;
+  phone: string;
   error?: string;
-  onMethodChange: (method: 'telegram' | 'instagram') => void;
-  onUsernameChange: (username: string) => void;
+  onTelegramChange: (value: string) => void;
+  onInstagramChange: (value: string) => void;
+  onPhoneChange: (value: string) => void;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
-  contactMethod,
-  username,
+  telegram,
+  instagram,
+  phone,
   error,
-  onMethodChange,
-  onUsernameChange,
+  onTelegramChange,
+  onInstagramChange,
+  onPhoneChange,
 }) => {
   const { t } = useLanguage();
 
-  const cleanUsername = useMemo(() => {
-    return username.replace(/^@/, '').trim();
-  }, [username]);
+  const cleanTelegram = useMemo(() => {
+    return telegram.replace(/^@/, '').trim();
+  }, [telegram]);
 
-  const contactLink = useMemo(() => {
-    if (!cleanUsername) return '';
-    return contactMethod === 'telegram'
-      ? `https://t.me/${cleanUsername}`
-      : `https://instagram.com/${cleanUsername}`;
-  }, [contactMethod, cleanUsername]);
+  const cleanInstagram = useMemo(() => {
+    return instagram.replace(/^@/, '').trim();
+  }, [instagram]);
+
+  const telegramLink = useMemo(() => {
+    if (!cleanTelegram) return '';
+    return `https://t.me/${cleanTelegram}`;
+  }, [cleanTelegram]);
+
+  const instagramLink = useMemo(() => {
+    if (!cleanInstagram) return '';
+    return `https://instagram.com/${cleanInstagram}`;
+  }, [cleanInstagram]);
 
   return (
     <div className="card-wellness space-y-4">
@@ -37,79 +48,89 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
         {t('contactMethod')}
       </h3>
 
-      <div className="flex gap-3">
-        <label
-          className={`flex items-center gap-2 px-4 py-3 rounded-xl cursor-pointer transition-all flex-1 justify-center ${
-            contactMethod === 'telegram'
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-secondary text-secondary-foreground hover:bg-muted'
-          }`}
-        >
-          <input
-            type="radio"
-            name="contactMethod"
-            value="telegram"
-            checked={contactMethod === 'telegram'}
-            onChange={() => onMethodChange('telegram')}
-            className="sr-only"
-          />
-          <MessageCircle className="w-5 h-5" />
-          <span className="font-medium">{t('telegram')}</span>
-        </label>
+      <p className="text-sm text-muted-foreground">
+        {t('atLeastOneContactRequired')}
+      </p>
 
-        <label
-          className={`flex items-center gap-2 px-4 py-3 rounded-xl cursor-pointer transition-all flex-1 justify-center ${
-            contactMethod === 'instagram'
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-secondary text-secondary-foreground hover:bg-muted'
-          }`}
-        >
-          <input
-            type="radio"
-            name="contactMethod"
-            value="instagram"
-            checked={contactMethod === 'instagram'}
-            onChange={() => onMethodChange('instagram')}
-            className="sr-only"
-          />
-          <Instagram className="w-5 h-5" />
-          <span className="font-medium">{t('instagram')}</span>
-        </label>
-      </div>
-
-      <div>
-        <label className="text-sm text-muted-foreground mb-1 block">
-          {t('username')} <span className="text-destructive">*</span>
-        </label>
-        <input
-          type="text"
-          className={`input-field ${error ? 'input-error' : ''}`}
-          value={username}
-          onChange={(e) => onUsernameChange(e.target.value)}
-          placeholder={t('usernameHint')}
-        />
-        {error && (
-          <p className="error-message mt-1">
-            <AlertCircleIcon />
-            {error}
-          </p>
-        )}
-      </div>
-
-      {cleanUsername && (
-        <div className="bg-accent/50 rounded-xl p-3">
-          <p className="text-sm text-muted-foreground mb-1">{t('contactLink')}</p>
-          <a
-            href={contactLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary font-medium flex items-center gap-1 hover:underline break-all"
-          >
-            {contactLink}
-            <ExternalLink className="w-4 h-4 flex-shrink-0" />
-          </a>
-        </div>
+      {error && (
+        <p className="error-message">
+          <AlertCircleIcon />
+          {error}
+        </p>
       )}
+
+      <div className="space-y-4">
+        {/* Telegram */}
+        <div>
+          <label className="text-sm text-muted-foreground mb-1 block flex items-center gap-2">
+            <MessageCircle className="w-4 h-4" />
+            <span>{t('telegram')}</span>
+          </label>
+          <input
+            type="text"
+            className="input-field"
+            value={telegram}
+            onChange={(e) => onTelegramChange(e.target.value)}
+            placeholder={t('usernameHint')}
+          />
+          {cleanTelegram && (
+            <div className="bg-accent/50 rounded-xl p-2 mt-2">
+              <a
+                href={telegramLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-medium text-sm flex items-center gap-1 hover:underline break-all"
+              >
+                {telegramLink}
+                <ExternalLink className="w-3 h-3 flex-shrink-0" />
+              </a>
+            </div>
+          )}
+        </div>
+
+        {/* Instagram */}
+        <div>
+          <label className="text-sm text-muted-foreground mb-1 block flex items-center gap-2">
+            <Instagram className="w-4 h-4" />
+            <span>{t('instagram')}</span>
+          </label>
+          <input
+            type="text"
+            className="input-field"
+            value={instagram}
+            onChange={(e) => onInstagramChange(e.target.value)}
+            placeholder={t('usernameHint')}
+          />
+          {cleanInstagram && (
+            <div className="bg-accent/50 rounded-xl p-2 mt-2">
+              <a
+                href={instagramLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-medium text-sm flex items-center gap-1 hover:underline break-all"
+              >
+                {instagramLink}
+                <ExternalLink className="w-3 h-3 flex-shrink-0" />
+              </a>
+            </div>
+          )}
+        </div>
+
+        {/* Phone */}
+        <div>
+          <label className="text-sm text-muted-foreground mb-1 block flex items-center gap-2">
+            <Phone className="w-4 h-4" />
+            <span>{t('phone')}</span>
+          </label>
+          <input
+            type="tel"
+            className="input-field"
+            value={phone}
+            onChange={(e) => onPhoneChange(e.target.value)}
+            placeholder="+7 999 123 45 67"
+          />
+        </div>
+      </div>
     </div>
   );
 };

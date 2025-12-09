@@ -160,9 +160,11 @@ export const translations = {
     contactMethod: 'Способ связи',
     telegram: 'Telegram',
     instagram: 'Instagram',
+    phone: 'Телефон',
     username: 'Имя пользователя',
     usernameHint: 'Введите без @ или с @',
     contactLink: 'Ваша ссылка для связи',
+    atLeastOneContactRequired: 'Необходимо заполнить хотя бы один способ связи (Telegram, Instagram или телефон)',
     
     // DSGVO
     dsgvoConsent: 'Я даю свое добровольное согласие на обработку моих персональных данных согласно DSGVO/GDPR для целей предоставления консультации по здоровью. Я понимаю, что консультация не является медицинской услугой. Я знаю, что могу отозвать свое согласие в любое время.',
@@ -353,9 +355,11 @@ export const translations = {
     contactMethod: 'Contact method',
     telegram: 'Telegram',
     instagram: 'Instagram',
+    phone: 'Phone',
     username: 'Username',
     usernameHint: 'Enter with or without @',
     contactLink: 'Your contact link',
+    atLeastOneContactRequired: 'At least one contact method must be filled (Telegram, Instagram, or phone)',
     
     // DSGVO
     dsgvoConsent: 'I give my voluntary consent to the processing of my personal data in accordance with GDPR for the purpose of providing health consultation. I understand that the consultation is not a medical service. I know that I can withdraw my consent at any time.',
@@ -544,9 +548,11 @@ export const translations = {
     contactMethod: 'Kontaktmethode',
     telegram: 'Telegram',
     instagram: 'Instagram',
+    phone: 'Telefon',
     username: 'Benutzername',
     usernameHint: 'Mit oder ohne @ eingeben',
     contactLink: 'Ihr Kontaktlink',
+    atLeastOneContactRequired: 'Mindestens eine Kontaktmethode muss ausgefüllt werden (Telegram, Instagram oder Telefon)',
     
     // DSGVO
     dsgvoConsent: 'Ich gebe meine freiwillige Einwilligung zur Verarbeitung meiner personenbezogenen Daten gemäß DSGVO zum Zweck der Gesundheitsberatung. Ich verstehe, dass die Beratung keine medizinische Leistung ist. Ich weiß, dass ich meine Einwilligung jederzeit widerrufen kann.',

@@ -10,8 +10,9 @@ export interface FormAdditionalData {
 }
 
 export interface ContactData {
-  method: 'telegram' | 'instagram';
-  username: string;
+  telegram: string;
+  instagram: string;
+  phone: string;
 }
 
 export interface FormErrors {
@@ -176,9 +177,13 @@ export const validateForm = (
     }
   }
 
-  // Validate contact
-  if (!contactData.username || contactData.username.trim() === '') {
-    errors['contact_username'] = t.required;
+  // Validate contact - at least one contact method must be filled
+  const hasTelegram = contactData.telegram && contactData.telegram.trim() !== '';
+  const hasInstagram = contactData.instagram && contactData.instagram.trim() !== '';
+  const hasPhone = contactData.phone && contactData.phone.trim() !== '';
+  
+  if (!hasTelegram && !hasInstagram && !hasPhone) {
+    errors['contact'] = t.atLeastOneContactRequired;
   }
 
   return errors;
@@ -271,15 +276,29 @@ export const generateMarkdown = (
   });
 
   // Contact section (enhanced)
-  const cleanUsername = contactData.username.replace(/^@/, '').trim();
-  const link = contactData.method === 'telegram'
-    ? `https://t.me/${cleanUsername}`
-    : `https://instagram.com/${cleanUsername}`;
+  const contacts: string[] = [];
+  
+  if (contactData.telegram && contactData.telegram.trim() !== '') {
+    const cleanTelegram = contactData.telegram.replace(/^@/, '').trim();
+    contacts.push(`📱 Telegram: @${cleanTelegram}\n🔗 https://t.me/${cleanTelegram}`);
+  }
+  
+  if (contactData.instagram && contactData.instagram.trim() !== '') {
+    const cleanInstagram = contactData.instagram.replace(/^@/, '').trim();
+    contacts.push(`📷 Instagram: @${cleanInstagram}\n🔗 https://instagram.com/${cleanInstagram}`);
+  }
+  
+  if (contactData.phone && contactData.phone.trim() !== '') {
+    contacts.push(`📞 ${t.phone}: ${contactData.phone.trim()}`);
+  }
 
-  md += `\n━━━━━━━━━━━━━━━━━━━━\n`;
-  md += `**${t.mdContacts}**\n`;
-  md += `➤ **@${cleanUsername}**\n`;
-  md += `🔗 ${link}\n`;
+  if (contacts.length > 0) {
+    md += `\n━━━━━━━━━━━━━━━━━━━━\n`;
+    md += `**${t.mdContacts}**\n`;
+    contacts.forEach((contact) => {
+      md += `➤ ${contact}\n`;
+    });
+  }
 
   return md;
 };

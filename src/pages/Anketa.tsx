@@ -62,8 +62,9 @@ const Anketa: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({});
   const [additionalData, setAdditionalData] = useState<FormAdditionalData>({});
   const [contactData, setContactData] = useState<ContactData>({
-    method: 'telegram',
-    username: '',
+    telegram: '',
+    instagram: '',
+    phone: '',
   });
   const [dsgvoAccepted, setDsgvoAccepted] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -185,7 +186,7 @@ const Anketa: React.FC = () => {
   const handleClearForm = () => {
     setFormData({});
     setAdditionalData({});
-    setContactData({ method: 'telegram', username: '' });
+    setContactData({ telegram: '', instagram: '', phone: '' });
     setDsgvoAccepted(false);
     setErrors({});
     clearFormData(type, language);
@@ -308,18 +309,36 @@ const Anketa: React.FC = () => {
 
           {/* Contact Section */}
           <ContactSection
-            contactMethod={contactData.method}
-            username={contactData.username}
-            error={errors['contact_username']}
-            onMethodChange={(method) =>
-              setContactData((prev) => ({ ...prev, method }))
-            }
-            onUsernameChange={(username) => {
-              setContactData((prev) => ({ ...prev, username }));
-              if (errors['contact_username']) {
+            telegram={contactData.telegram}
+            instagram={contactData.instagram}
+            phone={contactData.phone}
+            error={errors['contact']}
+            onTelegramChange={(value) => {
+              setContactData((prev) => ({ ...prev, telegram: value }));
+              if (errors['contact']) {
                 setErrors((prev) => {
                   const newErrors = { ...prev };
-                  delete newErrors['contact_username'];
+                  delete newErrors['contact'];
+                  return newErrors;
+                });
+              }
+            }}
+            onInstagramChange={(value) => {
+              setContactData((prev) => ({ ...prev, instagram: value }));
+              if (errors['contact']) {
+                setErrors((prev) => {
+                  const newErrors = { ...prev };
+                  delete newErrors['contact'];
+                  return newErrors;
+                });
+              }
+            }}
+            onPhoneChange={(value) => {
+              setContactData((prev) => ({ ...prev, phone: value }));
+              if (errors['contact']) {
+                setErrors((prev) => {
+                  const newErrors = { ...prev };
+                  delete newErrors['contact'];
                   return newErrors;
                 });
               }
