@@ -4,11 +4,25 @@ import { Footer } from '@/components/Footer';
 import { Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Language } from '@/lib/translations';
 
 const Impressum: React.FC = () => {
   const { language } = useLanguage();
 
-  const impressumContent = {
+  const impressumContent: Record<Language, {
+    title: string;
+    backToHome: string;
+    impressum: string;
+    accordingTo: string;
+    nameLabel: string;
+    name: string;
+    addressLabel: string;
+    address: string;
+    emailLabel: string;
+    telegramLabel: string;
+    responsibleLabel: string;
+    country: string;
+  }> = {
     ru: {
       title: 'Правовая информация',
       backToHome: 'Вернуться на главную',

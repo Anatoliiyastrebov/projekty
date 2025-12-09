@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Language } from '@/lib/translations';
 import { ShieldCheck, Info } from 'lucide-react';
 import { PrivacyPolicyDialog } from './PrivacyPolicyDialog';
 
@@ -12,12 +13,12 @@ export const DSGVOCheckbox: React.FC<DSGVOCheckboxProps> = ({ checked, onChange 
   const { t, language } = useLanguage();
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
 
-  const privacyPolicyLink = {
+  const privacyPolicyLink: Record<Language, string> = {
     ru: 'Политика конфиденциальности',
     en: 'Privacy Policy',
   };
 
-  const userRightsNotice = {
+  const userRightsNotice: Record<Language, string> = {
     ru: 'Вы имеете право на доступ, исправление, удаление и ограничение обработки ваших данных в соответствии с GDPR.',
     en: 'You have the right to access, correct, delete, and restrict processing of your data in accordance with GDPR.',
   };

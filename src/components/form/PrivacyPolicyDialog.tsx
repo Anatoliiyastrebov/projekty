@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Language } from '@/lib/translations';
 import {
   Dialog,
   DialogContent,
@@ -20,7 +21,13 @@ export const PrivacyPolicyDialog: React.FC<PrivacyPolicyDialogProps> = ({
 }) => {
   const { language } = useLanguage();
 
-  const privacyPolicy = {
+  const privacyPolicy: Record<Language, {
+    title: string;
+    sections: Array<{
+      title: string;
+      content: string;
+    }>;
+  }> = {
     ru: {
       title: 'Политика конфиденциальности',
       sections: [
