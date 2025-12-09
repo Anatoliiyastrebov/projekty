@@ -75,9 +75,15 @@ const Anketa: React.FC = () => {
   useEffect(() => {
     const saved = loadFormData(type, language);
     if (saved) {
-      setFormData(saved.formData);
-      setAdditionalData(saved.additionalData);
-      setContactData(saved.contactData);
+      setFormData(saved.formData || {});
+      setAdditionalData(saved.additionalData || {});
+      // Ensure contactData has the correct structure
+      const contact = saved.contactData || { telegram: '', instagram: '', phone: '' };
+      setContactData({
+        telegram: contact.telegram || '',
+        instagram: contact.instagram || '',
+        phone: contact.phone || '',
+      });
     }
   }, [type, language]);
 

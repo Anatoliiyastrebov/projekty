@@ -47,10 +47,29 @@ export const loadFormData = (type: QuestionnaireType, lang: Language) => {
       const data = JSON.parse(stored);
       // Only return if data is less than 24 hours old
       if (Date.now() - data.timestamp < 24 * 60 * 60 * 1000) {
+        // Migrate old ContactData structure (method + username) to new structure (telegram + instagram + phone)
+        let contactData: ContactData = data.contactData as ContactData;
+        if (contactData && 'method' in contactData && 'username' in contactData) {
+          // Old structure detected - migrate to new structure
+          const oldData = contactData as any;
+          contactData = {
+            telegram: oldData.method === 'telegram' ? (oldData.username || '') : '',
+            instagram: oldData.method === 'instagram' ? (oldData.username || '') : '',
+            phone: '',
+          };
+        } else if (!contactData || !('telegram' in contactData)) {
+          // Ensure new structure exists
+          contactData = {
+            telegram: '',
+            instagram: '',
+            phone: '',
+          };
+        }
+        
         return {
           formData: data.formData as FormData,
           additionalData: data.additionalData as FormAdditionalData,
-          contactData: data.contactData as ContactData,
+          contactData,
         };
       }
     }
