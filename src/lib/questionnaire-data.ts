@@ -590,7 +590,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'heart',
         options: digestionOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'sweats_at_night',
@@ -599,7 +599,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'droplets',
         options: yesNoOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'bad_breath',
@@ -608,7 +608,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'wind',
         options: yesNoOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'skin_condition',
@@ -617,7 +617,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'sparkles',
         options: skinOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'allergies',
@@ -626,15 +626,15 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'flower',
         options: allergyOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'water_per_day',
         type: 'number',
-        label: { ru: 'Сколько воды в день пьет ребенок', en: 'How much water does the child drink per day' },
+        label: { ru: 'Сколько воды в день пьет ребенок (миллилитров)', en: 'How much water does the child drink per day (milliliters)' },
         icon: 'droplet',
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'injuries',
@@ -643,7 +643,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'activity',
         options: injuriesOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'sleep_quality',
@@ -652,7 +652,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'moon',
         options: sleepOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'illness_antibiotics',
@@ -661,7 +661,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'pill',
         options: illnessAntibioticsInfantOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
     ],
   },
@@ -677,7 +677,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'baby',
         options: birthOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'mother_toxicosis',
@@ -686,7 +686,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'alert-circle',
         options: yesNoOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'mother_allergy',
@@ -695,7 +695,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'flower',
         options: yesNoOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'mother_constipation',
@@ -704,7 +704,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'alert-triangle',
         options: yesNoOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'mother_antibiotics',
@@ -713,7 +713,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'pill',
         options: yesNoOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'mother_anemia',
@@ -722,7 +722,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         icon: 'heart',
         options: yesNoOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'pregnancy_problems',
@@ -799,7 +799,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         icon: 'heart',
         options: digestionOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'teeth_decay',
@@ -808,7 +808,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         icon: 'smile',
         options: yesNoOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'sweats_grinds',
@@ -822,7 +822,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
           { value: 'other', label: { ru: 'Другое', en: 'Other' } },
         ],
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'bad_breath',
@@ -831,7 +831,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         icon: 'wind',
         options: yesNoOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'sugar_dependency',
@@ -840,7 +840,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         icon: 'candy',
         options: sugarDependencyOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'skin_condition',
@@ -849,7 +849,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         icon: 'sparkles',
         options: skinOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'allergies',
@@ -858,7 +858,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         icon: 'flower',
         options: allergyOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'hyperactive',
@@ -867,15 +867,15 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         icon: 'zap',
         options: hyperactiveOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'water_per_day',
         type: 'number',
-        label: { ru: 'Сколько воды в день пьет ребенок', en: 'How much water does the child drink per day' },
+        label: { ru: 'Сколько воды в день пьет ребенок (миллилитров)', en: 'How much water does the child drink per day (milliliters)' },
         icon: 'droplet',
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'injuries',
@@ -884,7 +884,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         icon: 'activity',
         options: injuriesOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'headaches_sleep',
@@ -893,7 +893,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         icon: 'brain',
         options: headachesSleepOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'illness_antibiotics',
@@ -902,7 +902,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         icon: 'pill',
         options: illnessAntibioticsChildOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'what_else',
@@ -971,7 +971,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'scale',
         options: weightSatisfactionOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
     ],
   },
@@ -986,7 +986,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         label: { ru: 'Сколько воды в день Вы пьете? (не чай, не кофе, не другие напитки, а только вода)', en: 'How much water do you drink per day? (not tea, not coffee, not other drinks, only water)' },
         icon: 'droplet',
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'covid_status',
@@ -995,7 +995,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'shield',
         options: covidOptionsWoman,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'covid_complications',
@@ -1004,7 +1004,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'shield',
         options: covidComplicationsOptionsAdult,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'hair_condition',
@@ -1013,7 +1013,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'sparkles',
         options: hairOptionsMan,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'teeth',
@@ -1022,7 +1022,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'smile',
         options: teethOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'digestion',
@@ -1031,7 +1031,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'heart',
         options: digestionOptionsMan,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'stones',
@@ -1040,7 +1040,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'circle',
         options: stonesOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'operations_injuries',
@@ -1049,7 +1049,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'scissors',
         options: operationsInjuriesOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'pressure',
@@ -1058,7 +1058,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'activity',
         options: pressureOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'chronic_diseases',
@@ -1067,7 +1067,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'alert-circle',
         options: chronicDiseasesOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'headaches',
@@ -1076,7 +1076,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'brain',
         options: headachesOptionsMan,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'numbness_cold',
@@ -1099,7 +1099,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'heart',
         options: varicoseHemorrhoidsManOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'joints',
@@ -1108,7 +1108,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'bone',
         options: jointOptionsMan,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'cysts_polyps',
@@ -1117,7 +1117,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'circle',
         options: cystsPolypsOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'skin_viruses',
@@ -1126,7 +1126,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'alert-circle',
         options: skinVirusesManOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'menstruation',
@@ -1135,7 +1135,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'calendar',
         options: menstruationWomanOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'skin_issues',
@@ -1144,7 +1144,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'sparkles',
         options: skinIssuesManOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'allergies',
@@ -1153,7 +1153,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'flower',
         options: allergyOptionsExtended,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'colds',
@@ -1162,7 +1162,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'pill',
         options: coldsFrequencyOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'sleep',
@@ -1177,7 +1177,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
           { value: 'other', label: { ru: 'Другое', en: 'Other' } },
         ],
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'energy',
@@ -1186,7 +1186,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'zap',
         options: energyOptionsAdult,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'memory',
@@ -1195,7 +1195,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'brain',
         options: memoryOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'lifestyle',
@@ -1204,7 +1204,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         icon: 'activity',
         options: lifestyleOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'medications',
@@ -1300,7 +1300,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'scale',
         options: weightSatisfactionOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
     ],
   },
@@ -1315,7 +1315,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         label: { ru: 'Сколько воды в день Вы пьете? (не чай, не кофе, не другие напитки, а только вода)', en: 'How much water do you drink per day? (not tea, not coffee, not other drinks, only water)' },
         icon: 'droplet',
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'covid_status',
@@ -1324,7 +1324,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'shield',
         options: covidOptionsWoman,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'covid_complications',
@@ -1333,7 +1333,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'shield',
         options: covidComplicationsOptionsAdult,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'hair_condition',
@@ -1342,7 +1342,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'sparkles',
         options: hairOptionsMan,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'teeth',
@@ -1351,7 +1351,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'smile',
         options: teethOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'digestion',
@@ -1360,7 +1360,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'heart',
         options: digestionOptionsMan,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'stones',
@@ -1369,7 +1369,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'circle',
         options: stonesOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'operations_injuries',
@@ -1378,7 +1378,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'scissors',
         options: operationsInjuriesOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'pressure',
@@ -1387,7 +1387,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'activity',
         options: pressureOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'chronic_diseases',
@@ -1396,7 +1396,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'alert-circle',
         options: chronicDiseasesOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'headaches',
@@ -1405,7 +1405,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'brain',
         options: headachesOptionsMan,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'numbness_cold',
@@ -1428,7 +1428,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'heart',
         options: varicoseHemorrhoidsManOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'joints',
@@ -1437,7 +1437,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'bone',
         options: jointOptionsMan,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'cysts_polyps',
@@ -1446,7 +1446,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'circle',
         options: cystsPolypsOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'skin_viruses',
@@ -1455,7 +1455,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'alert-circle',
         options: skinVirusesManOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'prostatitis',
@@ -1464,7 +1464,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'heart',
         options: yesNoOptionsSimple,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'skin_issues',
@@ -1473,7 +1473,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'sparkles',
         options: skinIssuesManOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'allergies',
@@ -1482,7 +1482,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'flower',
         options: allergyOptionsExtended,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'colds',
@@ -1491,7 +1491,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'pill',
         options: coldsFrequencyOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'sleep',
@@ -1506,7 +1506,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
           { value: 'other', label: { ru: 'Другое', en: 'Other' } },
         ],
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'energy',
@@ -1515,7 +1515,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'zap',
         options: energyOptionsAdult,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'memory',
@@ -1524,7 +1524,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'brain',
         options: memoryOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'lifestyle',
@@ -1533,7 +1533,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         icon: 'activity',
         options: lifestyleOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'medications',
