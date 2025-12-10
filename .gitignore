@@ -37,3 +37,8 @@ lerna-debug.log*
 # Vite
 .vite
 
+# Scripts для автоматизации (не игнорируем)
+!auto-commit.sh
+!watch-and-deploy.sh
+!push-and-deploy.sh
+
