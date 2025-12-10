@@ -158,14 +158,14 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
     }
   };
 
-  // Check if "other" option is selected or if medications/what_else question has "yes" selected
+  // Check if "other" option is selected or if medications/what_else/main_concern question has "yes" selected
   const hasOtherSelected = () => {
     if (question.type === 'checkbox') {
       const currentValues = Array.isArray(value) ? value : [];
       return currentValues.includes('other');
     } else if (question.type === 'radio') {
-      // Special case: medications and what_else questions show field when "yes" is selected
-      if (question.id === 'medications' || question.id === 'what_else') {
+      // Special case: medications, what_else, and main_concern questions show field when "yes" is selected
+      if (question.id === 'medications' || question.id === 'what_else' || question.id === 'main_concern') {
         return value === 'yes';
       }
       return value === 'other';
@@ -199,6 +199,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
               ? (language === 'ru' ? 'Укажите, какие лекарства' : 'Specify which medications')
               : question.id === 'what_else'
               ? (language === 'ru' ? 'Что именно вы хотели бы добавить' : 'What would you like to add')
+              : question.id === 'main_concern'
+              ? (language === 'ru' ? 'Опишите ваш вопрос' : 'Describe your question')
               : (t('otherDetails') || 'Уточните, что именно')}
             {additionalError && <span className="text-destructive ml-1">*</span>}
           </label>
@@ -210,6 +212,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
               ? (language === 'ru' ? 'Напишите название лекарств' : 'Write the names of medications')
               : question.id === 'what_else'
               ? (language === 'ru' ? 'Опишите дополнительную информацию' : 'Describe additional information')
+              : question.id === 'main_concern'
+              ? (language === 'ru' ? 'Опишите ваш вопрос' : 'Describe your question')
               : (t('otherDetails') || 'Опишите подробно')}
           />
           {additionalError && (

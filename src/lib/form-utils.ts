@@ -179,7 +179,15 @@ export const validateForm = (
     }
   }
   
-  // Note: Universal validation for "other" options is handled above, but medications and what_else use "yes" instead of "other"
+  // Special validation: if main_concern is "yes", additional field is required
+  if (formData['main_concern'] === 'yes' && additionalData) {
+    const mainConcernAdditional = additionalData['main_concern_additional'];
+    if (!mainConcernAdditional || mainConcernAdditional.trim() === '') {
+      errors['main_concern_additional'] = t.required;
+    }
+  }
+  
+  // Note: Universal validation for "other" options is handled above, but medications, what_else, and main_concern use "yes" instead of "other"
 
   // Special validation: if illness_antibiotics has "took_antibiotics" or "took_other_medications" selected, additional field is required
   if (formData['illness_antibiotics'] && additionalData) {

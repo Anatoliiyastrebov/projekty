@@ -172,6 +172,16 @@ const Anketa: React.FC = () => {
         });
       }
     }
+    // If main_concern changed and "yes" is not selected, clear additional field error
+    if (questionId === 'main_concern') {
+      if (value !== 'yes') {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors['main_concern_additional'];
+          return newErrors;
+        });
+      }
+    }
   };
 
   const handleAdditionalChange = (questionId: string, value: string) => {

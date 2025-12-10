@@ -503,6 +503,11 @@ const whatElseOptions: QuestionOption[] = [
   { value: 'yes', label: { ru: 'Да', en: 'Yes' } },
 ];
 
+const mainConcernOptions: QuestionOption[] = [
+  { value: 'no', label: { ru: 'Нет', en: 'No' } },
+  { value: 'yes', label: { ru: 'Да', en: 'Yes' } },
+];
+
 const sugarDependencyOptions: QuestionOption[] = [
   { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
   { value: 'moderate', label: { ru: 'Умеренная зависимость', en: 'Moderate dependency' } },
@@ -1225,12 +1230,12 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'main_concern',
-        type: 'textarea',
-        label: { ru: 'Какой самый важный вопрос вас волнует в первую очередь', en: 'What is the most important question that concerns you first' },
+        type: 'radio',
+        label: { ru: 'Есть ли у вас вопрос который вас волнует в первую очередь', en: 'Do you have a question that concerns you first' },
         icon: 'help-circle',
+        options: mainConcernOptions,
         required: true,
         hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
       },
     ],
   },
@@ -1554,12 +1559,12 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'main_concern',
-        type: 'textarea',
-        label: { ru: 'Какой самый важный вопрос вас волнует в первую очередь', en: 'What is the most important question that concerns you first' },
+        type: 'radio',
+        label: { ru: 'Есть ли у вас вопрос который вас волнует в первую очередь', en: 'Do you have a question that concerns you first' },
         icon: 'help-circle',
+        options: mainConcernOptions,
         required: true,
         hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
       },
     ],
   },
