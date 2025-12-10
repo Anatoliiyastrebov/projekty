@@ -508,6 +508,11 @@ const mainConcernOptions: QuestionOption[] = [
   { value: 'yes', label: { ru: 'Да', en: 'Yes' } },
 ];
 
+const pregnancyProblemsOptions: QuestionOption[] = [
+  { value: 'no', label: { ru: 'Нет', en: 'No' } },
+  { value: 'yes', label: { ru: 'Да', en: 'Yes' } },
+];
+
 const sugarDependencyOptions: QuestionOption[] = [
   { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
   { value: 'moderate', label: { ru: 'Умеренная зависимость', en: 'Moderate dependency' } },
@@ -721,17 +726,17 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'pregnancy_problems',
-        type: 'textarea',
-        label: { ru: 'Какие проблемы были в беременность', en: 'What problems were there during pregnancy' },
+        type: 'radio',
+        label: { ru: 'Были ли проблемы в беременность', en: 'Were there problems during pregnancy' },
         icon: 'file-text',
+        options: pregnancyProblemsOptions,
         required: true,
         hasAdditional: false,
-        placeholder: { ru: 'Опишите проблемы', en: 'Describe problems' },
       },
       {
         id: 'what_else',
         type: 'textarea',
-        label: { ru: 'Что еще я должна знать о здоровье ребенка?', en: 'What else should I know about the child\'s health?' },
+        label: { ru: 'Есть ли что-то еще что я должна знать о здоровье ребенка?', en: 'Is there anything else I should know about the child\'s health?' },
         icon: 'info',
         required: true,
         hasAdditional: false,

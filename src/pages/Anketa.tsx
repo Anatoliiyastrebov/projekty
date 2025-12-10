@@ -182,6 +182,16 @@ const Anketa: React.FC = () => {
         });
       }
     }
+    // If pregnancy_problems changed and "yes" is not selected, clear additional field error
+    if (questionId === 'pregnancy_problems') {
+      if (value !== 'yes') {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors['pregnancy_problems_additional'];
+          return newErrors;
+        });
+      }
+    }
   };
 
   const handleAdditionalChange = (questionId: string, value: string) => {

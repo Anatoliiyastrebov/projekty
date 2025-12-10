@@ -187,7 +187,15 @@ export const validateForm = (
     }
   }
   
-  // Note: Universal validation for "other" options is handled above, but medications, what_else, and main_concern use "yes" instead of "other"
+  // Special validation: if pregnancy_problems is "yes", additional field is required
+  if (formData['pregnancy_problems'] === 'yes' && additionalData) {
+    const pregnancyProblemsAdditional = additionalData['pregnancy_problems_additional'];
+    if (!pregnancyProblemsAdditional || pregnancyProblemsAdditional.trim() === '') {
+      errors['pregnancy_problems_additional'] = t.required;
+    }
+  }
+  
+  // Note: Universal validation for "other" options is handled above, but medications, what_else, main_concern, and pregnancy_problems use "yes" instead of "other"
 
   // Special validation: if illness_antibiotics has "took_antibiotics" or "took_other_medications" selected, additional field is required
   if (formData['illness_antibiotics'] && additionalData) {
