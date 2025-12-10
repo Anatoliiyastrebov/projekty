@@ -162,6 +162,16 @@ const Anketa: React.FC = () => {
         });
       }
     }
+    // If what_else changed and "yes" is not selected, clear additional field error
+    if (questionId === 'what_else') {
+      if (value !== 'yes') {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors['what_else_additional'];
+          return newErrors;
+        });
+      }
+    }
   };
 
   const handleAdditionalChange = (questionId: string, value: string) => {

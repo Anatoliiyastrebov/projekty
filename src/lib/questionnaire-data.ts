@@ -498,6 +498,11 @@ const testsOptions: QuestionOption[] = [
   { value: 'yes_send', label: { ru: 'Да, отправлю в личку', en: 'Yes, I will send in private message' } },
 ];
 
+const whatElseOptions: QuestionOption[] = [
+  { value: 'no', label: { ru: 'Нет', en: 'No' } },
+  { value: 'yes', label: { ru: 'Да', en: 'Yes' } },
+];
+
 const sugarDependencyOptions: QuestionOption[] = [
   { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
   { value: 'moderate', label: { ru: 'Умеренная зависимость', en: 'Moderate dependency' } },
@@ -1211,12 +1216,12 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'what_else',
-        type: 'textarea',
-        label: { ru: 'Что еще Вы хотели бы добавить о своем здоровье', en: 'What else would you like to add about your health' },
+        type: 'radio',
+        label: { ru: 'Хотели ли бы вы еще что-то добавить о своем здоровье', en: 'Would you like to add anything else about your health' },
         icon: 'info',
+        options: whatElseOptions,
         required: true,
         hasAdditional: false,
-        placeholder: { ru: 'Дополнительная информация', en: 'Additional information' },
       },
       {
         id: 'main_concern',
@@ -1540,12 +1545,12 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'what_else',
-        type: 'textarea',
-        label: { ru: 'Что еще Вы хотели бы добавить о своем здоровье', en: 'What else would you like to add about your health' },
+        type: 'radio',
+        label: { ru: 'Хотели ли бы вы еще что-то добавить о своем здоровье', en: 'Would you like to add anything else about your health' },
         icon: 'info',
+        options: whatElseOptions,
         required: true,
         hasAdditional: false,
-        placeholder: { ru: 'Дополнительная информация', en: 'Additional information' },
       },
       {
         id: 'main_concern',

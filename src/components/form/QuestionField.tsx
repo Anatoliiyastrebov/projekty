@@ -158,14 +158,14 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
     }
   };
 
-  // Check if "other" option is selected or if medications question has "yes" selected
+  // Check if "other" option is selected or if medications/what_else question has "yes" selected
   const hasOtherSelected = () => {
     if (question.type === 'checkbox') {
       const currentValues = Array.isArray(value) ? value : [];
       return currentValues.includes('other');
     } else if (question.type === 'radio') {
-      // Special case: medications question shows field when "yes" is selected
-      if (question.id === 'medications') {
+      // Special case: medications and what_else questions show field when "yes" is selected
+      if (question.id === 'medications' || question.id === 'what_else') {
         return value === 'yes';
       }
       return value === 'other';
@@ -197,6 +197,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
           <label className="text-sm text-muted-foreground mb-1 block">
             {question.id === 'medications' 
               ? (language === 'ru' ? 'Укажите, какие лекарства' : 'Specify which medications')
+              : question.id === 'what_else'
+              ? (language === 'ru' ? 'Что именно вы хотели бы добавить' : 'What would you like to add')
               : (t('otherDetails') || 'Уточните, что именно')}
             {additionalError && <span className="text-destructive ml-1">*</span>}
           </label>
@@ -206,6 +208,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
             onChange={(e) => onAdditionalChange(e.target.value)}
             placeholder={question.id === 'medications'
               ? (language === 'ru' ? 'Напишите название лекарств' : 'Write the names of medications')
+              : question.id === 'what_else'
+              ? (language === 'ru' ? 'Опишите дополнительную информацию' : 'Describe additional information')
               : (t('otherDetails') || 'Опишите подробно')}
           />
           {additionalError && (
