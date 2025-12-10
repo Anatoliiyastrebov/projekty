@@ -159,9 +159,14 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
   };
 
   // Check if "other" option is selected or if medications/what_else/main_concern/pregnancy_problems question has "yes" selected
+  // Special case: injuries question shows field when any option except "no_issues" is selected
   const hasOtherSelected = () => {
     if (question.type === 'checkbox') {
       const currentValues = Array.isArray(value) ? value : [];
+      // Special case: injuries question shows field when any option except "no_issues" is selected
+      if (question.id === 'injuries') {
+        return currentValues.some((val: string) => val !== 'no_issues');
+      }
       return currentValues.includes('other');
     } else if (question.type === 'radio') {
       // Special case: medications, what_else, main_concern, and pregnancy_problems questions show field when "yes" is selected
@@ -203,6 +208,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
               ? (language === 'ru' ? 'Опишите ваш вопрос' : 'Describe your question')
               : question.id === 'pregnancy_problems'
               ? (language === 'ru' ? 'Опишите проблемы' : 'Describe problems')
+              : question.id === 'injuries'
+              ? (language === 'ru' ? 'Опишите подробнее' : 'Describe in detail')
               : (t('otherDetails') || 'Уточните, что именно')}
             {additionalError && <span className="text-destructive ml-1">*</span>}
           </label>
@@ -218,6 +225,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
               ? (language === 'ru' ? 'Опишите ваш вопрос' : 'Describe your question')
               : question.id === 'pregnancy_problems'
               ? (language === 'ru' ? 'Опишите проблемы' : 'Describe problems')
+              : question.id === 'injuries'
+              ? (language === 'ru' ? 'Опишите подробнее о травмах, операциях и т.д.' : 'Describe in detail about injuries, surgeries, etc.')
               : (t('otherDetails') || 'Опишите подробно')}
           />
           {additionalError && (
