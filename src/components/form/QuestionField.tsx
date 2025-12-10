@@ -158,6 +158,19 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
     }
   };
 
+  // Check if "other" option is selected
+  const hasOtherSelected = () => {
+    if (question.type === 'checkbox') {
+      const currentValues = Array.isArray(value) ? value : [];
+      return currentValues.includes('other');
+    } else if (question.type === 'radio') {
+      return value === 'other';
+    }
+    return false;
+  };
+
+  const showOtherField = hasOtherSelected();
+
   return (
     <div className="space-y-3 animate-fade-in">
       <label className="flex items-center gap-2 text-foreground font-medium">
@@ -175,17 +188,17 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
         </p>
       )}
 
-      {question.hasAdditional && (
+      {showOtherField && (
         <div className="mt-2">
           <label className="text-sm text-muted-foreground mb-1 block">
-            {t('additionalInfo')}
+            {t('otherDetails') || 'Уточните, что именно'}
             {additionalError && <span className="text-destructive ml-1">*</span>}
           </label>
           <textarea
             className={`input-field text-sm min-h-[60px] resize-y ${additionalError ? 'input-error' : ''}`}
             value={additionalValue}
             onChange={(e) => onAdditionalChange(e.target.value)}
-            placeholder={t('additionalInfo')}
+            placeholder={t('otherDetails') || 'Опишите подробно'}
           />
           {additionalError && (
             <p className="error-message mt-1">

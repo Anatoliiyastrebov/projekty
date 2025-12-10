@@ -31,6 +31,7 @@ export const translations = {
     weight: 'Вес (кг)',
     waterPerDay: 'Сколько воды в день (литров)',
     additionalInfo: 'Дополнительно (необязательно)',
+    otherDetails: 'Уточните, что именно',
     whatElseToKnow: 'Что ещё нужно знать о здоровье',
     
     // Common options
@@ -226,6 +227,7 @@ export const translations = {
     weight: 'Weight (kg)',
     waterPerDay: 'Water per day (liters)',
     additionalInfo: 'Additional info (optional)',
+    otherDetails: 'Please specify what exactly',
     whatElseToKnow: 'What else should we know about health',
     
     // Common options

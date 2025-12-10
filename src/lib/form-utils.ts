@@ -140,57 +140,28 @@ export const validateForm = (
     }
   }
 
-  // Special validation: if allergies has "other" selected, additional field is required
-  if (formData['allergies'] && additionalData) {
-    const allergiesValue = formData['allergies'];
-    const allergiesArray = Array.isArray(allergiesValue) ? allergiesValue : [allergiesValue];
-    const hasOther = allergiesArray.includes('other');
-    if (hasOther) {
-      const allergiesAdditional = additionalData['allergies_additional'];
-      if (!allergiesAdditional || allergiesAdditional.trim() === '') {
-        errors['allergies_additional'] = t.required;
+  // Universal validation: if any question has "other" selected, additional field is required
+  sections.forEach((section) => {
+    section.questions.forEach((question) => {
+      if ((question.type === 'checkbox' || question.type === 'radio') && question.options) {
+        const hasOtherOption = question.options.some(opt => opt.value === 'other');
+        if (hasOtherOption) {
+          const questionValue = formData[question.id];
+          if (questionValue) {
+            const valueArray = Array.isArray(questionValue) ? questionValue : [questionValue];
+            const hasOther = valueArray.includes('other');
+            if (hasOther && additionalData) {
+              const additionalKey = `${question.id}_additional`;
+              const additionalValue = additionalData[additionalKey];
+              if (!additionalValue || additionalValue.trim() === '') {
+                errors[additionalKey] = t.required;
+              }
+            }
+          }
+        }
       }
-    }
-  }
-
-  // Special validation: if skin_condition has "other" selected, additional field is required
-  if (formData['skin_condition'] && additionalData) {
-    const skinConditionValue = formData['skin_condition'];
-    const skinConditionArray = Array.isArray(skinConditionValue) ? skinConditionValue : [skinConditionValue];
-    const hasOther = skinConditionArray.includes('other');
-    if (hasOther) {
-      const skinConditionAdditional = additionalData['skin_condition_additional'];
-      if (!skinConditionAdditional || skinConditionAdditional.trim() === '') {
-        errors['skin_condition_additional'] = t.required;
-      }
-    }
-  }
-
-  // Special validation: if sweats_grinds has "other" selected, additional field is required
-  if (formData['sweats_grinds'] && additionalData) {
-    const sweatsGrindsValue = formData['sweats_grinds'];
-    const sweatsGrindsArray = Array.isArray(sweatsGrindsValue) ? sweatsGrindsValue : [sweatsGrindsValue];
-    const hasOther = sweatsGrindsArray.includes('other');
-    if (hasOther) {
-      const sweatsGrindsAdditional = additionalData['sweats_grinds_additional'];
-      if (!sweatsGrindsAdditional || sweatsGrindsAdditional.trim() === '') {
-        errors['sweats_grinds_additional'] = t.required;
-      }
-    }
-  }
-
-  // Special validation: if chronic_diseases has "other" selected, additional field is required
-  if (formData['chronic_diseases'] && additionalData) {
-    const chronicDiseasesValue = formData['chronic_diseases'];
-    const chronicDiseasesArray = Array.isArray(chronicDiseasesValue) ? chronicDiseasesValue : [chronicDiseasesValue];
-    const hasOther = chronicDiseasesArray.includes('other');
-    if (hasOther) {
-      const chronicDiseasesAdditional = additionalData['chronic_diseases_additional'];
-      if (!chronicDiseasesAdditional || chronicDiseasesAdditional.trim() === '') {
-        errors['chronic_diseases_additional'] = t.required;
-      }
-    }
-  }
+    });
+  });
 
   // Special validation: if medications is "yes", additional field is required
   if (formData['medications'] === 'yes' && additionalData) {

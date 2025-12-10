@@ -136,52 +136,20 @@ const Anketa: React.FC = () => {
         });
       }
     }
-    // If allergies changed and "other" is not selected, clear additional field error
-    if (questionId === 'allergies') {
-      const allergiesArray = Array.isArray(value) ? value : [value];
-      const hasOther = allergiesArray.includes('other');
-      if (!hasOther) {
-        setErrors((prev) => {
-          const newErrors = { ...prev };
-          delete newErrors['allergies_additional'];
-          return newErrors;
-        });
-      }
-    }
-    // If skin_condition changed and "other" is not selected, clear additional field error
-    if (questionId === 'skin_condition') {
-      const skinConditionArray = Array.isArray(value) ? value : [value];
-      const hasOther = skinConditionArray.includes('other');
-      if (!hasOther) {
-        setErrors((prev) => {
-          const newErrors = { ...prev };
-          delete newErrors['skin_condition_additional'];
-          return newErrors;
-        });
-      }
-    }
-    // If sweats_grinds changed and "other" is not selected, clear additional field error
-    if (questionId === 'sweats_grinds') {
-      const sweatsGrindsArray = Array.isArray(value) ? value : [value];
-      const hasOther = sweatsGrindsArray.includes('other');
-      if (!hasOther) {
-        setErrors((prev) => {
-          const newErrors = { ...prev };
-          delete newErrors['sweats_grinds_additional'];
-          return newErrors;
-        });
-      }
-    }
-    // If chronic_diseases changed and "other" is not selected, clear additional field error
-    if (questionId === 'chronic_diseases') {
-      const chronicDiseasesArray = Array.isArray(value) ? value : [value];
-      const hasOther = chronicDiseasesArray.includes('other');
-      if (!hasOther) {
-        setErrors((prev) => {
-          const newErrors = { ...prev };
-          delete newErrors['chronic_diseases_additional'];
-          return newErrors;
-        });
+    // Universal handling: if any question with "other" option changed and "other" is not selected, clear additional field error
+    const question = sections.flatMap(s => s.questions).find(q => q.id === questionId);
+    if (question && (question.type === 'checkbox' || question.type === 'radio') && question.options) {
+      const hasOtherOption = question.options.some(opt => opt.value === 'other');
+      if (hasOtherOption) {
+        const valueArray = Array.isArray(value) ? value : [value];
+        const hasOther = valueArray.includes('other') || value === 'other';
+        if (!hasOther) {
+          setErrors((prev) => {
+            const newErrors = { ...prev };
+            delete newErrors[`${questionId}_additional`];
+            return newErrors;
+          });
+        }
       }
     }
     // If medications changed and "yes" is not selected, clear additional field error

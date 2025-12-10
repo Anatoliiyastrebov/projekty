@@ -54,6 +54,7 @@ const digestionOptions: QuestionOption[] = [
   { value: 'stomach_pain', label: { ru: 'Боли в животе', en: 'Stomach pain' } },
   { value: 'diarrhea', label: { ru: 'Диарея', en: 'Diarrhea' } },
   { value: 'constipation', label: { ru: 'Запор', en: 'Constipation' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const digestionOptionsExtended: QuestionOption[] = [
@@ -62,6 +63,7 @@ const digestionOptionsExtended: QuestionOption[] = [
   { value: 'diarrhea', label: { ru: 'Диарея', en: 'Diarrhea' } },
   { value: 'constipation', label: { ru: 'Запор', en: 'Constipation' } },
   { value: 'bloating', label: { ru: 'Вздутие', en: 'Bloating' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const digestionOptionsAdult: QuestionOption[] = [
@@ -70,6 +72,7 @@ const digestionOptionsAdult: QuestionOption[] = [
   { value: 'bloating', label: { ru: 'Вздутие', en: 'Bloating' } },
   { value: 'diarrhea', label: { ru: 'Диарея', en: 'Diarrhea' } },
   { value: 'constipation', label: { ru: 'Запор', en: 'Constipation' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const digestionOptionsMan: QuestionOption[] = [
@@ -82,6 +85,7 @@ const digestionOptionsMan: QuestionOption[] = [
   { value: 'diarrhea', label: { ru: 'Диарея', en: 'Diarrhea' } },
   { value: 'constipation', label: { ru: 'Запор', en: 'Constipation' } },
   { value: 'pancreatitis', label: { ru: 'Панкреатит', en: 'Pancreatitis' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const hairOptionsMan: QuestionOption[] = [
@@ -90,6 +94,7 @@ const hairOptionsMan: QuestionOption[] = [
   { value: 'dry', label: { ru: 'Сухие', en: 'Dry' } },
   { value: 'oily', label: { ru: 'Жирные', en: 'Oily' } },
   { value: 'brittle', label: { ru: 'Ломкие', en: 'Brittle' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const varicoseHemorrhoidsManOptions: QuestionOption[] = [
@@ -99,6 +104,7 @@ const varicoseHemorrhoidsManOptions: QuestionOption[] = [
   { value: 'hemorrhoids_no_bleeding', label: { ru: 'Геморрой (не кровоточит)', en: 'Hemorrhoids (no bleeding)' } },
   { value: 'hemorrhoids_bleeding', label: { ru: 'Геморрой (кровоточит)', en: 'Hemorrhoids (bleeding)' } },
   { value: 'pigment_spots', label: { ru: 'Пигментные пятна', en: 'Pigment spots' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const jointOptionsMan: QuestionOption[] = [
@@ -112,6 +118,7 @@ const jointOptionsMan: QuestionOption[] = [
   { value: 'back_pain', label: { ru: 'Боли в спине', en: 'Back pain' } },
   { value: 'lower_back_pain', label: { ru: 'Боли в пояснице', en: 'Lower back pain' } },
   { value: 'knee_pain', label: { ru: 'Боли в коленях', en: 'Knee pain' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const lifestyleOptions: QuestionOption[] = [
@@ -122,6 +129,7 @@ const lifestyleOptions: QuestionOption[] = [
   { value: 'stressful_work', label: { ru: 'Работаете в стрессовых условиях', en: 'Stressful work conditions' } },
   { value: 'physical_work', label: { ru: 'Работа связана с физическими нагрузками', en: 'Physical work' } },
   { value: 'toxic_substances', label: { ru: 'Вдыхаете токсичные вещества на работе', en: 'Inhale toxic substances at work' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const headachesOptionsMan: QuestionOption[] = [
@@ -134,6 +142,7 @@ const headachesOptionsMan: QuestionOption[] = [
   { value: 'tinnitus', label: { ru: 'Шум в ушах', en: 'Tinnitus' } },
   { value: 'floaters', label: { ru: 'Мушки перед глазами', en: 'Floaters' } },
   { value: 'dizziness', label: { ru: 'Головокружения', en: 'Dizziness' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const covidComplicationsOptions: QuestionOption[] = [
@@ -144,6 +153,7 @@ const covidComplicationsOptions: QuestionOption[] = [
   { value: 'memory_loss', label: { ru: 'Потеря памяти', en: 'Memory loss' } },
   { value: 'panic_attacks', label: { ru: 'Панические атаки', en: 'Panic attacks' } },
   { value: 'poor_sleep', label: { ru: 'Ухудшение сна', en: 'Poor sleep' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const skinIssuesManOptions: QuestionOption[] = [
@@ -155,6 +165,7 @@ const skinIssuesManOptions: QuestionOption[] = [
   { value: 'psoriasis', label: { ru: 'Псориаз', en: 'Psoriasis' } },
   { value: 'dermatitis', label: { ru: 'Дерматит', en: 'Dermatitis' } },
   { value: 'eczema', label: { ru: 'Экзема', en: 'Eczema' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const skinVirusesManOptions: QuestionOption[] = [
@@ -166,6 +177,7 @@ const skinVirusesManOptions: QuestionOption[] = [
   { value: 'red_spots', label: { ru: 'Красные точечки на коже', en: 'Red spots on skin' } },
   { value: 'discharge', label: { ru: 'Выделения', en: 'Discharge' } },
   { value: 'cystitis', label: { ru: 'Цистит', en: 'Cystitis' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const allergyOptions: QuestionOption[] = [
@@ -193,6 +205,7 @@ const skinOptions: QuestionOption[] = [
   { value: 'warts', label: { ru: 'Бородавки', en: 'Warts' } },
   { value: 'rashes', label: { ru: 'Высыпания', en: 'Rashes' } },
   { value: 'eczema', label: { ru: 'Экзема', en: 'Eczema' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const sleepOptions: QuestionOption[] = [
@@ -248,6 +261,7 @@ const teethOptions: QuestionOption[] = [
   { value: 'decay_fast', label: { ru: 'Часто портятся', en: 'Decay often' } },
   { value: 'bad_breath', label: { ru: 'Запах изо рта', en: 'Bad breath' } },
   { value: 'bleeding_gums', label: { ru: 'Кровоточивость', en: 'Bleeding gums' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const jointOptions: QuestionOption[] = [
@@ -255,6 +269,7 @@ const jointOptions: QuestionOption[] = [
   { value: 'crunch', label: { ru: 'Хруст', en: 'Crunching' } },
   { value: 'squeak', label: { ru: 'Скрип', en: 'Squeaking' } },
   { value: 'inflammation', label: { ru: 'Воспаление', en: 'Inflammation' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const hairOptions: QuestionOption[] = [
@@ -294,6 +309,7 @@ const memoryOptions: QuestionOption[] = [
   { value: 'poor_memory', label: { ru: 'Плохая память', en: 'Poor memory' } },
   { value: 'poor_concentration', label: { ru: 'Плохая концентрация', en: 'Poor concentration' } },
   { value: 'both', label: { ru: 'И память, и концентрация', en: 'Both memory and concentration' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const illnessAntibioticsOptions: QuestionOption[] = [
@@ -352,6 +368,7 @@ const menstruationWomanOptions: QuestionOption[] = [
   { value: 'prolonged', label: { ru: 'Затяжные', en: 'Prolonged' } },
   { value: 'heavy_bleeding', label: { ru: 'Обильные кровотечения', en: 'Heavy bleeding' } },
   { value: 'menopause', label: { ru: 'Менопауза', en: 'Menopause' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const headachesOptions: QuestionOption[] = [
@@ -387,6 +404,7 @@ const pressureOptions: QuestionOption[] = [
   { value: 'low', label: { ru: 'Низкое', en: 'Low' } },
   { value: 'high', label: { ru: 'Высокое', en: 'High' } },
   { value: 'normal', label: { ru: 'Нормальное', en: 'Normal' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const stonesOptions: QuestionOption[] = [
@@ -396,6 +414,7 @@ const stonesOptions: QuestionOption[] = [
   { value: 'stones_kidneys', label: { ru: 'Камни в почках', en: 'Stones in kidneys' } },
   { value: 'stones_gallbladder', label: { ru: 'Камни в желчном', en: 'Stones in gallbladder' } },
   { value: 'both', label: { ru: 'И в почках, и в желчном', en: 'Both in kidneys and gallbladder' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const operationsInjuriesOptions: QuestionOption[] = [
@@ -404,6 +423,7 @@ const operationsInjuriesOptions: QuestionOption[] = [
   { value: 'organ_removed', label: { ru: 'Удален орган', en: 'Organ removed' } },
   { value: 'injuries', label: { ru: 'Были травмы', en: 'Had injuries' } },
   { value: 'all_organs_ok', label: { ru: 'Все органы на месте', en: 'All organs in place' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const chronicDiseasesOptions: QuestionOption[] = [
@@ -423,6 +443,7 @@ const weightSatisfactionOptions: QuestionOption[] = [
   { value: 'satisfied', label: { ru: 'Доволен своим весом', en: 'Satisfied with my weight' } },
   { value: 'want_to_lose', label: { ru: 'Хочу похудеть', en: 'Want to lose weight' } },
   { value: 'want_to_gain', label: { ru: 'Хочу набрать вес', en: 'Want to gain weight' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const covidComplicationsOptionsAdult: QuestionOption[] = [
@@ -435,6 +456,7 @@ const covidComplicationsOptionsAdult: QuestionOption[] = [
   { value: 'poor_sleep', label: { ru: 'Ухудшение сна', en: 'Poor sleep' } },
   { value: 'fatigue', label: { ru: 'Хроническая усталость', en: 'Chronic fatigue' } },
   { value: 'breathing_problems', label: { ru: 'Проблемы с дыханием', en: 'Breathing problems' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const cystsPolypsOptions: QuestionOption[] = [
@@ -444,6 +466,7 @@ const cystsPolypsOptions: QuestionOption[] = [
   { value: 'fibroids', label: { ru: 'Миомы', en: 'Fibroids' } },
   { value: 'tumors', label: { ru: 'Опухоли', en: 'Tumors' } },
   { value: 'hernias', label: { ru: 'Грыжи', en: 'Hernias' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const coldsFrequencyOptions: QuestionOption[] = [
@@ -452,6 +475,7 @@ const coldsFrequencyOptions: QuestionOption[] = [
   { value: 'often', label: { ru: 'Часто (5-6 раз в год)', en: 'Often (5-6 times per year)' } },
   { value: 'very_often', label: { ru: 'Очень часто (более 6 раз в год)', en: 'Very often (more than 6 times per year)' } },
   { value: 'almost_never', label: { ru: 'Почти никогда', en: 'Almost never' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const energyOptionsAdult: QuestionOption[] = [
@@ -461,6 +485,7 @@ const energyOptionsAdult: QuestionOption[] = [
   { value: 'need_coffee', label: { ru: 'Нужно стимулировать себя кофе', en: 'Need to stimulate yourself with coffee' } },
   { value: 'hard_to_pull_together', label: { ru: 'С утра нужно собрать себя по кусочкам', en: 'Need to pull yourself together in the morning' } },
   { value: 'all_symptoms', label: { ru: 'Все перечисленные симптомы', en: 'All of the above' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const medicationsOptions: QuestionOption[] = [
@@ -474,6 +499,7 @@ const sugarDependencyOptions: QuestionOption[] = [
   { value: 'strong', label: { ru: 'Сильная зависимость', en: 'Strong dependency' } },
   { value: 'constantly_asks', label: { ru: 'Постоянно просит сладкое', en: 'Constantly asks for sweets' } },
   { value: 'refuses_home_food', label: { ru: 'Отказывается от домашней еды', en: 'Refuses home-cooked food' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
 const waterOptions: QuestionOption[] = [
@@ -1041,9 +1067,10 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
           { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
           { value: 'numbness', label: { ru: 'Онемение пальцев', en: 'Numbness of fingers' } },
           { value: 'cold_extremities', label: { ru: 'Холодные руки-ноги даже летом', en: 'Cold hands and feet even in summer' } },
+          { value: 'other', label: { ru: 'Другое', en: 'Other' } },
         ],
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'varicose_hemorrhoids',
@@ -1127,6 +1154,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
           { value: 'hard_to_fall_asleep', label: { ru: 'Трудно заснуть', en: 'Hard to fall asleep' } },
           { value: 'wake_often', label: { ru: 'Часто просыпаетесь ночью', en: 'Wake up often at night' } },
           { value: 'both', label: { ru: 'Оба', en: 'Both' } },
+          { value: 'other', label: { ru: 'Другое', en: 'Other' } },
         ],
         required: true,
         hasAdditional: true,
@@ -1368,9 +1396,10 @@ export const manQuestionnaire: QuestionnaireSection[] = [
           { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
           { value: 'numbness', label: { ru: 'Онемение пальцев', en: 'Numbness of fingers' } },
           { value: 'cold_extremities', label: { ru: 'Холодные руки-ноги даже летом', en: 'Cold hands and feet even in summer' } },
+          { value: 'other', label: { ru: 'Другое', en: 'Other' } },
         ],
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'varicose_hemorrhoids',
@@ -1454,6 +1483,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
           { value: 'hard_to_fall_asleep', label: { ru: 'Трудно заснуть', en: 'Hard to fall asleep' } },
           { value: 'wake_often', label: { ru: 'Часто просыпаетесь ночью', en: 'Wake up often at night' } },
           { value: 'both', label: { ru: 'Оба', en: 'Both' } },
+          { value: 'other', label: { ru: 'Другое', en: 'Other' } },
         ],
         required: true,
         hasAdditional: true,
