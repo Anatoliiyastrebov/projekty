@@ -64,7 +64,6 @@ const Anketa: React.FC = () => {
   const [contactData, setContactData] = useState<ContactData>({
     telegram: '',
     instagram: '',
-    phone: '',
   });
   const [dsgvoAccepted, setDsgvoAccepted] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -78,11 +77,10 @@ const Anketa: React.FC = () => {
       setFormData(saved.formData || {});
       setAdditionalData(saved.additionalData || {});
       // Ensure contactData has the correct structure
-      const contact = saved.contactData || { telegram: '', instagram: '', phone: '' };
+      const contact = saved.contactData || { telegram: '', instagram: '' };
       setContactData({
         telegram: contact.telegram || '',
         instagram: contact.instagram || '',
-        phone: contact.phone || '',
       });
     }
   }, [type, language]);
@@ -204,7 +202,7 @@ const Anketa: React.FC = () => {
   const handleClearForm = () => {
     setFormData({});
     setAdditionalData({});
-    setContactData({ telegram: '', instagram: '', phone: '' });
+    setContactData({ telegram: '', instagram: '' });
     setDsgvoAccepted(false);
     setErrors({});
     clearFormData(type, language);
@@ -325,7 +323,6 @@ const Anketa: React.FC = () => {
           <ContactSection
             telegram={contactData.telegram}
             instagram={contactData.instagram}
-            phone={contactData.phone}
             error={errors['contact']}
             onTelegramChange={(value) => {
               setContactData((prev) => ({ ...prev, telegram: value }));
@@ -339,16 +336,6 @@ const Anketa: React.FC = () => {
             }}
             onInstagramChange={(value) => {
               setContactData((prev) => ({ ...prev, instagram: value }));
-              if (errors['contact']) {
-                setErrors((prev) => {
-                  const newErrors = { ...prev };
-                  delete newErrors['contact'];
-                  return newErrors;
-                });
-              }
-            }}
-            onPhoneChange={(value) => {
-              setContactData((prev) => ({ ...prev, phone: value }));
               if (errors['contact']) {
                 setErrors((prev) => {
                   const newErrors = { ...prev };

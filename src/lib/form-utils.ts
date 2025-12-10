@@ -12,7 +12,6 @@ export interface FormAdditionalData {
 export interface ContactData {
   telegram: string;
   instagram: string;
-  phone: string;
 }
 
 export interface FormErrors {
@@ -47,7 +46,7 @@ export const loadFormData = (type: QuestionnaireType, lang: Language) => {
       const data = JSON.parse(stored);
       // Only return if data is less than 24 hours old
       if (Date.now() - data.timestamp < 24 * 60 * 60 * 1000) {
-        // Migrate old ContactData structure (method + username) to new structure (telegram + instagram + phone)
+        // Migrate old ContactData structure (method + username) to new structure (telegram + instagram)
         let contactData: ContactData = data.contactData as ContactData;
         if (contactData && 'method' in contactData && 'username' in contactData) {
           // Old structure detected - migrate to new structure
@@ -55,14 +54,12 @@ export const loadFormData = (type: QuestionnaireType, lang: Language) => {
           contactData = {
             telegram: oldData.method === 'telegram' ? (oldData.username || '') : '',
             instagram: oldData.method === 'instagram' ? (oldData.username || '') : '',
-            phone: '',
           };
         } else if (!contactData || !('telegram' in contactData)) {
           // Ensure new structure exists
           contactData = {
             telegram: '',
             instagram: '',
-            phone: '',
           };
         }
         
@@ -212,9 +209,8 @@ export const validateForm = (
   // Validate contact - at least one contact method must be filled
   const hasTelegram = contactData.telegram && contactData.telegram.trim() !== '';
   const hasInstagram = contactData.instagram && contactData.instagram.trim() !== '';
-  const hasPhone = contactData.phone && contactData.phone.trim() !== '';
   
-  if (!hasTelegram && !hasInstagram && !hasPhone) {
+  if (!hasTelegram && !hasInstagram) {
     errors['contact'] = t.atLeastOneContactRequired;
   }
 
@@ -318,10 +314,6 @@ export const generateMarkdown = (
   if (contactData.instagram && contactData.instagram.trim() !== '') {
     const cleanInstagram = contactData.instagram.replace(/^@/, '').trim();
     contacts.push(`📷 Instagram: @${cleanInstagram}\n🔗 https://instagram.com/${cleanInstagram}`);
-  }
-  
-  if (contactData.phone && contactData.phone.trim() !== '') {
-    contacts.push(`📞 ${t.phone}: ${contactData.phone.trim()}`);
   }
 
   if (contacts.length > 0) {

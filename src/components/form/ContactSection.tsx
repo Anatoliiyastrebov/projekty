@@ -1,25 +1,21 @@
 import React, { useMemo } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { MessageCircle, Instagram, Phone, ExternalLink } from 'lucide-react';
+import { MessageCircle, Instagram, ExternalLink } from 'lucide-react';
 
 interface ContactSectionProps {
   telegram: string;
   instagram: string;
-  phone: string;
   error?: string;
   onTelegramChange: (value: string) => void;
   onInstagramChange: (value: string) => void;
-  onPhoneChange: (value: string) => void;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
   telegram,
   instagram,
-  phone,
   error,
   onTelegramChange,
   onInstagramChange,
-  onPhoneChange,
 }) => {
   const { t } = useLanguage();
 
@@ -45,7 +41,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     <div className="card-wellness space-y-4">
       <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
         <MessageCircle className="w-5 h-5 text-primary" />
-        {t('contactMethod')}
+        {t('contactMethod')} <span className="text-destructive">*</span>
       </h3>
 
       <p className="text-sm text-muted-foreground">
@@ -116,20 +112,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           )}
         </div>
 
-        {/* Phone */}
-        <div>
-          <label className="text-sm text-muted-foreground mb-1 block flex items-center gap-2">
-            <Phone className="w-4 h-4" />
-            <span>{t('phone')}</span>
-          </label>
-          <input
-            type="tel"
-            className="input-field"
-            value={phone}
-            onChange={(e) => onPhoneChange(e.target.value)}
-            placeholder="+7 999 123 45 67"
-          />
-        </div>
       </div>
     </div>
   );
