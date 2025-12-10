@@ -192,6 +192,14 @@ export const validateForm = (
     }
   }
 
+  // Special validation: if medications is "yes", additional field is required
+  if (formData['medications'] === 'yes' && additionalData) {
+    const medicationsAdditional = additionalData['medications_additional'];
+    if (!medicationsAdditional || medicationsAdditional.trim() === '') {
+      errors['medications_additional'] = t.required;
+    }
+  }
+
   // Special validation: if illness_antibiotics has "took_antibiotics" or "took_other_medications" selected, additional field is required
   if (formData['illness_antibiotics'] && additionalData) {
     const illnessAntibioticsValue = formData['illness_antibiotics'];

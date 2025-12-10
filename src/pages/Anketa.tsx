@@ -184,6 +184,16 @@ const Anketa: React.FC = () => {
         });
       }
     }
+    // If medications changed and "yes" is not selected, clear additional field error
+    if (questionId === 'medications') {
+      if (value !== 'yes') {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors['medications_additional'];
+          return newErrors;
+        });
+      }
+    }
   };
 
   const handleAdditionalChange = (questionId: string, value: string) => {

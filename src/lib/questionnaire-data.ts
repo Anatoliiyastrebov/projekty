@@ -419,6 +419,63 @@ const chronicDiseasesOptions: QuestionOption[] = [
   { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
+const weightSatisfactionOptions: QuestionOption[] = [
+  { value: 'satisfied', label: { ru: 'Доволен своим весом', en: 'Satisfied with my weight' } },
+  { value: 'want_to_lose', label: { ru: 'Хочу похудеть', en: 'Want to lose weight' } },
+  { value: 'want_to_gain', label: { ru: 'Хочу набрать вес', en: 'Want to gain weight' } },
+];
+
+const covidComplicationsOptionsAdult: QuestionOption[] = [
+  { value: 'no_complications', label: { ru: 'Нет осложнений', en: 'No complications' } },
+  { value: 'hair_loss', label: { ru: 'Выпадение волос', en: 'Hair loss' } },
+  { value: 'heart_problems', label: { ru: 'Проблемы сердца', en: 'Heart problems' } },
+  { value: 'joint_problems', label: { ru: 'Суставы', en: 'Joint problems' } },
+  { value: 'memory_loss', label: { ru: 'Потеря памяти', en: 'Memory loss' } },
+  { value: 'panic_attacks', label: { ru: 'Панические атаки', en: 'Panic attacks' } },
+  { value: 'poor_sleep', label: { ru: 'Ухудшение сна', en: 'Poor sleep' } },
+  { value: 'fatigue', label: { ru: 'Хроническая усталость', en: 'Chronic fatigue' } },
+  { value: 'breathing_problems', label: { ru: 'Проблемы с дыханием', en: 'Breathing problems' } },
+];
+
+const cystsPolypsOptions: QuestionOption[] = [
+  { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
+  { value: 'cysts', label: { ru: 'Кисты', en: 'Cysts' } },
+  { value: 'polyps', label: { ru: 'Полипы', en: 'Polyps' } },
+  { value: 'fibroids', label: { ru: 'Миомы', en: 'Fibroids' } },
+  { value: 'tumors', label: { ru: 'Опухоли', en: 'Tumors' } },
+  { value: 'hernias', label: { ru: 'Грыжи', en: 'Hernias' } },
+];
+
+const coldsFrequencyOptions: QuestionOption[] = [
+  { value: 'rarely', label: { ru: 'Редко (1-2 раза в год)', en: 'Rarely (1-2 times per year)' } },
+  { value: 'sometimes', label: { ru: 'Иногда (3-4 раза в год)', en: 'Sometimes (3-4 times per year)' } },
+  { value: 'often', label: { ru: 'Часто (5-6 раз в год)', en: 'Often (5-6 times per year)' } },
+  { value: 'very_often', label: { ru: 'Очень часто (более 6 раз в год)', en: 'Very often (more than 6 times per year)' } },
+  { value: 'almost_never', label: { ru: 'Почти никогда', en: 'Almost never' } },
+];
+
+const energyOptionsAdult: QuestionOption[] = [
+  { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
+  { value: 'hard_to_wake_up', label: { ru: 'Очень тяжело просыпаться', en: 'Very hard to wake up' } },
+  { value: 'feel_unrested', label: { ru: 'Утром чувствуете себя неотдохнувшим', en: 'Feel unrested in the morning' } },
+  { value: 'need_coffee', label: { ru: 'Нужно стимулировать себя кофе', en: 'Need to stimulate yourself with coffee' } },
+  { value: 'hard_to_pull_together', label: { ru: 'С утра нужно собрать себя по кусочкам', en: 'Need to pull yourself together in the morning' } },
+  { value: 'all_symptoms', label: { ru: 'Все перечисленные симптомы', en: 'All of the above' } },
+];
+
+const medicationsOptions: QuestionOption[] = [
+  { value: 'no', label: { ru: 'Нет, не принимаю', en: 'No, I don\'t take' } },
+  { value: 'yes', label: { ru: 'Да, принимаю', en: 'Yes, I take' } },
+];
+
+const sugarDependencyOptions: QuestionOption[] = [
+  { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
+  { value: 'moderate', label: { ru: 'Умеренная зависимость', en: 'Moderate dependency' } },
+  { value: 'strong', label: { ru: 'Сильная зависимость', en: 'Strong dependency' } },
+  { value: 'constantly_asks', label: { ru: 'Постоянно просит сладкое', en: 'Constantly asks for sweets' } },
+  { value: 'refuses_home_food', label: { ru: 'Отказывается от домашней еды', en: 'Refuses home-cooked food' } },
+];
+
 const waterOptions: QuestionOption[] = [
   { value: '1', label: { ru: '1 литр', en: '1 liter' } },
   { value: '1.5', label: { ru: '1.5 литра', en: '1.5 liters' } },
@@ -732,12 +789,12 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'sugar_dependency',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Зависимость от сладкого, постоянно просит снеки, печенье, конфеты и т.д, при этом отказывается от домашней еды', en: 'Sugar dependency, constantly asks for snacks, cookies, candy, etc., while refusing home-cooked food' },
         icon: 'candy',
+        options: sugarDependencyOptions,
         required: true,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите подробно', en: 'Describe in detail' },
+        hasAdditional: true,
       },
       {
         id: 'skin_condition',
@@ -863,12 +920,12 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'weight_satisfaction',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Если недовольны своим весом – сколько хотите убрать или добавить', en: 'If not satisfied with your weight – how much do you want to lose or gain' },
         icon: 'scale',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
+        options: weightSatisfactionOptions,
+        required: true,
+        hasAdditional: true,
       },
     ],
   },
@@ -886,13 +943,22 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
         hasAdditional: true,
       },
       {
-        id: 'covid_detailed',
-        type: 'textarea',
-        label: { ru: 'Был ли ковид (сколько раз) или вакцина от ковид (сколько доз). Были ли осложнения после ковид: выпадение волос, проблемы сердца, суставы, потеря памяти, панические атаки, ухудшение сна и т.д.', en: 'Did you have COVID (how many times) or COVID vaccine (how many doses). Were there complications after COVID: hair loss, heart problems, joints, memory loss, panic attacks, poor sleep, etc.' },
+        id: 'covid_status',
+        type: 'checkbox',
+        label: { ru: 'Был ли ковид или вакцина от ковид', en: 'Did you have COVID or COVID vaccine' },
         icon: 'shield',
+        options: covidOptionsWoman,
         required: true,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите подробно', en: 'Describe in detail' },
+        hasAdditional: true,
+      },
+      {
+        id: 'covid_complications',
+        type: 'checkbox',
+        label: { ru: 'Были ли осложнения после ковид: выпадение волос, проблемы сердца, суставы, потеря памяти, панические атаки, ухудшение сна и т.д.', en: 'Were there complications after COVID: hair loss, heart problems, joints, memory loss, panic attacks, poor sleep, etc.' },
+        icon: 'shield',
+        options: covidComplicationsOptionsAdult,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'hair_condition',
@@ -999,12 +1065,12 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'cysts_polyps',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Кисты, полипы, миомы, опухоли, грыжи', en: 'Cysts, polyps, fibroids, tumors, hernias' },
         icon: 'circle',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
+        options: cystsPolypsOptions,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'skin_viruses',
@@ -1017,12 +1083,12 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'menstruation',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Женские дни: нерегулярные, болезненные, затяжные, обильные кровотечения. Или менопауза? Как давно?', en: 'Menstruation: irregular, painful, prolonged, heavy bleeding. Or menopause? How long ago?' },
         icon: 'calendar',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите подробно', en: 'Describe in detail' },
+        options: menstruationWomanOptions,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'skin_issues',
@@ -1044,12 +1110,12 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'colds',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Простуды: сколько раз за год простужаетесь. Пользуетесь ли антибиотиками и жаропонижающими', en: 'Colds: how many times per year do you get colds. Do you use antibiotics and antipyretics' },
         icon: 'pill',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
+        options: coldsFrequencyOptions,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'sleep',
@@ -1067,21 +1133,21 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'energy',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Энергия: с утра нужно собрать себя по кусочкам, очень тяжело просыпаться, утром чувствуете себя неотдохнувшим, нужно стимулировать себя кофе', en: 'Energy: need to pull yourself together in the morning, very hard to wake up, feel unrested in the morning, need to stimulate yourself with coffee' },
         icon: 'zap',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
+        options: energyOptionsAdult,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'memory',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Память: притормаживает, трудно сконцентрироваться на каком-то деле, трудно вспомнить имена и события, трудно запомнить информацию', en: 'Memory: slows down, hard to concentrate on tasks, hard to remember names and events, hard to remember information' },
         icon: 'brain',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
+        options: memoryOptions,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'lifestyle',
@@ -1094,12 +1160,12 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'medications',
-        type: 'textarea',
+        type: 'radio',
         label: { ru: 'Принимаете ли лекарства на постоянной основе (если да - напишите название, если это возможно)', en: 'Do you take medications on a regular basis (if yes - write the name, if possible)' },
         icon: 'pill',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Перечислите лекарства', en: 'List medications' },
+        options: medicationsOptions,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'tests',
@@ -1181,12 +1247,12 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'weight_satisfaction',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Если недовольны своим весом – сколько хотите убрать или добавить', en: 'If not satisfied with your weight – how much do you want to lose or gain' },
         icon: 'scale',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
+        options: weightSatisfactionOptions,
+        required: true,
+        hasAdditional: true,
       },
     ],
   },
@@ -1204,13 +1270,22 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         hasAdditional: true,
       },
       {
-        id: 'covid_detailed',
-        type: 'textarea',
-        label: { ru: 'Был ли ковид (сколько раз) или вакцина от ковид (сколько доз). Были ли осложнения после ковид: выпадение волос, проблемы сердца, суставы, потеря памяти, панические атаки, ухудшение сна и т.д.', en: 'Did you have COVID (how many times) or COVID vaccine (how many doses). Were there complications after COVID: hair loss, heart problems, joints, memory loss, panic attacks, poor sleep, etc.' },
+        id: 'covid_status',
+        type: 'checkbox',
+        label: { ru: 'Был ли ковид или вакцина от ковид', en: 'Did you have COVID or COVID vaccine' },
         icon: 'shield',
+        options: covidOptionsWoman,
         required: true,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите подробно', en: 'Describe in detail' },
+        hasAdditional: true,
+      },
+      {
+        id: 'covid_complications',
+        type: 'checkbox',
+        label: { ru: 'Были ли осложнения после ковид: выпадение волос, проблемы сердца, суставы, потеря памяти, панические атаки, ухудшение сна и т.д.', en: 'Were there complications after COVID: hair loss, heart problems, joints, memory loss, panic attacks, poor sleep, etc.' },
+        icon: 'shield',
+        options: covidComplicationsOptionsAdult,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'hair_condition',
@@ -1317,12 +1392,12 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'cysts_polyps',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Кисты, полипы, миомы, опухоли, грыжи', en: 'Cysts, polyps, fibroids, tumors, hernias' },
         icon: 'circle',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
+        options: cystsPolypsOptions,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'skin_viruses',
@@ -1362,12 +1437,12 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'colds',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Простуды: сколько раз за год простужаетесь. Пользуетесь ли антибиотиками и жаропонижающими', en: 'Colds: how many times per year do you get colds. Do you use antibiotics and antipyretics' },
         icon: 'pill',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
+        options: coldsFrequencyOptions,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'sleep',
@@ -1385,21 +1460,21 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'energy',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Энергия: с утра нужно собрать себя по кусочкам, очень тяжело просыпаться, утром чувствуете себя неотдохнувшим, нужно стимулировать себя кофе', en: 'Energy: need to pull yourself together in the morning, very hard to wake up, feel unrested in the morning, need to stimulate yourself with coffee' },
         icon: 'zap',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
+        options: energyOptionsAdult,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'memory',
-        type: 'textarea',
+        type: 'checkbox',
         label: { ru: 'Память: притормаживает, трудно сконцентрироваться на каком-то деле, трудно вспомнить имена и события, трудно запомнить информацию', en: 'Memory: slows down, hard to concentrate on tasks, hard to remember names and events, hard to remember information' },
         icon: 'brain',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
+        options: memoryOptions,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'lifestyle',
@@ -1412,12 +1487,12 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       },
       {
         id: 'medications',
-        type: 'textarea',
+        type: 'radio',
         label: { ru: 'Принимаете ли лекарства на постоянной основе (если да - напишите название, если это возможно)', en: 'Do you take medications on a regular basis (if yes - write the name, if possible)' },
         icon: 'pill',
-        required: false,
-        hasAdditional: false,
-        placeholder: { ru: 'Перечислите лекарства', en: 'List medications' },
+        options: medicationsOptions,
+        required: true,
+        hasAdditional: true,
       },
       {
         id: 'tests',
