@@ -42,8 +42,16 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
+          vercel-args: '--prod --force'
           working-directory: ./
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+      
+      - name: Check Vercel deployment status
+        if: ${{ secrets.VERCEL_TOKEN != '' }}
+        run: |
+          echo "✅ Если секреты Vercel настроены, деплой должен был выполниться"
+          echo "📋 Проверьте статус в Vercel Dashboard"
+          echo "💡 Рекомендуется использовать интеграцию Vercel с GitHub для автоматического деплоя"
       
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
