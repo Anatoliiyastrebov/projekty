@@ -160,12 +160,17 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
 
   // Check if "other" option is selected or if medications/what_else/main_concern/pregnancy_problems question has "yes" selected
   // Special case: injuries question shows field when any option except "no_issues" is selected
+  // Special case: illness_antibiotics question shows field when "took_antibiotics" or "took_other_medications" is selected
   const hasOtherSelected = () => {
     if (question.type === 'checkbox') {
       const currentValues = Array.isArray(value) ? value : [];
       // Special case: injuries question shows field when any option except "no_issues" is selected
       if (question.id === 'injuries') {
         return currentValues.some((val: string) => val !== 'no_issues');
+      }
+      // Special case: illness_antibiotics question shows field when "took_antibiotics" or "took_other_medications" is selected
+      if (question.id === 'illness_antibiotics') {
+        return currentValues.includes('took_antibiotics') || currentValues.includes('took_other_medications');
       }
       return currentValues.includes('other');
     } else if (question.type === 'radio') {
@@ -210,6 +215,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
               ? (language === 'ru' ? 'Опишите проблемы' : 'Describe problems')
               : question.id === 'injuries'
               ? (language === 'ru' ? 'Опишите подробнее' : 'Describe in detail')
+              : question.id === 'illness_antibiotics'
+              ? (language === 'ru' ? 'Укажите названия лекарств' : 'Specify the names of medications')
               : (t('otherDetails') || 'Уточните, что именно')}
             {additionalError && <span className="text-destructive ml-1">*</span>}
           </label>
@@ -227,6 +234,8 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
               ? (language === 'ru' ? 'Опишите проблемы' : 'Describe problems')
               : question.id === 'injuries'
               ? (language === 'ru' ? 'Опишите подробнее о травмах, операциях и т.д.' : 'Describe in detail about injuries, surgeries, etc.')
+              : question.id === 'illness_antibiotics'
+              ? (language === 'ru' ? 'Напишите названия антибиотиков или других лекарств' : 'Write the names of antibiotics or other medications')
               : (t('otherDetails') || 'Опишите подробно')}
           />
           {additionalError && (
