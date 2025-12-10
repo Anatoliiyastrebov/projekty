@@ -182,6 +182,19 @@ export const validateForm = (
     }
   }
 
+  // Special validation: if chronic_diseases has "other" selected, additional field is required
+  if (formData['chronic_diseases'] && additionalData) {
+    const chronicDiseasesValue = formData['chronic_diseases'];
+    const chronicDiseasesArray = Array.isArray(chronicDiseasesValue) ? chronicDiseasesValue : [chronicDiseasesValue];
+    const hasOther = chronicDiseasesArray.includes('other');
+    if (hasOther) {
+      const chronicDiseasesAdditional = additionalData['chronic_diseases_additional'];
+      if (!chronicDiseasesAdditional || chronicDiseasesAdditional.trim() === '') {
+        errors['chronic_diseases_additional'] = t.required;
+      }
+    }
+  }
+
   // Special validation: if illness_antibiotics has "took_antibiotics" or "took_other_medications" selected, additional field is required
   if (formData['illness_antibiotics'] && additionalData) {
     const illnessAntibioticsValue = formData['illness_antibiotics'];

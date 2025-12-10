@@ -174,6 +174,18 @@ const Anketa: React.FC = () => {
         });
       }
     }
+    // If chronic_diseases changed and "other" is not selected, clear additional field error
+    if (questionId === 'chronic_diseases') {
+      const chronicDiseasesArray = Array.isArray(value) ? value : [value];
+      const hasOther = chronicDiseasesArray.includes('other');
+      if (!hasOther) {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors['chronic_diseases_additional'];
+          return newErrors;
+        });
+      }
+    }
   };
 
   const handleAdditionalChange = (questionId: string, value: string) => {
