@@ -493,6 +493,11 @@ const medicationsOptions: QuestionOption[] = [
   { value: 'yes', label: { ru: 'Да, принимаю', en: 'Yes, I take' } },
 ];
 
+const testsOptions: QuestionOption[] = [
+  { value: 'no', label: { ru: 'Нет', en: 'No' } },
+  { value: 'yes_send', label: { ru: 'Да, отправлю в личку', en: 'Yes, I will send in private message' } },
+];
+
 const sugarDependencyOptions: QuestionOption[] = [
   { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
   { value: 'moderate', label: { ru: 'Умеренная зависимость', en: 'Moderate dependency' } },
@@ -1189,20 +1194,20 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'medications',
         type: 'radio',
-        label: { ru: 'Принимаете ли лекарства на постоянной основе (если да - напишите название, если это возможно)', en: 'Do you take medications on a regular basis (if yes - write the name, if possible)' },
+        label: { ru: 'Принимаете ли лекарства на постоянной основе', en: 'Do you take medications on a regular basis' },
         icon: 'pill',
         options: medicationsOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'tests',
-        type: 'textarea',
+        type: 'radio',
         label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ? Если есть, вышлите, мне в личку.', en: 'Do you have blood tests from the last 2-3 months? Ultrasound? If yes, send them to me in private message.' },
         icon: 'file-text',
+        options: testsOptions,
         required: true,
         hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
       },
       {
         id: 'what_else',
@@ -1518,20 +1523,20 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'medications',
         type: 'radio',
-        label: { ru: 'Принимаете ли лекарства на постоянной основе (если да - напишите название, если это возможно)', en: 'Do you take medications on a regular basis (if yes - write the name, if possible)' },
+        label: { ru: 'Принимаете ли лекарства на постоянной основе', en: 'Do you take medications on a regular basis' },
         icon: 'pill',
         options: medicationsOptions,
         required: true,
-        hasAdditional: true,
+        hasAdditional: false,
       },
       {
         id: 'tests',
-        type: 'textarea',
+        type: 'radio',
         label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ? Если есть, вышлите, мне в личку.', en: 'Do you have blood tests from the last 2-3 months? Ultrasound? If yes, send them to me in private message.' },
         icon: 'file-text',
+        options: testsOptions,
         required: true,
         hasAdditional: false,
-        placeholder: { ru: 'Опишите', en: 'Describe' },
       },
       {
         id: 'what_else',

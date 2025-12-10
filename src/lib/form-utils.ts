@@ -170,6 +170,8 @@ export const validateForm = (
       errors['medications_additional'] = t.required;
     }
   }
+  
+  // Note: Universal validation for "other" options is handled above, but medications uses "yes" instead of "other"
 
   // Special validation: if illness_antibiotics has "took_antibiotics" or "took_other_medications" selected, additional field is required
   if (formData['illness_antibiotics'] && additionalData) {

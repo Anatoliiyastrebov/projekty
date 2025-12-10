@@ -158,12 +158,16 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
     }
   };
 
-  // Check if "other" option is selected
+  // Check if "other" option is selected or if medications question has "yes" selected
   const hasOtherSelected = () => {
     if (question.type === 'checkbox') {
       const currentValues = Array.isArray(value) ? value : [];
       return currentValues.includes('other');
     } else if (question.type === 'radio') {
+      // Special case: medications question shows field when "yes" is selected
+      if (question.id === 'medications') {
+        return value === 'yes';
+      }
       return value === 'other';
     }
     return false;
@@ -191,14 +195,18 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
       {showOtherField && (
         <div className="mt-2">
           <label className="text-sm text-muted-foreground mb-1 block">
-            {t('otherDetails') || 'Уточните, что именно'}
+            {question.id === 'medications' 
+              ? (language === 'ru' ? 'Укажите, какие лекарства' : 'Specify which medications')
+              : (t('otherDetails') || 'Уточните, что именно')}
             {additionalError && <span className="text-destructive ml-1">*</span>}
           </label>
           <textarea
             className={`input-field text-sm min-h-[60px] resize-y ${additionalError ? 'input-error' : ''}`}
             value={additionalValue}
             onChange={(e) => onAdditionalChange(e.target.value)}
-            placeholder={t('otherDetails') || 'Опишите подробно'}
+            placeholder={question.id === 'medications'
+              ? (language === 'ru' ? 'Напишите название лекарств' : 'Write the names of medications')
+              : (t('otherDetails') || 'Опишите подробно')}
           />
           {additionalError && (
             <p className="error-message mt-1">
