@@ -64,7 +64,6 @@ const Anketa: React.FC = () => {
   const [additionalData, setAdditionalData] = useState<FormAdditionalData>({});
   const [contactData, setContactData] = useState<ContactData>({
     telegram: '',
-    instagram: '',
   });
   const [dsgvoAccepted, setDsgvoAccepted] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -80,10 +79,9 @@ const Anketa: React.FC = () => {
       setFormData(saved.formData || {});
       setAdditionalData(saved.additionalData || {});
       // Ensure contactData has the correct structure
-      const contact = saved.contactData || { telegram: '', instagram: '' };
+      const contact = saved.contactData || { telegram: '' };
       setContactData({
         telegram: contact.telegram || '',
-        instagram: contact.instagram || '',
       });
     }
   }, [type, language]);
@@ -218,7 +216,7 @@ const Anketa: React.FC = () => {
   const handleClearForm = () => {
     setFormData({});
     setAdditionalData({});
-    setContactData({ telegram: '', instagram: '' });
+    setContactData({ telegram: '' });
     setDsgvoAccepted(false);
     setErrors({});
     setAttachmentFiles([]);
@@ -421,27 +419,16 @@ const Anketa: React.FC = () => {
           {/* Contact Section */}
           <ContactSection
             telegram={contactData.telegram}
-            instagram={contactData.instagram}
             error={errors['contact']}
+            telegramError={errors['telegram']}
             onTelegramChange={(value) => {
               setContactData((prev) => ({ ...prev, telegram: value }));
-              if (errors['contact']) {
-                setErrors((prev) => {
-                  const newErrors = { ...prev };
-                  delete newErrors['contact'];
-                  return newErrors;
-                });
-              }
-            }}
-            onInstagramChange={(value) => {
-              setContactData((prev) => ({ ...prev, instagram: value }));
-              if (errors['contact']) {
-                setErrors((prev) => {
-                  const newErrors = { ...prev };
-                  delete newErrors['contact'];
-                  return newErrors;
-                });
-              }
+              setErrors((prev) => {
+                const next = { ...prev };
+                delete next['contact'];
+                delete next['telegram'];
+                return next;
+              });
             }}
           />
 

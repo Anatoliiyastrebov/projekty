@@ -166,7 +166,16 @@ export const translations = {
     usernameHint: 'Введите без @ или с @',
     contactLink: 'Ваша ссылка для связи',
     atLeastOneContactRequired: 'Необходимо заполнить хотя бы один способ связи (Telegram или Instagram)',
-    
+    telegramRequired: 'Укажите Telegram для связи',
+    telegramFormatHint: 'Только латиница (a–z), цифры и _; от 5 до 32 символов',
+    telegram_too_short: 'Ник в Telegram должен быть от 5 до 32 символов',
+    telegram_too_long: 'Ник в Telegram не может быть длиннее 32 символов',
+    telegram_invalid_chars: 'В Telegram допустимы только латинские буквы (a–z), цифры и подчёркивание (_)',
+    instagramFormatHint: 'Латиница, цифры, точки и _; до 30 символов. Без пробелов и спецсимволов',
+    instagram_too_long: 'Ник в Instagram не может быть длиннее 30 символов',
+    instagram_invalid_chars: 'В Instagram допустимы только латинские буквы, цифры, точки и подчёркивание',
+    instagram_dots: 'Ник не должен начинаться или заканчиваться точкой, и не должно быть двух точек подряд',
+
     // DSGVO
     dsgvoConsent: 'Я даю свое добровольное согласие на обработку моих персональных данных согласно DSGVO/GDPR для целей предоставления консультации по здоровью. Я понимаю, что консультация не является медицинской услугой. Я знаю, что могу отозвать свое согласие в любое время.',
     
@@ -362,7 +371,16 @@ export const translations = {
     usernameHint: 'Enter with or without @',
     contactLink: 'Your contact link',
     atLeastOneContactRequired: 'At least one contact method must be filled (Telegram or Instagram)',
-    
+    telegramRequired: 'Enter your Telegram to be contacted',
+    telegramFormatHint: 'Only Latin letters (a–z), numbers and _; 5 to 32 characters',
+    telegram_too_short: 'Telegram username must be 5 to 32 characters',
+    telegram_too_long: 'Telegram username cannot be longer than 32 characters',
+    telegram_invalid_chars: 'Telegram allows only Latin letters (a–z), numbers and underscore (_)',
+    instagramFormatHint: 'Letters, numbers, periods and _; up to 30 characters. No spaces or special characters',
+    instagram_too_long: 'Instagram username cannot be longer than 30 characters',
+    instagram_invalid_chars: 'Instagram allows only letters, numbers, periods and underscore',
+    instagram_dots: 'Username must not start or end with a period, or have two periods in a row',
+
     // DSGVO
     dsgvoConsent: 'I give my voluntary consent to the processing of my personal data in accordance with GDPR for the purpose of providing health consultation. I understand that the consultation is not a medical service. I know that I can withdraw my consent at any time.',
     

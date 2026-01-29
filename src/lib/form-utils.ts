@@ -12,7 +12,6 @@ export interface FormAdditionalData {
 
 export interface ContactData {
   telegram: string;
-  instagram: string;
 }
 
 export interface FormErrors {
@@ -47,21 +46,17 @@ export const loadFormData = (type: QuestionnaireType, lang: Language) => {
       const data = JSON.parse(stored);
       // Only return if data is less than 24 hours old
       if (Date.now() - data.timestamp < 24 * 60 * 60 * 1000) {
-        // Migrate old ContactData structure (method + username) to new structure (telegram + instagram)
+        // Migrate old ContactData structure (method + username, or telegram + instagram) to telegram only
         let contactData: ContactData = data.contactData as ContactData;
         if (contactData && 'method' in contactData && 'username' in contactData) {
-          // Old structure detected - migrate to new structure
-          const oldData = contactData as any;
+          const oldData = contactData as { method?: string; username?: string };
           contactData = {
             telegram: oldData.method === 'telegram' ? (oldData.username || '') : '',
-            instagram: oldData.method === 'instagram' ? (oldData.username || '') : '',
           };
         } else if (!contactData || !('telegram' in contactData)) {
-          // Ensure new structure exists
-          contactData = {
-            telegram: '',
-            instagram: '',
-          };
+          contactData = { telegram: '' };
+        } else {
+          contactData = { telegram: (contactData as { telegram?: string }).telegram || '' };
         }
         
         return {
@@ -84,6 +79,17 @@ export const clearFormData = (type: QuestionnaireType, lang: Language) => {
   } catch (err) {
     console.error('Error clearing form data:', err);
   }
+};
+
+export type ContactValidation = { valid: boolean; error?: string };
+
+export const validateTelegramUsername = (raw: string): ContactValidation => {
+  const value = raw.replace(/^@/, '').trim();
+  if (!value) return { valid: false, error: 'empty' };
+  if (value.length < 5) return { valid: false, error: 'telegram_too_short' };
+  if (value.length > 32) return { valid: false, error: 'telegram_too_long' };
+  if (!/^[a-zA-Z0-9_]+$/.test(value)) return { valid: false, error: 'telegram_invalid_chars' };
+  return { valid: true };
 };
 
 // Validate form
@@ -212,12 +218,17 @@ export const validateForm = (
     }
   }
 
-  // Validate contact - at least one contact method must be filled
+  // Validate contact - Telegram required
   const hasTelegram = contactData.telegram && contactData.telegram.trim() !== '';
-  const hasInstagram = contactData.instagram && contactData.instagram.trim() !== '';
-  
-  if (!hasTelegram && !hasInstagram) {
-    errors['contact'] = t.atLeastOneContactRequired;
+
+  if (!hasTelegram) {
+    errors['contact'] = (t as Record<string, string>).telegramRequired ?? t.atLeastOneContactRequired;
+  } else {
+    const telegramResult = validateTelegramUsername(contactData.telegram);
+    if (!telegramResult.valid && telegramResult.error && telegramResult.error !== 'empty') {
+      const key = telegramResult.error as keyof typeof t;
+      errors['telegram'] = (t as Record<string, string>)[key] || t.required;
+    }
   }
 
   return errors;
@@ -316,11 +327,6 @@ export const generateMarkdown = (
   if (contactData.telegram && contactData.telegram.trim() !== '') {
     const cleanTelegram = contactData.telegram.replace(/^@/, '').trim();
     contacts.push(`📱 Telegram: @${cleanTelegram}\n🔗 https://t.me/${cleanTelegram}`);
-  }
-  
-  if (contactData.instagram && contactData.instagram.trim() !== '') {
-    const cleanInstagram = contactData.instagram.replace(/^@/, '').trim();
-    contacts.push(`📷 Instagram: @${cleanInstagram}\n🔗 https://instagram.com/${cleanInstagram}`);
   }
 
   if (contacts.length > 0) {

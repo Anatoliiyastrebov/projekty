@@ -1,21 +1,19 @@
 import React, { useMemo } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { MessageCircle, Instagram, ExternalLink } from 'lucide-react';
+import { MessageCircle, ExternalLink } from 'lucide-react';
 
 interface ContactSectionProps {
   telegram: string;
-  instagram: string;
   error?: string;
+  telegramError?: string;
   onTelegramChange: (value: string) => void;
-  onInstagramChange: (value: string) => void;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
   telegram,
-  instagram,
   error,
+  telegramError,
   onTelegramChange,
-  onInstagramChange,
 }) => {
   const { t } = useLanguage();
 
@@ -23,19 +21,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     return telegram.replace(/^@/, '').trim();
   }, [telegram]);
 
-  const cleanInstagram = useMemo(() => {
-    return instagram.replace(/^@/, '').trim();
-  }, [instagram]);
-
   const telegramLink = useMemo(() => {
     if (!cleanTelegram) return '';
     return `https://t.me/${cleanTelegram}`;
   }, [cleanTelegram]);
-
-  const instagramLink = useMemo(() => {
-    if (!cleanInstagram) return '';
-    return `https://instagram.com/${cleanInstagram}`;
-  }, [cleanInstagram]);
 
   return (
     <div className="card-wellness space-y-4">
@@ -45,7 +34,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
       </h3>
 
       <p className="text-sm text-muted-foreground">
-        {t('atLeastOneContactRequired')}
+        {t('telegramRequired')}
       </p>
 
       {error && (
@@ -56,7 +45,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
       )}
 
       <div className="space-y-4">
-        {/* Telegram */}
         <div>
           <label className="text-sm text-muted-foreground mb-1 block flex items-center gap-2">
             <MessageCircle className="w-4 h-4" />
@@ -64,12 +52,24 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </label>
           <input
             type="text"
-            className="input-field"
+            className={`input-field ${telegramError ? 'input-error' : ''}`}
             value={telegram}
             onChange={(e) => onTelegramChange(e.target.value)}
             placeholder={t('usernameHint')}
+            autoComplete="username"
+            aria-invalid={!!telegramError}
+            aria-describedby={telegramError ? 'telegram-error' : 'telegram-hint'}
           />
-          {cleanTelegram && (
+          <p id="telegram-hint" className="text-xs text-muted-foreground mt-1">
+            {t('telegramFormatHint')}
+          </p>
+          {telegramError && (
+            <p id="telegram-error" className="error-message mt-1" role="alert">
+              <AlertCircleIcon />
+              {telegramError}
+            </p>
+          )}
+          {cleanTelegram && !telegramError && (
             <div className="bg-accent/50 rounded-xl p-2 mt-2">
               <a
                 href={telegramLink}
@@ -83,35 +83,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             </div>
           )}
         </div>
-
-        {/* Instagram */}
-        <div>
-          <label className="text-sm text-muted-foreground mb-1 block flex items-center gap-2">
-            <Instagram className="w-4 h-4" />
-            <span>{t('instagram')}</span>
-          </label>
-          <input
-            type="text"
-            className="input-field"
-            value={instagram}
-            onChange={(e) => onInstagramChange(e.target.value)}
-            placeholder={t('usernameHint')}
-          />
-          {cleanInstagram && (
-            <div className="bg-accent/50 rounded-xl p-2 mt-2">
-              <a
-                href={instagramLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary font-medium text-sm flex items-center gap-1 hover:underline break-all"
-              >
-                {instagramLink}
-                <ExternalLink className="w-3 h-3 flex-shrink-0" />
-              </a>
-            </div>
-          )}
-        </div>
-
       </div>
     </div>
   );
