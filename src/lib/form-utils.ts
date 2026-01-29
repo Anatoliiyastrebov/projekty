@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { QuestionnaireSection, QuestionnaireType } from './questionnaire-data';
 import { Language, translations } from './translations';
 
@@ -239,7 +240,8 @@ export const generateMarkdown = (
     man: t.mdMan,
   };
 
-  let md = `**${headers[type]}**\n`;
+  const dateStr = format(new Date(), 'dd.MM.yyyy, HH:mm');
+  let md = `📋 Новая анкета: ${headers[type]}\n\n📅 Дата: ${dateStr}\n\n`;
 
   let questionNumber = 1;
   let healthSectionStarted = false;
@@ -504,5 +506,57 @@ Current status:
       success: false, 
       error: errorMessage 
     };
+  }
+};
+
+const getTelegramCredentials = (): { BOT_TOKEN: string; CHAT_ID: string } | { error: string } => {
+  const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+  const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+  if (!BOT_TOKEN || BOT_TOKEN.trim() === '' || !CHAT_ID || CHAT_ID.trim() === '') {
+    return { error: 'Telegram Bot Token or Chat ID not configured.' };
+  }
+  return { BOT_TOKEN, CHAT_ID };
+};
+
+/** Send a file (e.g. analyses, ultrasound) to the same Telegram chat. Use after sendToTelegram(markdown). */
+export const sendDocumentToTelegram = async (
+  file: File,
+  caption?: string
+): Promise<{ success: boolean; error?: string }> => {
+  const creds = getTelegramCredentials();
+  if ('error' in creds) return { success: false, error: creds.error };
+
+  const { BOT_TOKEN, CHAT_ID } = creds;
+  const formData = new FormData();
+  formData.append('chat_id', CHAT_ID);
+  formData.append('document', file, file.name);
+  if (caption && caption.trim()) {
+    formData.append('caption', caption.trim());
+  }
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s for large files
+
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, {
+      method: 'POST',
+      body: formData,
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    const data = await response.json();
+    if (!response.ok) {
+      const msg = data.description || `HTTP ${response.status}`;
+      return { success: false, error: msg };
+    }
+    if (!data.ok) {
+      return { success: false, error: data.description || 'Unknown Telegram API error' };
+    }
+    return { success: true };
+  } catch (err: unknown) {
+    clearTimeout(timeoutId);
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    return { success: false, error: message };
   }
 };

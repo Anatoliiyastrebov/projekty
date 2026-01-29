@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -24,8 +24,9 @@ import {
   loadFormData,
   clearFormData,
   sendToTelegram,
+  sendDocumentToTelegram,
 } from '@/lib/form-utils';
-import { Eye, Send, Trash2, Loader2, AlertCircle } from 'lucide-react';
+import { Eye, Send, Trash2, Loader2, AlertCircle, Upload, X } from 'lucide-react';
 import { toast } from 'sonner';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
@@ -69,6 +70,8 @@ const Anketa: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
+  const [attachmentFiles, setAttachmentFiles] = useState<File[]>([]);
+  const attachmentFilesRef = useRef<File[]>([]);
 
   // Load saved form data on mount
   useEffect(() => {
@@ -192,6 +195,11 @@ const Anketa: React.FC = () => {
         });
       }
     }
+    // If tests changed to "no", clear uploaded files
+    if (questionId === 'tests' && value !== 'yes') {
+      setAttachmentFiles([]);
+      attachmentFilesRef.current = [];
+    }
   };
 
   const handleAdditionalChange = (questionId: string, value: string) => {
@@ -213,8 +221,24 @@ const Anketa: React.FC = () => {
     setContactData({ telegram: '', instagram: '' });
     setDsgvoAccepted(false);
     setErrors({});
+    setAttachmentFiles([]);
+    attachmentFilesRef.current = [];
     clearFormData(type, language);
     toast.success(language === 'ru' ? 'Форма очищена' : 'Form cleared');
+  };
+
+  const handleAttachmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files?.length) return;
+    const newList = Array.from(files);
+    attachmentFilesRef.current = [...attachmentFilesRef.current, ...newList];
+    setAttachmentFiles(attachmentFilesRef.current);
+    e.target.value = '';
+  };
+
+  const removeAttachment = (index: number) => {
+    attachmentFilesRef.current = attachmentFilesRef.current.filter((_, i) => i !== index);
+    setAttachmentFiles(attachmentFilesRef.current);
   };
 
   const markdown = useMemo(() => {
@@ -242,26 +266,37 @@ const Anketa: React.FC = () => {
 
     setIsSubmitting(true);
 
+    // Берём актуальный список файлов (ref обновляется сразу при выборе)
+    const filesToSend = attachmentFilesRef.current.slice();
+
     try {
       const result = await sendToTelegram(markdown);
-      
-      if (result.success) {
-        clearFormData(type, language);
-        navigate(`/success?lang=${language}`);
-      } else {
-        // Show detailed error message
+      if (!result.success) {
         const errorMsg = result.error || t('submitError');
         console.error('Failed to send form:', errorMsg);
-        toast.error(errorMsg, {
-          duration: 5000,
-        });
+        toast.error(errorMsg, { duration: 5000 });
+        return;
       }
-    } catch (error: any) {
+      for (const file of filesToSend) {
+        const docResult = await sendDocumentToTelegram(file, title);
+        if (!docResult.success) {
+          toast.error(
+            language === 'ru'
+              ? `Не удалось отправить файл «${file.name}»: ${docResult.error}`
+              : `Failed to send file «${file.name}»: ${docResult.error}`,
+            { duration: 5000 }
+          );
+          return;
+        }
+      }
+      clearFormData(type, language);
+      setAttachmentFiles([]);
+      attachmentFilesRef.current = [];
+      navigate(`/success?lang=${language}`);
+    } catch (error: unknown) {
       console.error('Submit error:', error);
-      const errorMsg = error?.message || t('submitError');
-      toast.error(errorMsg, {
-        duration: 5000,
-      });
+      const errorMsg = error instanceof Error ? error.message : t('submitError');
+      toast.error(errorMsg, { duration: 5000 });
     } finally {
       setIsSubmitting(false);
     }
@@ -321,6 +356,62 @@ const Anketa: React.FC = () => {
                         handleAdditionalChange(question.id, value)
                       }
                     />
+                    {/* Загрузка файлов сразу под вопросом «Анализы крови / УЗИ» */}
+                    {question.id === 'tests' && formData['tests'] === 'yes' && (
+                      <div className="mt-4 pl-0 space-y-3 rounded-xl border border-border bg-muted/30 p-4">
+                        <p className="text-sm font-medium text-foreground">
+                          {language === 'ru'
+                            ? 'Прикрепите файлы (анализы, УЗИ — любой формат):'
+                            : 'Attach files (blood tests, ultrasound — any format):'}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-3">
+                          <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-opacity text-sm font-medium">
+                            <Upload className="w-4 h-4 shrink-0" />
+                            {language === 'ru' ? 'Выбрать файлы' : 'Choose files'}
+                            <input
+                              type="file"
+                              multiple
+                              accept="*/*"
+                              className="sr-only"
+                              onChange={handleAttachmentChange}
+                            />
+                          </label>
+                          {attachmentFiles.length > 0 && (
+                            <div className="flex flex-col gap-2 w-full">
+                              <span className="text-xs text-muted-foreground font-medium">
+                                {language === 'ru' ? 'Выбранные файлы (будут отправлены в Telegram):' : 'Selected files (will be sent to Telegram):'}
+                              </span>
+                              <ul className="flex flex-wrap gap-2 list-none">
+                                {attachmentFiles.map((file, index) => (
+                                  <li
+                                    key={`${file.name}-${index}-${file.size}`}
+                                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-background border border-border text-sm shadow-sm"
+                                  >
+                                    <span className="truncate max-w-[220px] font-medium text-foreground" title={file.name}>
+                                      {file.name}
+                                    </span>
+                                    <span className="text-xs text-muted-foreground shrink-0">
+                                      ({(file.size / 1024).toFixed(1)} KB)
+                                    </span>
+                                    <button
+                                      type="button"
+                                      onClick={() => removeAttachment(index)}
+                                      className="ml-1 p-1 rounded-md hover:bg-destructive/20 text-destructive shrink-0"
+                                      aria-label={language === 'ru' ? 'Удалить файл' : 'Remove file'}
+                                    >
+                                      <X className="w-4 h-4" />
+                                    </button>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          {language === 'ru' ? 'Макс. 50 МБ на файл.' : 'Max 50 MB per file.'}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

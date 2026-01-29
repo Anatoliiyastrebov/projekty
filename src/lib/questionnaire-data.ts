@@ -478,7 +478,17 @@ const coldsFrequencyOptions: QuestionOption[] = [
   { value: 'other', label: { ru: 'Другое', en: 'Other' } },
 ];
 
-const energyOptionsAdult: QuestionOption[] = [
+const energyOptionsAdultWoman: QuestionOption[] = [
+  { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
+  { value: 'hard_to_wake_up', label: { ru: 'Очень тяжело просыпаться', en: 'Very hard to wake up' } },
+  { value: 'feel_unrested', label: { ru: 'Утром чувствуете себя неотдохнувшей', en: 'Feel unrested in the morning' } },
+  { value: 'need_coffee', label: { ru: 'Нужно стимулировать себя кофе', en: 'Need to stimulate yourself with coffee' } },
+  { value: 'hard_to_pull_together', label: { ru: 'С утра нужно собрать себя по кусочкам', en: 'Need to pull yourself together in the morning' } },
+  { value: 'all_symptoms', label: { ru: 'Все перечисленные симптомы', en: 'All of the above' } },
+  { value: 'other', label: { ru: 'Другое', en: 'Other' } },
+];
+
+const energyOptionsAdultMan: QuestionOption[] = [
   { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
   { value: 'hard_to_wake_up', label: { ru: 'Очень тяжело просыпаться', en: 'Very hard to wake up' } },
   { value: 'feel_unrested', label: { ru: 'Утром чувствуете себя неотдохнувшим', en: 'Feel unrested in the morning' } },
@@ -496,6 +506,12 @@ const medicationsOptions: QuestionOption[] = [
 const testsOptions: QuestionOption[] = [
   { value: 'no', label: { ru: 'Нет', en: 'No' } },
   { value: 'yes_send', label: { ru: 'Да, отправлю в личку', en: 'Yes, I will send in private message' } },
+];
+
+// Обязательный вопрос в конце каждой анкеты: анализы/УЗИ + загрузка файлов при "да"
+const bloodTestsYesNoOptions: QuestionOption[] = [
+  { value: 'yes', label: { ru: 'Да', en: 'Yes' } },
+  { value: 'no', label: { ru: 'Нет', en: 'No' } },
 ];
 
 const whatElseOptions: QuestionOption[] = [
@@ -742,6 +758,15 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
         required: true,
         hasAdditional: false,
       },
+      {
+        id: 'tests',
+        type: 'radio',
+        label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ?', en: 'Do you have blood tests from the last 2-3 months? Ultrasound?' },
+        icon: 'file-text',
+        options: bloodTestsYesNoOptions,
+        required: true,
+        hasAdditional: false,
+      },
     ],
   },
 ];
@@ -912,6 +937,15 @@ export const childQuestionnaire: QuestionnaireSection[] = [
         required: true,
         hasAdditional: false,
         placeholder: { ru: 'Дополнительная информация', en: 'Additional information' },
+      },
+      {
+        id: 'tests',
+        type: 'radio',
+        label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ?', en: 'Do you have blood tests from the last 2-3 months? Ultrasound?' },
+        icon: 'file-text',
+        options: bloodTestsYesNoOptions,
+        required: true,
+        hasAdditional: false,
       },
     ],
   },
@@ -1182,9 +1216,9 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'energy',
         type: 'checkbox',
-        label: { ru: 'Энергия: с утра нужно собрать себя по кусочкам, очень тяжело просыпаться, утром чувствуете себя неотдохнувшим, нужно стимулировать себя кофе', en: 'Energy: need to pull yourself together in the morning, very hard to wake up, feel unrested in the morning, need to stimulate yourself with coffee' },
+        label: { ru: 'Энергия: с утра нужно собрать себя по кусочкам, очень тяжело просыпаться, утром чувствуете себя неотдохнувшей, нужно стимулировать себя кофе', en: 'Energy: need to pull yourself together in the morning, very hard to wake up, feel unrested in the morning, need to stimulate yourself with coffee' },
         icon: 'zap',
-        options: energyOptionsAdult,
+        options: energyOptionsAdultWoman,
         required: true,
         hasAdditional: false,
       },
@@ -1218,9 +1252,9 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'tests',
         type: 'radio',
-        label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ? Если есть, вышлите, мне в личку.', en: 'Do you have blood tests from the last 2-3 months? Ultrasound? If yes, send them to me in private message.' },
+        label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ?', en: 'Do you have blood tests from the last 2-3 months? Ultrasound?' },
         icon: 'file-text',
-        options: testsOptions,
+        options: bloodTestsYesNoOptions,
         required: true,
         hasAdditional: false,
       },
@@ -1246,7 +1280,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
   },
 ];
 
-// Man questionnaire (type = man)
+// Man questionnaire (type = man) — опции в мужском роде
 export const manQuestionnaire: QuestionnaireSection[] = [
   {
     id: 'personal',
@@ -1322,7 +1356,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         type: 'checkbox',
         label: { ru: 'Был ли ковид или вакцина от ковид', en: 'Did you have COVID or COVID vaccine' },
         icon: 'shield',
-        options: covidOptionsWoman,
+        options: covidOptionsMan,
         required: true,
         hasAdditional: false,
       },
@@ -1513,7 +1547,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
         type: 'checkbox',
         label: { ru: 'Энергия: с утра нужно собрать себя по кусочкам, очень тяжело просыпаться, утром чувствуете себя неотдохнувшим, нужно стимулировать себя кофе', en: 'Energy: need to pull yourself together in the morning, very hard to wake up, feel unrested in the morning, need to stimulate yourself with coffee' },
         icon: 'zap',
-        options: energyOptionsAdult,
+        options: energyOptionsAdultMan,
         required: true,
         hasAdditional: false,
       },
@@ -1547,9 +1581,9 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'tests',
         type: 'radio',
-        label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ? Если есть, вышлите, мне в личку.', en: 'Do you have blood tests from the last 2-3 months? Ultrasound? If yes, send them to me in private message.' },
+        label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ?', en: 'Do you have blood tests from the last 2-3 months? Ultrasound?' },
         icon: 'file-text',
-        options: testsOptions,
+        options: bloodTestsYesNoOptions,
         required: true,
         hasAdditional: false,
       },
