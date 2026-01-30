@@ -602,7 +602,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'digestion',
         type: 'checkbox',
-        label: { ru: 'Пищеварение – боли в животе, диарея, запор', en: 'Digestion – stomach pain, diarrhea, constipation' },
+        label: { ru: 'Пищеварение', en: 'Digestion' },
         icon: 'heart',
         options: digestionOptions,
         required: true,
@@ -620,7 +620,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'bad_breath',
         type: 'radio',
-        label: { ru: 'Есть ли неприятный запах изо рта', en: 'Is there bad breath' },
+        label: { ru: 'Запах изо рта', en: 'Bad breath' },
         icon: 'wind',
         options: yesNoOptionsSimple,
         required: true,
@@ -629,7 +629,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'skin_condition',
         type: 'checkbox',
-        label: { ru: 'Много родинок, бородавок, высыпания, экземы', en: 'Many moles, warts, rashes, eczema' },
+        label: { ru: 'Состояние кожи', en: 'Skin condition' },
         icon: 'sparkles',
         options: skinOptions,
         required: true,
@@ -638,7 +638,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'allergies',
         type: 'checkbox',
-        label: { ru: 'Аллергия - на цветение, животных, пыль, еду', en: 'Allergies - to pollen, animals, dust, food' },
+        label: { ru: 'Аллергии', en: 'Allergies' },
         icon: 'flower',
         options: allergyOptions,
         required: true,
@@ -647,7 +647,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'water_per_day',
         type: 'number',
-        label: { ru: 'Сколько воды в день пьет ребенок (миллилитров)', en: 'How much water does the child drink per day (milliliters)' },
+        label: { ru: 'Вода в день (мл)', en: 'Water per day (ml)' },
         icon: 'droplet',
         required: true,
         hasAdditional: false,
@@ -655,7 +655,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'injuries',
         type: 'checkbox',
-        label: { ru: 'Травмы, операции, удары по голове, сильные падения, переломы', en: 'Injuries, surgeries, head trauma, severe falls, fractures' },
+        label: { ru: 'Травмы и операции', en: 'Injuries and surgeries' },
         icon: 'activity',
         options: injuriesOptions,
         required: true,
@@ -673,7 +673,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'illness_antibiotics',
         type: 'checkbox',
-        label: { ru: 'Часто ли болеет, часто ли принимал антибиотики или другие лекарства', en: 'Is often ill, has often taken antibiotics or other medications' },
+        label: { ru: 'Частота болезней, антибиотики и лекарства', en: 'Illness frequency, antibiotics and medications' },
         icon: 'pill',
         options: illnessAntibioticsInfantOptions,
         required: true,
@@ -689,7 +689,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'birth_type',
         type: 'radio',
-        label: { ru: 'Как прошли роды - естественно или кесарево?', en: 'How was the birth - natural or cesarean?' },
+        label: { ru: 'Роды', en: 'Type of birth' },
         icon: 'baby',
         options: birthOptions,
         required: true,
@@ -698,7 +698,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'mother_toxicosis',
         type: 'radio',
-        label: { ru: 'Был ли у мамы сильный токсикоз при беременности', en: 'Did mother have severe toxicosis during pregnancy' },
+        label: { ru: 'Токсикоз у мамы при беременности', en: 'Mother\'s toxicosis during pregnancy' },
         icon: 'alert-circle',
         options: yesNoOptionsSimple,
         required: true,
@@ -707,7 +707,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'mother_allergy',
         type: 'radio',
-        label: { ru: 'Была ли у мамы аллергия до или во время беременности', en: 'Did mother have allergies before or during pregnancy' },
+        label: { ru: 'Аллергия у мамы до/во время беременности', en: 'Mother\'s allergies before/during pregnancy' },
         icon: 'flower',
         options: yesNoOptionsSimple,
         required: true,
@@ -725,7 +725,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'mother_antibiotics',
         type: 'radio',
-        label: { ru: 'Пила ли мама в беременность антибиотики', en: 'Did mother take antibiotics during pregnancy' },
+        label: { ru: 'Антибиотики у мамы во время беременности', en: 'Mother took antibiotics during pregnancy' },
         icon: 'pill',
         options: yesNoOptionsSimple,
         required: true,
@@ -743,7 +743,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'pregnancy_problems',
         type: 'radio',
-        label: { ru: 'Были ли проблемы в беременность', en: 'Were there problems during pregnancy' },
+        label: { ru: 'Проблемы во время беременности', en: 'Problems during pregnancy' },
         icon: 'file-text',
         options: pregnancyProblemsOptions,
         required: true,
@@ -752,7 +752,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'what_else',
         type: 'radio',
-        label: { ru: 'Есть ли что-то еще что я должна знать о здоровье ребенка?', en: 'Is there anything else I should know about the child\'s health?' },
+        label: { ru: 'Дополнительно о здоровье ребёнка?', en: 'Anything else about the child\'s health?' },
         icon: 'info',
         options: whatElseOptions,
         required: true,
@@ -761,7 +761,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'tests',
         type: 'radio',
-        label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ?', en: 'Do you have blood tests from the last 2-3 months? Ultrasound?' },
+        label: { ru: 'Анализы крови и УЗИ за последние 2–3 месяца?', en: 'Blood tests and ultrasound in the last 2–3 months?' },
         icon: 'file-text',
         options: bloodTestsYesNoOptions,
         required: true,
@@ -820,7 +820,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'digestion',
         type: 'checkbox',
-        label: { ru: 'Пищеварение – боли в животе, диарея, запор', en: 'Digestion – stomach pain, diarrhea, constipation' },
+        label: { ru: 'Пищеварение', en: 'Digestion' },
         icon: 'heart',
         options: digestionOptions,
         required: true,
@@ -829,7 +829,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'teeth_decay',
         type: 'radio',
-        label: { ru: 'Зубы – быстро портятся', en: 'Teeth – decay quickly' },
+        label: { ru: 'Зубы быстро портятся', en: 'Teeth decay quickly' },
         icon: 'smile',
         options: yesNoOptionsSimple,
         required: true,
@@ -852,7 +852,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'bad_breath',
         type: 'radio',
-        label: { ru: 'Есть ли неприятный запах изо рта', en: 'Is there bad breath' },
+        label: { ru: 'Запах изо рта', en: 'Bad breath' },
         icon: 'wind',
         options: yesNoOptionsSimple,
         required: true,
@@ -861,7 +861,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'sugar_dependency',
         type: 'checkbox',
-        label: { ru: 'Зависимость от сладкого, постоянно просит снеки, печенье, конфеты и т.д, при этом отказывается от домашней еды', en: 'Sugar dependency, constantly asks for snacks, cookies, candy, etc., while refusing home-cooked food' },
+        label: { ru: 'Сладкое и аппетит', en: 'Sugar and appetite' },
         icon: 'candy',
         options: sugarDependencyOptions,
         required: true,
@@ -870,7 +870,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'skin_condition',
         type: 'checkbox',
-        label: { ru: 'Много родинок, бородавок, высыпания, экземы', en: 'Many moles, warts, rashes, eczema' },
+        label: { ru: 'Состояние кожи', en: 'Skin condition' },
         icon: 'sparkles',
         options: skinOptions,
         required: true,
@@ -879,7 +879,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'allergies',
         type: 'checkbox',
-        label: { ru: 'Аллергия - на цветение, животных, пыль, еду', en: 'Allergies - to pollen, animals, dust, food' },
+        label: { ru: 'Аллергии', en: 'Allergies' },
         icon: 'flower',
         options: allergyOptions,
         required: true,
@@ -888,7 +888,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'hyperactive',
         type: 'radio',
-        label: { ru: 'Гиперактивный или часто жалуется на усталость', en: 'Hyperactive or often complains of tiredness' },
+        label: { ru: 'Активность и усталость', en: 'Activity and tiredness' },
         icon: 'zap',
         options: hyperactiveOptions,
         required: true,
@@ -897,7 +897,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'water_per_day',
         type: 'number',
-        label: { ru: 'Сколько воды в день пьет ребенок (миллилитров)', en: 'How much water does the child drink per day (milliliters)' },
+        label: { ru: 'Вода в день (мл)', en: 'Water per day (ml)' },
         icon: 'droplet',
         required: true,
         hasAdditional: false,
@@ -905,7 +905,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'injuries',
         type: 'checkbox',
-        label: { ru: 'Травмы, операции, удары по голове, сильные падения, переломы', en: 'Injuries, surgeries, head trauma, severe falls, fractures' },
+        label: { ru: 'Травмы и операции', en: 'Injuries and surgeries' },
         icon: 'activity',
         options: injuriesOptions,
         required: true,
@@ -914,7 +914,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'headaches_sleep',
         type: 'checkbox',
-        label: { ru: 'Жалобы на головную боль, плохой сон', en: 'Headache complaints, poor sleep' },
+        label: { ru: 'Головная боль и сон', en: 'Headaches and sleep' },
         icon: 'brain',
         options: headachesSleepOptions,
         required: true,
@@ -923,7 +923,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'illness_antibiotics',
         type: 'checkbox',
-        label: { ru: 'Часто ли болеет, часто ли принимал антибиотики или другие лекарства', en: 'Is often ill, has often taken antibiotics or other medications' },
+        label: { ru: 'Частота болезней, антибиотики и лекарства', en: 'Illness frequency, antibiotics and medications' },
         icon: 'pill',
         options: illnessAntibioticsChildOptions,
         required: true,
@@ -932,7 +932,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'what_else',
         type: 'textarea',
-        label: { ru: 'Что еще я должна знать о здоровье ребенка?', en: 'What else should I know about the child\'s health?' },
+        label: { ru: 'Дополнительно о здоровье ребёнка?', en: 'Anything else about the child\'s health?' },
         icon: 'info',
         required: true,
         hasAdditional: false,
@@ -941,7 +941,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'tests',
         type: 'radio',
-        label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ?', en: 'Do you have blood tests from the last 2-3 months? Ultrasound?' },
+        label: { ru: 'Анализы крови и УЗИ за последние 2–3 месяца?', en: 'Blood tests and ultrasound in the last 2–3 months?' },
         icon: 'file-text',
         options: bloodTestsYesNoOptions,
         required: true,
@@ -1001,7 +1001,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'weight_satisfaction',
         type: 'checkbox',
-        label: { ru: 'Если недовольны своим весом – сколько хотите убрать или добавить', en: 'If not satisfied with your weight – how much do you want to lose or gain' },
+        label: { ru: 'Цели по весу', en: 'Weight goals' },
         icon: 'scale',
         options: weightSatisfactionOptions,
         required: true,
@@ -1017,7 +1017,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'water_per_day',
         type: 'number',
-        label: { ru: 'Сколько воды в день Вы пьете? (не чай, не кофе, не другие напитки, а только вода)', en: 'How much water do you drink per day? (not tea, not coffee, not other drinks, only water)' },
+        label: { ru: 'Вода в день (мл), только вода', en: 'Water per day (ml), water only' },
         icon: 'droplet',
         required: true,
         hasAdditional: false,
@@ -1025,7 +1025,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'covid_status',
         type: 'checkbox',
-        label: { ru: 'Был ли ковид или вакцина от ковид', en: 'Did you have COVID or COVID vaccine' },
+        label: { ru: 'COVID: болезнь или вакцинация', en: 'COVID: illness or vaccination' },
         icon: 'shield',
         options: covidOptionsWoman,
         required: true,
@@ -1034,7 +1034,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'covid_complications',
         type: 'checkbox',
-        label: { ru: 'Были ли осложнения после ковид: выпадение волос, проблемы сердца, суставы, потеря памяти, панические атаки, ухудшение сна и т.д.', en: 'Were there complications after COVID: hair loss, heart problems, joints, memory loss, panic attacks, poor sleep, etc.' },
+        label: { ru: 'Осложнения после COVID', en: 'Complications after COVID' },
         icon: 'shield',
         options: covidComplicationsOptionsAdult,
         required: true,
@@ -1043,7 +1043,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'hair_condition',
         type: 'checkbox',
-        label: { ru: 'Волосы: довольны ли их качеством, или они агрессивно выпадают. Сухие, жирные, ломкие', en: 'Hair: satisfied with quality, or aggressively falling out. Dry, oily, brittle' },
+        label: { ru: 'Состояние волос', en: 'Hair condition' },
         icon: 'sparkles',
         options: hairOptionsMan,
         required: true,
@@ -1052,7 +1052,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'teeth',
         type: 'checkbox',
-        label: { ru: 'Зубы: быстро крошатся или портятся, есть неприятный запах изо рта, кровоточат десны', en: 'Teeth: crumble or decay quickly, bad breath, bleeding gums' },
+        label: { ru: 'Зубы и дёсны', en: 'Teeth and gums' },
         icon: 'smile',
         options: teethOptions,
         required: true,
@@ -1061,7 +1061,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'digestion',
         type: 'checkbox',
-        label: { ru: 'Пищеварение: изжога, горечь во рту, вздутие, тяжесть в желудке, газы, диарея, запор, панкреатит', en: 'Digestion: heartburn, bitter taste in mouth, bloating, heaviness in stomach, gas, diarrhea, constipation, pancreatitis' },
+        label: { ru: 'Пищеварение', en: 'Digestion' },
         icon: 'heart',
         options: digestionOptionsMan,
         required: true,
@@ -1070,7 +1070,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'stones',
         type: 'checkbox',
-        label: { ru: 'Песок или камни в желчном или почках. Если есть камни, указать размер', en: 'Sand or stones in gallbladder or kidneys. If there are stones, specify size' },
+        label: { ru: 'Песок/камни в желчном или почках', en: 'Sand/stones in gallbladder or kidneys' },
         icon: 'circle',
         options: stonesOptions,
         required: true,
@@ -1079,7 +1079,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'operations_injuries',
         type: 'checkbox',
-        label: { ru: 'Были ли операции (какие именно), все ли органы на месте (какой орган удален), травмы', en: 'Were there operations (which ones), are all organs in place (which organ was removed), injuries' },
+        label: { ru: 'Операции и травмы', en: 'Operations and injuries' },
         icon: 'scissors',
         options: operationsInjuriesOptions,
         required: true,
@@ -1088,7 +1088,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'pressure',
         type: 'checkbox',
-        label: { ru: 'Давление: высокое или низкое. Если высокое – пьете ли лекарства и как долго', en: 'Blood pressure: high or low. If high – do you take medication and for how long' },
+        label: { ru: 'Артериальное давление', en: 'Blood pressure' },
         icon: 'activity',
         options: pressureOptions,
         required: true,
@@ -1097,7 +1097,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'chronic_diseases',
         type: 'checkbox',
-        label: { ru: 'Есть ли хронические или аутоиммунные заболевания: диабет, аутоиммунный тиреоидит, артрит, псориаз и т.д.', en: 'Are there chronic or autoimmune diseases: diabetes, autoimmune thyroiditis, arthritis, psoriasis, etc.' },
+        label: { ru: 'Хронические и аутоиммунные заболевания', en: 'Chronic and autoimmune diseases' },
         icon: 'alert-circle',
         options: chronicDiseasesOptions,
         required: true,
@@ -1106,7 +1106,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'headaches',
         type: 'checkbox',
-        label: { ru: 'Головные боли, мигрени, метеозависимость, сотрясение мозга, удары по голове, шум в ушах, мушки перед глазами, головокружения', en: 'Headaches, migraines, weather dependence, concussion, head trauma, tinnitus, floaters, dizziness' },
+        label: { ru: 'Головные боли и неврология', en: 'Headaches and neurology' },
         icon: 'brain',
         options: headachesOptionsMan,
         required: true,
@@ -1115,7 +1115,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'numbness_cold',
         type: 'checkbox',
-        label: { ru: 'Онемение пальцев рук и ног, руки-ноги холодные даже летом', en: 'Numbness of fingers and toes, cold hands and feet even in summer' },
+        label: { ru: 'Онемение и зябкость конечностей', en: 'Numbness and cold extremities' },
         icon: 'thermometer',
         options: [
           { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
@@ -1129,7 +1129,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'varicose_hemorrhoids',
         type: 'checkbox',
-        label: { ru: 'Варикоз (сеточка или выраженные вены), геморрой (кровоточит или нет), пигментные пятна', en: 'Varicose veins (network or pronounced), hemorrhoids (bleeding or not), pigment spots' },
+        label: { ru: 'Варикоз, геморрой, пигментные пятна', en: 'Varicose veins, hemorrhoids, pigment spots' },
         icon: 'heart',
         options: varicoseHemorrhoidsManOptions,
         required: true,
@@ -1138,7 +1138,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'joints',
         type: 'checkbox',
-        label: { ru: 'Суставы: скрипят, хрустят, воспаляются, артроз (какая стадия). Боли в спине, пояснице, в коленях', en: 'Joints: squeak, crunch, inflammation, arthrosis (what stage). Back pain, lower back pain, knee pain' },
+        label: { ru: 'Суставы и боли в спине/коленях', en: 'Joints and back/knee pain' },
         icon: 'bone',
         options: jointOptionsMan,
         required: true,
@@ -1156,7 +1156,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'skin_viruses',
         type: 'checkbox',
-        label: { ru: 'Герпес, папилломы, родинки, бородавки, красные точечки на коже, выделения, цистит', en: 'Herpes, papillomas, moles, warts, red spots on skin, discharge, cystitis' },
+        label: { ru: 'Кожные и урогенитальные инфекции', en: 'Skin and urogenital infections' },
         icon: 'alert-circle',
         options: skinVirusesManOptions,
         required: true,
@@ -1165,7 +1165,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'menstruation',
         type: 'checkbox',
-        label: { ru: 'Женские дни: нерегулярные, болезненные, затяжные, обильные кровотечения. Или менопауза? Как давно?', en: 'Menstruation: irregular, painful, prolonged, heavy bleeding. Or menopause? How long ago?' },
+        label: { ru: 'Менструация или менопауза', en: 'Menstruation or menopause' },
         icon: 'calendar',
         options: menstruationWomanOptions,
         required: true,
@@ -1174,7 +1174,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'skin_issues',
         type: 'checkbox',
-        label: { ru: 'Прыщи, фурункулы, акне, раздражение, розацеа, псориаз, дерматит, экзема', en: 'Acne, furuncles, irritation, rosacea, psoriasis, dermatitis, eczema' },
+        label: { ru: 'Проблемы кожи', en: 'Skin issues' },
         icon: 'sparkles',
         options: skinIssuesManOptions,
         required: true,
@@ -1183,7 +1183,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'allergies',
         type: 'checkbox',
-        label: { ru: 'Аллергия (на пыльцу, еду, шерсть животных, пыль, лекарства)', en: 'Allergies (to pollen, food, animal hair, dust, medications)' },
+        label: { ru: 'Аллергии', en: 'Allergies' },
         icon: 'flower',
         options: allergyOptionsExtended,
         required: true,
@@ -1192,7 +1192,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'colds',
         type: 'checkbox',
-        label: { ru: 'Простуды: сколько раз за год простужаетесь. Пользуетесь ли антибиотиками и жаропонижающими', en: 'Colds: how many times per year do you get colds. Do you use antibiotics and antipyretics' },
+        label: { ru: 'Частота простуд, антибиотики и жаропонижающие', en: 'Colds frequency, antibiotics and antipyretics' },
         icon: 'pill',
         options: coldsFrequencyOptions,
         required: true,
@@ -1201,7 +1201,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'sleep',
         type: 'checkbox',
-        label: { ru: 'Сон: трудно заснуть, часто просыпаетесь ночью', en: 'Sleep: hard to fall asleep, wake up often at night' },
+        label: { ru: 'Сон', en: 'Sleep' },
         icon: 'moon',
         options: [
           { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
@@ -1216,7 +1216,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'energy',
         type: 'checkbox',
-        label: { ru: 'Энергия: с утра нужно собрать себя по кусочкам, очень тяжело просыпаться, утром чувствуете себя неотдохнувшей, нужно стимулировать себя кофе', en: 'Energy: need to pull yourself together in the morning, very hard to wake up, feel unrested in the morning, need to stimulate yourself with coffee' },
+        label: { ru: 'Энергия и бодрость по утрам', en: 'Energy and morning alertness' },
         icon: 'zap',
         options: energyOptionsAdultWoman,
         required: true,
@@ -1225,7 +1225,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'memory',
         type: 'checkbox',
-        label: { ru: 'Память: притормаживает, трудно сконцентрироваться на каком-то деле, трудно вспомнить имена и события, трудно запомнить информацию', en: 'Memory: slows down, hard to concentrate on tasks, hard to remember names and events, hard to remember information' },
+        label: { ru: 'Память и концентрация', en: 'Memory and concentration' },
         icon: 'brain',
         options: memoryOptions,
         required: true,
@@ -1234,7 +1234,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'lifestyle',
         type: 'checkbox',
-        label: { ru: 'Какой у вас образ жизни: сидячий, занимаетесь регулярно спортом, делаете дома гимнастику, обливаетесь холодной водой, работаете в стрессовых условиях, работа связана с физическими нагрузками, вдыхаете на работе токсичные вещества (парикмахер, мастер маникюра/педикюра, строитель, регулярно дышите краской (маляр, автомаляр) и др.)', en: 'What is your lifestyle: sedentary, regular sports, home exercise, cold water dousing, stressful work conditions, physical work, inhale toxic substances at work (hairdresser, manicurist/pedicurist, builder, regularly breathe paint (painter, auto painter) etc.)' },
+        label: { ru: 'Образ жизни', en: 'Lifestyle' },
         icon: 'activity',
         options: lifestyleOptions,
         required: true,
@@ -1243,7 +1243,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'medications',
         type: 'radio',
-        label: { ru: 'Принимаете ли лекарства на постоянной основе', en: 'Do you take medications on a regular basis' },
+        label: { ru: 'Постоянный приём лекарств', en: 'Regular medications' },
         icon: 'pill',
         options: medicationsOptions,
         required: true,
@@ -1252,7 +1252,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'tests',
         type: 'radio',
-        label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ?', en: 'Do you have blood tests from the last 2-3 months? Ultrasound?' },
+        label: { ru: 'Анализы крови и УЗИ за последние 2–3 месяца?', en: 'Blood tests and ultrasound in the last 2–3 months?' },
         icon: 'file-text',
         options: bloodTestsYesNoOptions,
         required: true,
@@ -1261,7 +1261,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'what_else',
         type: 'radio',
-        label: { ru: 'Хотели ли бы вы еще что-то добавить о своем здоровье', en: 'Would you like to add anything else about your health' },
+        label: { ru: 'Дополнительно о здоровье?', en: 'Anything else about your health?' },
         icon: 'info',
         options: whatElseOptions,
         required: true,
@@ -1270,7 +1270,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'main_concern',
         type: 'radio',
-        label: { ru: 'Есть ли у вас вопрос который вас волнует в первую очередь', en: 'Do you have a question that concerns you first' },
+        label: { ru: 'Главный вопрос или жалоба?', en: 'Main question or concern?' },
         icon: 'help-circle',
         options: mainConcernOptions,
         required: true,
@@ -1330,7 +1330,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'weight_satisfaction',
         type: 'checkbox',
-        label: { ru: 'Если недовольны своим весом – сколько хотите убрать или добавить', en: 'If not satisfied with your weight – how much do you want to lose or gain' },
+        label: { ru: 'Цели по весу', en: 'Weight goals' },
         icon: 'scale',
         options: weightSatisfactionOptions,
         required: true,
@@ -1346,7 +1346,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'water_per_day',
         type: 'number',
-        label: { ru: 'Сколько воды в день Вы пьете? (не чай, не кофе, не другие напитки, а только вода)', en: 'How much water do you drink per day? (not tea, not coffee, not other drinks, only water)' },
+        label: { ru: 'Вода в день (мл), только вода', en: 'Water per day (ml), water only' },
         icon: 'droplet',
         required: true,
         hasAdditional: false,
@@ -1354,7 +1354,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'covid_status',
         type: 'checkbox',
-        label: { ru: 'Был ли ковид или вакцина от ковид', en: 'Did you have COVID or COVID vaccine' },
+        label: { ru: 'COVID: болезнь или вакцинация', en: 'COVID: illness or vaccination' },
         icon: 'shield',
         options: covidOptionsMan,
         required: true,
@@ -1363,7 +1363,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'covid_complications',
         type: 'checkbox',
-        label: { ru: 'Были ли осложнения после ковид: выпадение волос, проблемы сердца, суставы, потеря памяти, панические атаки, ухудшение сна и т.д.', en: 'Were there complications after COVID: hair loss, heart problems, joints, memory loss, panic attacks, poor sleep, etc.' },
+        label: { ru: 'Осложнения после COVID', en: 'Complications after COVID' },
         icon: 'shield',
         options: covidComplicationsOptionsAdult,
         required: true,
@@ -1372,7 +1372,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'hair_condition',
         type: 'checkbox',
-        label: { ru: 'Волосы: довольны ли их качеством, или они агрессивно выпадают. Сухие, жирные, ломкие', en: 'Hair: satisfied with quality, or aggressively falling out. Dry, oily, brittle' },
+        label: { ru: 'Состояние волос', en: 'Hair condition' },
         icon: 'sparkles',
         options: hairOptionsMan,
         required: true,
@@ -1381,7 +1381,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'teeth',
         type: 'checkbox',
-        label: { ru: 'Зубы: быстро крошатся или портятся, есть неприятный запах изо рта, кровоточат десны', en: 'Teeth: crumble or decay quickly, bad breath, bleeding gums' },
+        label: { ru: 'Зубы и дёсны', en: 'Teeth and gums' },
         icon: 'smile',
         options: teethOptions,
         required: true,
@@ -1390,7 +1390,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'digestion',
         type: 'checkbox',
-        label: { ru: 'Пищеварение: изжога, горечь во рту, вздутие, тяжесть в желудке, газы, диарея, запор, панкреатит', en: 'Digestion: heartburn, bitter taste in mouth, bloating, heaviness in stomach, gas, diarrhea, constipation, pancreatitis' },
+        label: { ru: 'Пищеварение', en: 'Digestion' },
         icon: 'heart',
         options: digestionOptionsMan,
         required: true,
@@ -1399,7 +1399,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'stones',
         type: 'checkbox',
-        label: { ru: 'Песок или камни в желчном или почках. Если есть камни, указать размер', en: 'Sand or stones in gallbladder or kidneys. If there are stones, specify size' },
+        label: { ru: 'Песок/камни в желчном или почках', en: 'Sand/stones in gallbladder or kidneys' },
         icon: 'circle',
         options: stonesOptions,
         required: true,
@@ -1408,7 +1408,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'operations_injuries',
         type: 'checkbox',
-        label: { ru: 'Были ли операции (какие именно), все ли органы на месте (какой орган удален), травмы', en: 'Were there operations (which ones), are all organs in place (which organ was removed), injuries' },
+        label: { ru: 'Операции и травмы', en: 'Operations and injuries' },
         icon: 'scissors',
         options: operationsInjuriesOptions,
         required: true,
@@ -1417,7 +1417,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'pressure',
         type: 'checkbox',
-        label: { ru: 'Давление: высокое или низкое. Если высокое – пьете ли лекарства и как долго', en: 'Blood pressure: high or low. If high – do you take medication and for how long' },
+        label: { ru: 'Артериальное давление', en: 'Blood pressure' },
         icon: 'activity',
         options: pressureOptions,
         required: true,
@@ -1426,7 +1426,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'chronic_diseases',
         type: 'checkbox',
-        label: { ru: 'Есть ли хронические или аутоиммунные заболевания: диабет, аутоиммунный тиреоидит, артрит, псориаз и т.д.', en: 'Are there chronic or autoimmune diseases: diabetes, autoimmune thyroiditis, arthritis, psoriasis, etc.' },
+        label: { ru: 'Хронические и аутоиммунные заболевания', en: 'Chronic and autoimmune diseases' },
         icon: 'alert-circle',
         options: chronicDiseasesOptions,
         required: true,
@@ -1435,7 +1435,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'headaches',
         type: 'checkbox',
-        label: { ru: 'Головные боли, мигрени, метеозависимость, сотрясение мозга, удары по голове, шум в ушах, мушки перед глазами, головокружения', en: 'Headaches, migraines, weather dependence, concussion, head trauma, tinnitus, floaters, dizziness' },
+        label: { ru: 'Головные боли и неврология', en: 'Headaches and neurology' },
         icon: 'brain',
         options: headachesOptionsMan,
         required: true,
@@ -1444,7 +1444,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'numbness_cold',
         type: 'checkbox',
-        label: { ru: 'Онемение пальцев рук и ног, руки-ноги холодные даже летом', en: 'Numbness of fingers and toes, cold hands and feet even in summer' },
+        label: { ru: 'Онемение и зябкость конечностей', en: 'Numbness and cold extremities' },
         icon: 'thermometer',
         options: [
           { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
@@ -1458,7 +1458,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'varicose_hemorrhoids',
         type: 'checkbox',
-        label: { ru: 'Варикоз (сеточка или выраженные вены), геморрой (кровоточит или нет), пигментные пятна', en: 'Varicose veins (network or pronounced), hemorrhoids (bleeding or not), pigment spots' },
+        label: { ru: 'Варикоз, геморрой, пигментные пятна', en: 'Varicose veins, hemorrhoids, pigment spots' },
         icon: 'heart',
         options: varicoseHemorrhoidsManOptions,
         required: true,
@@ -1467,7 +1467,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'joints',
         type: 'checkbox',
-        label: { ru: 'Суставы: скрипят, хрустят, воспаляются, артроз (какая стадия). Боли в спине, пояснице, в коленях', en: 'Joints: squeak, crunch, inflammation, arthrosis (what stage). Back pain, lower back pain, knee pain' },
+        label: { ru: 'Суставы и боли в спине/коленях', en: 'Joints and back/knee pain' },
         icon: 'bone',
         options: jointOptionsMan,
         required: true,
@@ -1485,7 +1485,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'skin_viruses',
         type: 'checkbox',
-        label: { ru: 'Герпес, папилломы, родинки, бородавки, красные точечки на коже, выделения, цистит', en: 'Herpes, papillomas, moles, warts, red spots on skin, discharge, cystitis' },
+        label: { ru: 'Кожные и урогенитальные инфекции', en: 'Skin and urogenital infections' },
         icon: 'alert-circle',
         options: skinVirusesManOptions,
         required: true,
@@ -1503,7 +1503,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'skin_issues',
         type: 'checkbox',
-        label: { ru: 'Прыщи, фурункулы, акне, раздражение, розацеа, псориаз, дерматит, экзема', en: 'Acne, furuncles, irritation, rosacea, psoriasis, dermatitis, eczema' },
+        label: { ru: 'Проблемы кожи', en: 'Skin issues' },
         icon: 'sparkles',
         options: skinIssuesManOptions,
         required: true,
@@ -1512,7 +1512,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'allergies',
         type: 'checkbox',
-        label: { ru: 'Аллергия (на пыльцу, еду, шерсть животных, пыль, лекарства)', en: 'Allergies (to pollen, food, animal hair, dust, medications)' },
+        label: { ru: 'Аллергии', en: 'Allergies' },
         icon: 'flower',
         options: allergyOptionsExtended,
         required: true,
@@ -1521,7 +1521,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'colds',
         type: 'checkbox',
-        label: { ru: 'Простуды: сколько раз за год простужаетесь. Пользуетесь ли антибиотиками и жаропонижающими', en: 'Colds: how many times per year do you get colds. Do you use antibiotics and antipyretics' },
+        label: { ru: 'Частота простуд, антибиотики и жаропонижающие', en: 'Colds frequency, antibiotics and antipyretics' },
         icon: 'pill',
         options: coldsFrequencyOptions,
         required: true,
@@ -1530,7 +1530,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'sleep',
         type: 'checkbox',
-        label: { ru: 'Сон: трудно заснуть, часто просыпаетесь ночью', en: 'Sleep: hard to fall asleep, wake up often at night' },
+        label: { ru: 'Сон', en: 'Sleep' },
         icon: 'moon',
         options: [
           { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
@@ -1545,7 +1545,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'energy',
         type: 'checkbox',
-        label: { ru: 'Энергия: с утра нужно собрать себя по кусочкам, очень тяжело просыпаться, утром чувствуете себя неотдохнувшим, нужно стимулировать себя кофе', en: 'Energy: need to pull yourself together in the morning, very hard to wake up, feel unrested in the morning, need to stimulate yourself with coffee' },
+        label: { ru: 'Энергия и бодрость по утрам', en: 'Energy and morning alertness' },
         icon: 'zap',
         options: energyOptionsAdultMan,
         required: true,
@@ -1554,7 +1554,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'memory',
         type: 'checkbox',
-        label: { ru: 'Память: притормаживает, трудно сконцентрироваться на каком-то деле, трудно вспомнить имена и события, трудно запомнить информацию', en: 'Memory: slows down, hard to concentrate on tasks, hard to remember names and events, hard to remember information' },
+        label: { ru: 'Память и концентрация', en: 'Memory and concentration' },
         icon: 'brain',
         options: memoryOptions,
         required: true,
@@ -1563,7 +1563,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'lifestyle',
         type: 'checkbox',
-        label: { ru: 'Какой у вас образ жизни: сидячий, занимаетесь регулярно спортом, делаете дома гимнастику, обливаетесь холодной водой, работаете в стрессовых условиях, работа связана с физическими нагрузками, вдыхаете на работе токсичные вещества (парикмахер, мастер маникюра/педикюра, строитель, регулярно дышите краской (маляр, автомаляр) и др.)', en: 'What is your lifestyle: sedentary, regular sports, home exercise, cold water dousing, stressful work conditions, physical work, inhale toxic substances at work (hairdresser, manicurist/pedicurist, builder, regularly breathe paint (painter, auto painter) etc.)' },
+        label: { ru: 'Образ жизни', en: 'Lifestyle' },
         icon: 'activity',
         options: lifestyleOptions,
         required: true,
@@ -1572,7 +1572,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'medications',
         type: 'radio',
-        label: { ru: 'Принимаете ли лекарства на постоянной основе', en: 'Do you take medications on a regular basis' },
+        label: { ru: 'Постоянный приём лекарств', en: 'Regular medications' },
         icon: 'pill',
         options: medicationsOptions,
         required: true,
@@ -1581,7 +1581,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'tests',
         type: 'radio',
-        label: { ru: 'Есть ли у вас анализы крови за последние 2-3 месяца? УЗИ?', en: 'Do you have blood tests from the last 2-3 months? Ultrasound?' },
+        label: { ru: 'Анализы крови и УЗИ за последние 2–3 месяца?', en: 'Blood tests and ultrasound in the last 2–3 months?' },
         icon: 'file-text',
         options: bloodTestsYesNoOptions,
         required: true,
@@ -1590,7 +1590,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'what_else',
         type: 'radio',
-        label: { ru: 'Хотели ли бы вы еще что-то добавить о своем здоровье', en: 'Would you like to add anything else about your health' },
+        label: { ru: 'Дополнительно о здоровье?', en: 'Anything else about your health?' },
         icon: 'info',
         options: whatElseOptions,
         required: true,
@@ -1599,7 +1599,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'main_concern',
         type: 'radio',
-        label: { ru: 'Есть ли у вас вопрос который вас волнует в первую очередь', en: 'Do you have a question that concerns you first' },
+        label: { ru: 'Главный вопрос или жалоба?', en: 'Main question or concern?' },
         icon: 'help-circle',
         options: mainConcernOptions,
         required: true,
