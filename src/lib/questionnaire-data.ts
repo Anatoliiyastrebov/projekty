@@ -39,7 +39,7 @@ export interface QuestionnaireSection {
 
 // Common options used across questionnaires
 const yesNoOptions: QuestionOption[] = [
-  { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
+  { value: 'no_issues', label: { ru: 'Все в порядке', en: 'All good' } },
   { value: 'yes', label: { ru: 'Да', en: 'Yes' } },
   { value: 'no', label: { ru: 'Нет', en: 'No' } },
 ];
@@ -50,7 +50,7 @@ const yesNoOptionsSimple: QuestionOption[] = [
 ];
 
 const digestionOptions: QuestionOption[] = [
-  { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
+  { value: 'no_issues', label: { ru: 'Все в порядке', en: 'All good' } },
   { value: 'stomach_pain', label: { ru: 'Боли в животе', en: 'Stomach pain' } },
   { value: 'diarrhea', label: { ru: 'Диарея', en: 'Diarrhea' } },
   { value: 'constipation', label: { ru: 'Запор', en: 'Constipation' } },
@@ -58,7 +58,7 @@ const digestionOptions: QuestionOption[] = [
 ];
 
 const digestionOptionsExtended: QuestionOption[] = [
-  { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
+  { value: 'no_issues', label: { ru: 'Все в порядке', en: 'All good' } },
   { value: 'stomach_pain', label: { ru: 'Боли в животе', en: 'Stomach pain' } },
   { value: 'diarrhea', label: { ru: 'Диарея', en: 'Diarrhea' } },
   { value: 'constipation', label: { ru: 'Запор', en: 'Constipation' } },
@@ -67,7 +67,7 @@ const digestionOptionsExtended: QuestionOption[] = [
 ];
 
 const digestionOptionsAdult: QuestionOption[] = [
-  { value: 'no_issues', label: { ru: 'Нет проблем', en: 'No issues' } },
+  { value: 'no_issues', label: { ru: 'Все в порядке', en: 'All good' } },
   { value: 'heartburn', label: { ru: 'Изжога', en: 'Heartburn' } },
   { value: 'bloating', label: { ru: 'Вздутие', en: 'Bloating' } },
   { value: 'diarrhea', label: { ru: 'Диарея', en: 'Diarrhea' } },

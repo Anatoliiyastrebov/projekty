@@ -27,27 +27,41 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
   const handleCheckboxChange = (optionValue: string, checked: boolean) => {
     const currentValues = Array.isArray(value) ? value : [];
     
-    // Special handling for "no_issues" option
+    // Общая обработка "no_issues": взаимоисключающий вариант "всё в порядке"
     if (optionValue === 'no_issues') {
-    if (checked) {
-        // If "no_issues" is selected, clear all other options
+      if (checked) {
         onChange(['no_issues']);
       } else {
-        // If "no_issues" is deselected, just remove it
         onChange([]);
       }
-    } else if (question.id === 'illness_antibiotics') {
+      return;
+    }
+
+    // COVID: вариант "нет" не может сочетаться с остальными
+    if (question.id === 'covid_status') {
+      if (optionValue === 'no') {
+        if (checked) {
+          onChange(['no']);
+        } else {
+          onChange([]);
+        }
+        return;
+      } else if (checked) {
+        const filteredValues = currentValues.filter((v) => v !== 'no');
+        onChange([...filteredValues, optionValue]);
+        return;
+      }
+    }
+
+    if (question.id === 'illness_antibiotics') {
       // Special handling for illness_antibiotics: rarely_ill and often_ill are mutually exclusive
       if (optionValue === 'rarely_ill' && checked) {
-        // If "rarely_ill" is selected, remove "often_ill" if it exists
         const filteredValues = currentValues.filter((v) => v !== 'often_ill');
         onChange([...filteredValues, optionValue]);
       } else if (optionValue === 'often_ill' && checked) {
-        // If "often_ill" is selected, remove "rarely_ill" if it exists
         const filteredValues = currentValues.filter((v) => v !== 'rarely_ill');
         onChange([...filteredValues, optionValue]);
       } else {
-        // For other options or unchecking, normal behavior
         if (checked) {
           onChange([...currentValues, optionValue]);
         } else {
@@ -55,13 +69,12 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
         }
       }
     } else {
-      // For other options
+      // For other options: убираем "no_issues", если он был выбран
       if (checked) {
-        // Remove "no_issues" if it exists, then add the new option
         const filteredValues = currentValues.filter((v) => v !== 'no_issues');
         onChange([...filteredValues, optionValue]);
-    } else {
-      onChange(currentValues.filter((v) => v !== optionValue));
+      } else {
+        onChange(currentValues.filter((v) => v !== optionValue));
       }
     }
   };
@@ -232,7 +245,7 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
               : question.id === 'stones'
               ? (language === 'ru' ? 'Размер камней (если известен)' : 'Stone size (if known)')
               : question.id === 'operations_injuries'
-              ? (language === 'ru' ? 'Какая операция, что удалено?' : 'Which operation, what was removed?')
+              ? (language === 'ru' ? 'Опишите операции, удалённые органы и травмы' : 'Describe operations, removed organs and injuries')
               : question.id === 'pressure'
               ? (language === 'ru' ? 'Какие лекарства принимаете и как долго?' : 'Which medications and for how long?')
               : question.id === 'cysts_polyps'
@@ -249,7 +262,7 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
               : question.id === 'stones'
               ? (language === 'ru' ? 'Например: 3 мм' : 'E.g. 3 mm')
               : question.id === 'operations_injuries'
-              ? (language === 'ru' ? 'Операция, удалённый орган' : 'Operation, removed organ')
+              ? (language === 'ru' ? 'Операции, удалённые органы, травмы' : 'Operations, removed organs, injuries')
               : question.id === 'pressure'
               ? (language === 'ru' ? 'Название препарата, срок приёма' : 'Medication name, duration')
               : question.id === 'cysts_polyps'

@@ -370,10 +370,16 @@ const Anketa: React.FC = () => {
                       return null;
                     }
                   }
+                  const containerClass =
+                    section.id === 'personal' && question.id === 'weight_satisfaction'
+                      ? 'md:col-span-2 xl:col-span-3'
+                      : '';
+
                   return (
                   <div
                     key={question.id}
                     data-error={!!errors[question.id]}
+                    className={containerClass}
                   >
                     <QuestionField
                       question={question}
