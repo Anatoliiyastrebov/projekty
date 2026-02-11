@@ -19,8 +19,8 @@ export const DSGVOCheckbox: React.FC<DSGVOCheckboxProps> = ({ checked, onChange 
   };
 
   const userRightsNotice: Record<Language, string> = {
-    ru: 'Вы имеете право на доступ, исправление, удаление и ограничение обработки ваших данных в соответствии с GDPR.',
-    en: 'You have the right to access, correct, delete, and restrict processing of your data in accordance with GDPR.',
+    ru: 'Право на доступ, исправление и удаление данных (GDPR).',
+    en: 'Right to access, correct, and delete your data (GDPR).',
   };
 
   return (

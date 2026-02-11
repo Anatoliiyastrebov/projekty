@@ -4,6 +4,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { QuestionField } from '@/components/form/QuestionField';
 import { ContactSection } from '@/components/form/ContactSection';
+import { SourceSection } from '@/components/form/SourceSection';
 import { DSGVOCheckbox } from '@/components/form/DSGVOCheckbox';
 import { MarkdownPreview } from '@/components/form/MarkdownPreview';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -17,6 +18,7 @@ import {
   FormData,
   FormAdditionalData,
   ContactData,
+  SourceData,
   FormErrors,
   validateForm,
   generateMarkdown,
@@ -64,7 +66,9 @@ const Anketa: React.FC = () => {
   const [additionalData, setAdditionalData] = useState<FormAdditionalData>({});
   const [contactData, setContactData] = useState<ContactData>({
     telegram: '',
+    instagram: '',
   });
+  const [sourceData, setSourceData] = useState<SourceData>({ source: '', recommender: '' });
   const [dsgvoAccepted, setDsgvoAccepted] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -89,10 +93,10 @@ const Anketa: React.FC = () => {
   // Auto-save form data
   useEffect(() => {
     const timeout = setTimeout(() => {
-      saveFormData(type, language, formData, additionalData, contactData);
+      saveFormData(type, language, formData, additionalData, contactData, sourceData);
     }, 1000);
     return () => clearTimeout(timeout);
-  }, [formData, additionalData, contactData, type, language]);
+  }, [formData, additionalData, contactData, sourceData, type, language]);
 
   const handleFieldChange = (questionId: string, value: string | string[]) => {
     setFormData((prev) => ({ ...prev, [questionId]: value }));
@@ -193,10 +197,28 @@ const Anketa: React.FC = () => {
         });
       }
     }
-    // If tests changed to "no", clear uploaded files
     if (questionId === 'tests' && value !== 'yes') {
       setAttachmentFiles([]);
       attachmentFilesRef.current = [];
+    }
+    // Clear additional field errors when selection changes
+    const clearAdditionalFor = (qId: string) => {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[`${qId}_additional`];
+        return next;
+      });
+    };
+    if (['weight_satisfaction', 'stones', 'operations_injuries', 'pressure', 'cysts_polyps'].includes(questionId)) {
+      const vals = Array.isArray(value) ? value : [value];
+      const needsAdditional = {
+        weight_satisfaction: vals.includes('want_to_lose') || vals.includes('want_to_gain'),
+        stones: vals.includes('stones_kidneys') || vals.includes('stones_gallbladder') || vals.includes('both'),
+        operations_injuries: vals.includes('operations') || vals.includes('organ_removed'),
+        pressure: vals.includes('low') || vals.includes('high') || vals.includes('other'),
+        cysts_polyps: vals.some((v: string) => ['cysts', 'polyps', 'fibroids', 'tumors', 'hernias'].includes(v)),
+      };
+      if (!needsAdditional[questionId as keyof typeof needsAdditional]) clearAdditionalFor(questionId);
     }
   };
 
@@ -240,13 +262,13 @@ const Anketa: React.FC = () => {
   };
 
   const markdown = useMemo(() => {
-    return generateMarkdown(type, sections, formData, additionalData, contactData, language);
-  }, [type, sections, formData, additionalData, contactData, language]);
+    return generateMarkdown(type, sections, formData, additionalData, contactData, language, sourceData);
+  }, [type, sections, formData, additionalData, contactData, sourceData, language]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const validationErrors = validateForm(sections, formData, contactData, language, additionalData);
+    const validationErrors = validateForm(sections, formData, contactData, language, additionalData, sourceData);
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length > 0) {
@@ -337,8 +359,18 @@ const Anketa: React.FC = () => {
                 {section.title[language]}
               </h2>
 
-              <div className="space-y-6">
-                {section.questions.map((question) => (
+              <div className={section.id === 'personal' ? 'grid gap-6 md:grid-cols-2 xl:grid-cols-3' : 'space-y-6'}>
+                {section.questions.map((question) => {
+                  // Показ COVID-полей только если была болезнь
+                  if (question.id === 'covid_times' || question.id === 'covid_complications') {
+                    const rawStatus = formData['covid_status'];
+                    const statusVals = Array.isArray(rawStatus) ? rawStatus : rawStatus ? [rawStatus] : [];
+                    const hadCovid = statusVals.includes('had_covid') || statusVals.includes('both');
+                    if (!hadCovid) {
+                      return null;
+                    }
+                  }
+                  return (
                   <div
                     key={question.id}
                     data-error={!!errors[question.id]}
@@ -411,22 +443,60 @@ const Anketa: React.FC = () => {
                       </div>
                     )}
                   </div>
-                ))}
+                );
+                })}
               </div>
             </div>
           ))}
 
+          {/* Source Section */}
+          <SourceSection
+            source={sourceData.source}
+            recommender={sourceData.recommender}
+            error={errors['source_recommender']}
+            recommenderError={errors['source_recommender']}
+            onSourceChange={(value) => {
+              setSourceData((prev) => ({ ...prev, source: value }));
+              setErrors((prev) => {
+                const next = { ...prev };
+                delete next['source_recommender'];
+                return next;
+              });
+            }}
+            onRecommenderChange={(value) => {
+              setSourceData((prev) => ({ ...prev, recommender: value }));
+              if (errors['source_recommender']) {
+                setErrors((prev) => {
+                  const next = { ...prev };
+                  delete next['source_recommender'];
+                  return next;
+                });
+              }
+            }}
+          />
+
           {/* Contact Section */}
           <ContactSection
             telegram={contactData.telegram}
+            instagram={contactData.instagram}
             error={errors['contact']}
             telegramError={errors['telegram']}
+            instagramError={errors['instagram']}
             onTelegramChange={(value) => {
               setContactData((prev) => ({ ...prev, telegram: value }));
               setErrors((prev) => {
                 const next = { ...prev };
                 delete next['contact'];
                 delete next['telegram'];
+                return next;
+              });
+            }}
+            onInstagramChange={(value) => {
+              setContactData((prev) => ({ ...prev, instagram: value }));
+              setErrors((prev) => {
+                const next = { ...prev };
+                delete next['contact'];
+                delete next['instagram'];
                 return next;
               });
             }}

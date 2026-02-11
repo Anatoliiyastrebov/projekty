@@ -165,7 +165,7 @@ export const translations = {
     username: 'Имя пользователя',
     usernameHint: 'Введите без @ или с @',
     contactLink: 'Ваша ссылка для связи',
-    atLeastOneContactRequired: 'Необходимо заполнить хотя бы один способ связи (Telegram или Instagram)',
+    atLeastOneContactRequired: 'Укажите контакт для связи (Telegram или Instagram)',
     telegramRequired: 'Укажите Telegram для связи',
     telegramFormatHint: 'Только латиница (a–z), цифры и _; от 5 до 32 символов',
     telegram_too_short: 'Ник в Telegram должен быть от 5 до 32 символов',
@@ -177,7 +177,7 @@ export const translations = {
     instagram_dots: 'Ник не должен начинаться или заканчиваться точкой, и не должно быть двух точек подряд',
 
     // DSGVO
-    dsgvoConsent: 'Я даю свое добровольное согласие на обработку моих персональных данных согласно DSGVO/GDPR для целей предоставления консультации по здоровью. Я понимаю, что консультация не является медицинской услугой. Я знаю, что могу отозвать свое согласие в любое время.',
+    dsgvoConsent: 'Я соглашаюсь на обработку моих персональных данных по DSGVO/GDPR для консультации по здоровью. Я понимаю, что консультация не является медицинской услугой и могу в любой момент отозвать своё согласие.',
     
     // Buttons
     submit: 'Отправить анкету',
@@ -370,7 +370,7 @@ export const translations = {
     username: 'Username',
     usernameHint: 'Enter with or without @',
     contactLink: 'Your contact link',
-    atLeastOneContactRequired: 'At least one contact method must be filled (Telegram or Instagram)',
+    atLeastOneContactRequired: 'Enter a contact (Telegram or Instagram) so we can reach you',
     telegramRequired: 'Enter your Telegram to be contacted',
     telegramFormatHint: 'Only Latin letters (a–z), numbers and _; 5 to 32 characters',
     telegram_too_short: 'Telegram username must be 5 to 32 characters',
@@ -382,7 +382,7 @@ export const translations = {
     instagram_dots: 'Username must not start or end with a period, or have two periods in a row',
 
     // DSGVO
-    dsgvoConsent: 'I give my voluntary consent to the processing of my personal data in accordance with GDPR for the purpose of providing health consultation. I understand that the consultation is not a medical service. I know that I can withdraw my consent at any time.',
+    dsgvoConsent: 'I agree to the processing of my personal data under GDPR for a health consultation. I understand this is not a medical service and I can withdraw my consent at any time.',
     
     // Buttons
     submit: 'Submit questionnaire',

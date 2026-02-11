@@ -12,6 +12,12 @@ export interface FormAdditionalData {
 
 export interface ContactData {
   telegram: string;
+  instagram: string;
+}
+
+export interface SourceData {
+  source: string;
+  recommender: string;
 }
 
 export interface FormErrors {
@@ -28,10 +34,11 @@ export const saveFormData = (
   lang: Language,
   formData: FormData,
   additionalData: FormAdditionalData,
-  contactData: ContactData
+  contactData: ContactData,
+  sourceData?: SourceData
 ) => {
   try {
-    const data = { formData, additionalData, contactData, timestamp: Date.now() };
+    const data = { formData, additionalData, contactData, sourceData: sourceData || { source: '', recommender: '' }, timestamp: Date.now() };
     localStorage.setItem(getStorageKey(type, lang), JSON.stringify(data));
   } catch (err) {
     console.error('Error saving form data:', err);
@@ -52,17 +59,20 @@ export const loadFormData = (type: QuestionnaireType, lang: Language) => {
           const oldData = contactData as { method?: string; username?: string };
           contactData = {
             telegram: oldData.method === 'telegram' ? (oldData.username || '') : '',
+            instagram: oldData.method === 'instagram' ? (oldData.username || '') : '',
           };
         } else if (!contactData || !('telegram' in contactData)) {
-          contactData = { telegram: '' };
+          contactData = { telegram: '', instagram: '' };
         } else {
-          contactData = { telegram: (contactData as { telegram?: string }).telegram || '' };
+          const c = contactData as { telegram?: string; instagram?: string };
+          contactData = { telegram: c.telegram || '', instagram: c.instagram || '' };
         }
         
         return {
           formData: data.formData as FormData,
           additionalData: data.additionalData as FormAdditionalData,
           contactData,
+          sourceData: (data.sourceData as SourceData) || { source: '', recommender: '' },
         };
       }
     }
@@ -89,6 +99,15 @@ export const validateTelegramUsername = (raw: string): ContactValidation => {
   if (value.length < 5) return { valid: false, error: 'telegram_too_short' };
   if (value.length > 32) return { valid: false, error: 'telegram_too_long' };
   if (!/^[a-zA-Z0-9_]+$/.test(value)) return { valid: false, error: 'telegram_invalid_chars' };
+  return { valid: true };
+};
+
+export const validateInstagramUsername = (raw: string): ContactValidation => {
+  const value = raw.replace(/^@/, '').trim();
+  if (!value) return { valid: false, error: 'empty' };
+  if (value.length > 30) return { valid: false, error: 'instagram_too_long' };
+  if (!/^[a-zA-Z0-9._]+$/.test(value)) return { valid: false, error: 'instagram_invalid_chars' };
+  if (/^\.|\.\.|\.$/.test(value)) return { valid: false, error: 'instagram_dots' };
   return { valid: true };
 };
 
@@ -185,15 +204,6 @@ export const validateForm = (
       errors['what_else_additional'] = t.required;
     }
   }
-  
-  // Special validation: if main_concern is "yes", additional field is required
-  if (formData['main_concern'] === 'yes' && additionalData) {
-    const mainConcernAdditional = additionalData['main_concern_additional'];
-    if (!mainConcernAdditional || mainConcernAdditional.trim() === '') {
-      errors['main_concern_additional'] = t.required;
-    }
-  }
-  
   // Special validation: if pregnancy_problems is "yes", additional field is required
   if (formData['pregnancy_problems'] === 'yes' && additionalData) {
     const pregnancyProblemsAdditional = additionalData['pregnancy_problems_additional'];
@@ -218,16 +228,81 @@ export const validateForm = (
     }
   }
 
-  // Validate contact - Telegram required
-  const hasTelegram = contactData.telegram && contactData.telegram.trim() !== '';
+  // weight_satisfaction: when want_to_lose or want_to_gain
+  if (formData['weight_satisfaction'] && additionalData) {
+    const vals = Array.isArray(formData['weight_satisfaction']) ? formData['weight_satisfaction'] : [];
+    if (vals.includes('want_to_lose') || vals.includes('want_to_gain')) {
+      const v = additionalData['weight_satisfaction_additional'];
+      if (!v || v.trim() === '') errors['weight_satisfaction_additional'] = t.required;
+    }
+  }
+  // stones: when stones_kidneys or stones_gallbladder or both
+  if (formData['stones'] && additionalData) {
+    const vals = Array.isArray(formData['stones']) ? formData['stones'] : [];
+    if (vals.includes('stones_kidneys') || vals.includes('stones_gallbladder') || vals.includes('both')) {
+      const v = additionalData['stones_additional'];
+      if (!v || v.trim() === '') errors['stones_additional'] = t.required;
+    }
+  }
+  // operations_injuries: when operations or organ_removed
+  if (formData['operations_injuries'] && additionalData) {
+    const vals = Array.isArray(formData['operations_injuries']) ? formData['operations_injuries'] : [];
+    if (vals.includes('operations') || vals.includes('organ_removed') || vals.includes('injuries')) {
+      const v = additionalData['operations_injuries_additional'];
+      if (!v || v.trim() === '') errors['operations_injuries_additional'] = t.required;
+    }
+  }
+  // pressure: when high
+  if (formData['pressure'] && additionalData) {
+    const vals = Array.isArray(formData['pressure']) ? formData['pressure'] : [];
+    if (vals.includes('high')) {
+      const v = additionalData['pressure_additional'];
+      if (!v || v.trim() === '') errors['pressure_additional'] = t.required;
+    }
+  }
+  // covid_times and covid_complications: only when была болезнь
+  if (formData['covid_status']) {
+    const raw = formData['covid_status'];
+    const vals = Array.isArray(raw) ? raw : [raw];
+    const hadCovid = vals.includes('had_covid') || vals.includes('both');
+    if (hadCovid) {
+      const times = formData['covid_times'];
+      if (!times || times === '' || isNaN(Number(times))) {
+        errors['covid_times'] = t.required;
+      }
+      const complications = formData['covid_complications'];
+      if (!complications || (Array.isArray(complications) && complications.length === 0)) {
+        errors['covid_complications'] = t.selectAtLeastOne;
+      }
+    }
+  }
+  // cysts_polyps: when cysts, polyps, fibroids, tumors, hernias
+  if (formData['cysts_polyps'] && additionalData) {
+    const vals = Array.isArray(formData['cysts_polyps']) ? formData['cysts_polyps'] : [];
+    if (vals.some((v: string) => ['cysts', 'polyps', 'fibroids', 'tumors', 'hernias'].includes(v))) {
+      const v = additionalData['cysts_polyps_additional'];
+      if (!v || v.trim() === '') errors['cysts_polyps_additional'] = t.required;
+    }
+  }
 
-  if (!hasTelegram) {
-    errors['contact'] = (t as Record<string, string>).telegramRequired ?? t.atLeastOneContactRequired;
+  // Validate contact - at least one: telegram or instagram
+  const hasTelegram = contactData.telegram && contactData.telegram.trim() !== '';
+  const hasInstagram = contactData.instagram && contactData.instagram.trim() !== '';
+
+  if (!hasTelegram && !hasInstagram) {
+    errors['contact'] = (t as Record<string, string>).atLeastOneContactRequired ?? t.telegramRequired;
   } else {
-    const telegramResult = validateTelegramUsername(contactData.telegram);
-    if (!telegramResult.valid && telegramResult.error && telegramResult.error !== 'empty') {
-      const key = telegramResult.error as keyof typeof t;
-      errors['telegram'] = (t as Record<string, string>)[key] || t.required;
+    if (hasTelegram) {
+      const r = validateTelegramUsername(contactData.telegram);
+      if (!r.valid && r.error && r.error !== 'empty') {
+        errors['telegram'] = (t as Record<string, string>)[r.error] || t.required;
+      }
+    }
+    if (hasInstagram) {
+      const r = validateInstagramUsername(contactData.instagram);
+      if (!r.valid && r.error && r.error !== 'empty') {
+        errors['instagram'] = (t as Record<string, string>)[r.error] || t.required;
+      }
     }
   }
 
@@ -241,7 +316,8 @@ export const generateMarkdown = (
   formData: FormData,
   additionalData: FormAdditionalData,
   contactData: ContactData,
-  lang: Language
+  lang: Language,
+  sourceData?: SourceData
 ): string => {
   const t = translations[lang];
   const headers = {
@@ -321,12 +397,25 @@ export const generateMarkdown = (
     });
   });
 
+  // Source section
+  if (sourceData?.source) {
+    const sourceLabels = { telegram: 'Telegram', instagram: 'Instagram', recommendation: lang === 'ru' ? 'По рекомендации' : 'By recommendation' };
+    md += `\n**${lang === 'ru' ? 'Откуда узнали' : 'Source'}:** ${sourceLabels[sourceData.source as keyof typeof sourceLabels] || sourceData.source}`;
+    if (sourceData.source === 'recommendation' && sourceData.recommender?.trim()) {
+      md += `\n➤ _${sourceData.recommender.trim()}_`;
+    }
+    md += '\n';
+  }
+
   // Contact section (enhanced)
   const contacts: string[] = [];
-  
   if (contactData.telegram && contactData.telegram.trim() !== '') {
     const cleanTelegram = contactData.telegram.replace(/^@/, '').trim();
     contacts.push(`📱 Telegram: @${cleanTelegram}\n🔗 https://t.me/${cleanTelegram}`);
+  }
+  if (contactData.instagram && contactData.instagram.trim() !== '') {
+    const cleanInstagram = contactData.instagram.replace(/^@/, '').trim();
+    contacts.push(`📷 Instagram: @${cleanInstagram}\n🔗 https://instagram.com/${cleanInstagram}`);
   }
 
   if (contacts.length > 0) {

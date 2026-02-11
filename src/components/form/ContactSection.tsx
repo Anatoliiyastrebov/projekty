@@ -1,30 +1,63 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { MessageCircle, ExternalLink } from 'lucide-react';
 
 interface ContactSectionProps {
   telegram: string;
+  instagram: string;
   error?: string;
   telegramError?: string;
+  instagramError?: string;
   onTelegramChange: (value: string) => void;
+  onInstagramChange: (value: string) => void;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({
   telegram,
+  instagram,
   error,
   telegramError,
+  instagramError,
   onTelegramChange,
+  onInstagramChange,
 }) => {
   const { t } = useLanguage();
 
-  const cleanTelegram = useMemo(() => {
-    return telegram.replace(/^@/, '').trim();
-  }, [telegram]);
+  const cleanTelegram = useMemo(() => telegram.replace(/^@/, '').trim(), [telegram]);
+  const cleanInstagram = useMemo(() => instagram.replace(/^@/, '').trim(), [instagram]);
+  const telegramLink = useMemo(() => (cleanTelegram ? `https://t.me/${cleanTelegram}` : ''), [cleanTelegram]);
+  const instagramLink = useMemo(() => (cleanInstagram ? `https://instagram.com/${cleanInstagram}` : ''), [cleanInstagram]);
 
-  const telegramLink = useMemo(() => {
-    if (!cleanTelegram) return '';
-    return `https://t.me/${cleanTelegram}`;
-  }, [cleanTelegram]);
+  const unifiedValue = telegram || instagram;
+
+  const handleUnifiedChange = useCallback(
+    (raw: string) => {
+      const value = raw.trim();
+      if (!value) {
+        onTelegramChange('');
+        onInstagramChange('');
+        return;
+      }
+      const clean = value.replace(/^@/, '').trim();
+      const TELEGRAM_USERNAME_REGEX = /^[a-zA-Z0-9_]{5,32}$/;
+      const INSTAGRAM_USERNAME_REGEX = /^[a-zA-Z0-9._]{1,30}$/;
+
+      if (TELEGRAM_USERNAME_REGEX.test(clean)) {
+        onTelegramChange(value);
+        onInstagramChange('');
+      } else if (INSTAGRAM_USERNAME_REGEX.test(clean)) {
+        onInstagramChange(value);
+        onTelegramChange('');
+      } else {
+        // По умолчанию считаем как Telegram, валидация покажет ошибку
+        onTelegramChange(value);
+        onInstagramChange('');
+      }
+    },
+    [onTelegramChange, onInstagramChange],
+  );
+
+  const linkToShow = telegramLink || instagramLink;
 
   return (
     <div className="card-wellness space-y-4">
@@ -34,7 +67,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
       </h3>
 
       <p className="text-sm text-muted-foreground">
-        {t('telegramRequired')}
+        {t('atLeastOneContactRequired')}
       </p>
 
       {error && (
@@ -52,32 +85,25 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           </label>
           <input
             type="text"
-            className={`input-field ${telegramError ? 'input-error' : ''}`}
-            value={telegram}
-            onChange={(e) => onTelegramChange(e.target.value)}
+            className={`input-field ${telegramError || instagramError ? 'input-error' : ''}`}
+            value={unifiedValue}
+            onChange={(e) => handleUnifiedChange(e.target.value)}
             placeholder={t('usernameHint')}
             autoComplete="username"
-            aria-invalid={!!telegramError}
-            aria-describedby={telegramError ? 'telegram-error' : 'telegram-hint'}
           />
-          <p id="telegram-hint" className="text-xs text-muted-foreground mt-1">
-            {t('telegramFormatHint')}
+          <p className="text-xs text-muted-foreground mt-1">
+            {t('telegramFormatHint')} / {t('instagramFormatHint')}
           </p>
-          {telegramError && (
-            <p id="telegram-error" className="error-message mt-1" role="alert">
+          {(telegramError || instagramError) && (
+            <p className="error-message mt-1" role="alert">
               <AlertCircleIcon />
-              {telegramError}
+              {telegramError || instagramError}
             </p>
           )}
-          {cleanTelegram && !telegramError && (
+          {linkToShow && !(telegramError || instagramError) && (
             <div className="bg-accent/50 rounded-xl p-2 mt-2">
-              <a
-                href={telegramLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary font-medium text-sm flex items-center gap-1 hover:underline break-all"
-              >
-                {telegramLink}
+              <a href={linkToShow} target="_blank" rel="noopener noreferrer" className="text-primary font-medium text-sm flex items-center gap-1 hover:underline break-all">
+                {linkToShow}
                 <ExternalLink className="w-3 h-3 flex-shrink-0" />
               </a>
             </div>

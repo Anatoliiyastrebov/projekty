@@ -158,19 +158,31 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
     }
   };
 
-  // Check if "other" option is selected or if medications/what_else/main_concern/pregnancy_problems question has "yes" selected
-  // Special case: injuries question shows field when any option except "no_issues" is selected
-  // Special case: illness_antibiotics question shows field when "took_antibiotics" or "took_other_medications" is selected
+  // Check if additional field should be shown
   const hasOtherSelected = () => {
     if (question.type === 'checkbox') {
       const currentValues = Array.isArray(value) ? value : [];
-      // Special case: injuries question shows field when any option except "no_issues" is selected
       if (question.id === 'injuries') {
         return currentValues.some((val: string) => val !== 'no_issues');
       }
-      // Special case: illness_antibiotics question shows field when "took_antibiotics" or "took_other_medications" is selected
       if (question.id === 'illness_antibiotics') {
         return currentValues.includes('took_antibiotics') || currentValues.includes('took_other_medications');
+      }
+      if (question.id === 'weight_satisfaction') {
+        return currentValues.includes('want_to_lose') || currentValues.includes('want_to_gain');
+      }
+      if (question.id === 'stones') {
+        return currentValues.includes('stones_kidneys') || currentValues.includes('stones_gallbladder') || currentValues.includes('both');
+      }
+      if (question.id === 'operations_injuries') {
+        return currentValues.includes('operations') || currentValues.includes('organ_removed') || currentValues.includes('injuries');
+      }
+      if (question.id === 'pressure') {
+        // Показываем поле только при высоком давлении
+        return currentValues.includes('high');
+      }
+      if (question.id === 'cysts_polyps') {
+        return currentValues.some((v: string) => ['cysts', 'polyps', 'fibroids', 'tumors', 'hernias'].includes(v));
       }
       return currentValues.includes('other');
     } else if (question.type === 'radio') {
@@ -205,18 +217,26 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
       {showOtherField && (
         <div className="mt-2">
           <label className="text-sm text-muted-foreground mb-1 block">
-            {question.id === 'medications' 
+            {question.id === 'medications'
               ? (language === 'ru' ? 'Укажите, какие лекарства' : 'Specify which medications')
               : question.id === 'what_else'
               ? (language === 'ru' ? 'Что именно вы хотели бы добавить' : 'What would you like to add')
-              : question.id === 'main_concern'
-              ? (language === 'ru' ? 'Опишите ваш вопрос' : 'Describe your question')
               : question.id === 'pregnancy_problems'
               ? (language === 'ru' ? 'Опишите проблемы' : 'Describe problems')
               : question.id === 'injuries'
               ? (language === 'ru' ? 'Опишите подробнее' : 'Describe in detail')
               : question.id === 'illness_antibiotics'
               ? (language === 'ru' ? 'Укажите названия лекарств' : 'Specify the names of medications')
+              : question.id === 'weight_satisfaction'
+              ? (language === 'ru' ? 'Сколько хотите сбросить или набрать (кг)?' : 'How much to lose or gain (kg)?')
+              : question.id === 'stones'
+              ? (language === 'ru' ? 'Размер камней (если известен)' : 'Stone size (if known)')
+              : question.id === 'operations_injuries'
+              ? (language === 'ru' ? 'Какая операция, что удалено?' : 'Which operation, what was removed?')
+              : question.id === 'pressure'
+              ? (language === 'ru' ? 'Какие лекарства принимаете и как долго?' : 'Which medications and for how long?')
+              : question.id === 'cysts_polyps'
+              ? (language === 'ru' ? 'Подробности (размер, локализация)' : 'Details (size, location)')
               : (t('otherDetails') || 'Уточните, что именно')}
             {additionalError && <span className="text-destructive ml-1">*</span>}
           </label>
@@ -224,18 +244,26 @@ export const QuestionField: React.FC<QuestionFieldProps> = ({
             className={`input-field text-sm min-h-[60px] resize-y ${additionalError ? 'input-error' : ''}`}
             value={additionalValue}
             onChange={(e) => onAdditionalChange(e.target.value)}
-            placeholder={question.id === 'medications'
-              ? (language === 'ru' ? 'Напишите название лекарств' : 'Write the names of medications')
+            placeholder={question.id === 'weight_satisfaction'
+              ? (language === 'ru' ? 'Например: 5 кг' : 'E.g. 5 kg')
+              : question.id === 'stones'
+              ? (language === 'ru' ? 'Например: 3 мм' : 'E.g. 3 mm')
+              : question.id === 'operations_injuries'
+              ? (language === 'ru' ? 'Операция, удалённый орган' : 'Operation, removed organ')
+              : question.id === 'pressure'
+              ? (language === 'ru' ? 'Название препарата, срок приёма' : 'Medication name, duration')
+              : question.id === 'cysts_polyps'
+              ? (language === 'ru' ? 'Размер, где расположено' : 'Size, location')
+              : question.id === 'medications'
+              ? (language === 'ru' ? 'Название лекарств' : 'Medication names')
               : question.id === 'what_else'
-              ? (language === 'ru' ? 'Опишите дополнительную информацию' : 'Describe additional information')
-              : question.id === 'main_concern'
-              ? (language === 'ru' ? 'Опишите ваш вопрос' : 'Describe your question')
+              ? (language === 'ru' ? 'Дополнительная информация' : 'Additional information')
               : question.id === 'pregnancy_problems'
               ? (language === 'ru' ? 'Опишите проблемы' : 'Describe problems')
               : question.id === 'injuries'
-              ? (language === 'ru' ? 'Опишите подробнее о травмах, операциях и т.д.' : 'Describe in detail about injuries, surgeries, etc.')
+              ? (language === 'ru' ? 'Травмы, операции и т.д.' : 'Injuries, surgeries, etc.')
               : question.id === 'illness_antibiotics'
-              ? (language === 'ru' ? 'Напишите названия антибиотиков или других лекарств' : 'Write the names of antibiotics or other medications')
+              ? (language === 'ru' ? 'Антибиотики или другие лекарства' : 'Antibiotics or other medications')
               : (t('otherDetails') || 'Опишите подробно')}
           />
           {additionalError && (

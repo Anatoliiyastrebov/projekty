@@ -41,7 +41,7 @@ export const PrivacyPolicyDialog: React.FC<PrivacyPolicyDialogProps> = ({
         },
         {
           title: 'Какие данные мы собираем',
-          content: 'Мы собираем персональные данные, которые вы предоставляете в анкете: имя, возраст, вес, информацию о состоянии здоровья, симптомы, жалобы, аллергии, историю болезней и контактные данные (Telegram). Предоставление данных является добровольным, но необходимо для предоставления консультации.',
+          content: 'Собираем персональные данные: имя, возраст, вес, здоровье, симптомы, жалобы, аллергии, историю болезней, контакты (Telegram/Instagram). Данные добровольны, но необходимы для консультации.',
         },
         {
           title: 'Зачем мы собираем данные',
@@ -65,7 +65,7 @@ export const PrivacyPolicyDialog: React.FC<PrivacyPolicyDialogProps> = ({
         },
         {
           title: 'Как реализовать ваши права',
-          content: 'Для реализации ваших прав (доступ, исправление, удаление и т.д.) свяжитесь с нами через Telegram, указав ваше имя и дату заполнения анкеты. Мы обработаем ваш запрос в течение 30 дней с момента получения.',
+          content: 'Права (доступ, исправление, удаление): свяжитесь через Telegram/Instagram, укажите имя и дату заполнения. Ответим в течение 30 дней.',
         },
       ],
     },
@@ -82,7 +82,7 @@ export const PrivacyPolicyDialog: React.FC<PrivacyPolicyDialogProps> = ({
         },
         {
           title: 'What data we collect',
-          content: 'We collect personal data that you provide in the questionnaire: name, age, weight, health information, symptoms, complaints, allergies, medical history, and contact details (Telegram). Providing data is voluntary but necessary for providing consultation.',
+          content: 'We collect personal data: name, age, weight, health, symptoms, complaints, allergies, medical history, contacts (Telegram/Instagram). Data is voluntary but required for consultation.',
         },
         {
           title: 'Why we collect data',
@@ -106,7 +106,7 @@ export const PrivacyPolicyDialog: React.FC<PrivacyPolicyDialogProps> = ({
         },
         {
           title: 'How to exercise your rights',
-          content: 'To exercise your rights (access, correction, deletion, etc.), contact us via Telegram, providing your name and the date you filled out the questionnaire. We will process your request within 30 days of receipt.',
+          content: 'Rights (access, correction, deletion): contact us via Telegram/Instagram with your name and date. We respond within 30 days.',
         },
       ],
     },
