@@ -12,16 +12,20 @@ interface ContactSectionProps {
   onInstagramChange: (value: string) => void;
 }
 
-export const ContactSection: React.FC<ContactSectionProps> = ({
-  telegram,
-  instagram,
-  error,
-  telegramError,
-  instagramError,
-  onTelegramChange,
-  onInstagramChange,
-}) => {
+export const ContactSection: React.FC<ContactSectionProps> = (props) => {
+  const {
+    telegram: rawTelegram,
+    instagram: rawInstagram,
+    error,
+    telegramError,
+    instagramError,
+    onTelegramChange,
+    onInstagramChange,
+  } = props;
   const { t } = useLanguage();
+
+  const telegram = rawTelegram ?? '';
+  const instagram = rawInstagram ?? '';
 
   const cleanTelegram = useMemo(() => telegram.replace(/^@/, '').trim(), [telegram]);
   const cleanInstagram = useMemo(() => instagram.replace(/^@/, '').trim(), [instagram]);
