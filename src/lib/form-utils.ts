@@ -166,7 +166,7 @@ export const validateForm = (
     }
   }
 
-  // Universal validation: if any question has "other" selected, additional field is required
+  // Universal validation: if any question has "other" selected, additional field is required (не принимать пустое)
   sections.forEach((section) => {
     section.questions.forEach((question) => {
       if ((question.type === 'checkbox' || question.type === 'radio') && question.options) {
@@ -176,10 +176,11 @@ export const validateForm = (
           if (questionValue) {
             const valueArray = Array.isArray(questionValue) ? questionValue : [questionValue];
             const hasOther = valueArray.includes('other');
-            if (hasOther && additionalData) {
+            if (hasOther) {
               const additionalKey = `${question.id}_additional`;
-              const additionalValue = additionalData[additionalKey];
-              if (!additionalValue || additionalValue.trim() === '') {
+              const additionalValue = additionalData?.[additionalKey];
+              const isEmpty = additionalValue === undefined || additionalValue === null || String(additionalValue).trim() === '';
+              if (isEmpty) {
                 errors[additionalKey] = t.required;
               }
             }
