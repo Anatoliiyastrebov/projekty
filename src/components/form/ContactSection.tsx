@@ -22,7 +22,7 @@ export const ContactSection: React.FC<ContactSectionProps> = (props) => {
     onTelegramChange,
     onInstagramChange,
   } = props;
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const telegram = rawTelegram ?? '';
   const instagram = rawInstagram ?? '';
@@ -105,11 +105,24 @@ export const ContactSection: React.FC<ContactSectionProps> = (props) => {
             </p>
           )}
           {linkToShow && !(telegramError || instagramError) && (
-            <div className="bg-accent/50 rounded-xl p-2 mt-2">
-              <a href={linkToShow} target="_blank" rel="noopener noreferrer" className="text-primary font-medium text-sm flex items-center gap-1 hover:underline break-all">
+            <div className="bg-accent/50 rounded-xl p-3 mt-3 space-y-1">
+              <p className="text-xs text-muted-foreground font-medium">
+                {language === 'ru' ? 'Ссылка на профиль:' : 'Profile link:'}
+              </p>
+              <a
+                href={linkToShow}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary font-medium text-sm flex items-center gap-1.5 hover:underline break-all"
+              >
                 {linkToShow}
-                <ExternalLink className="w-3 h-3 flex-shrink-0" />
+                <ExternalLink className="w-3.5 h-3.5 flex-shrink-0" />
               </a>
+              <p className="text-xs text-muted-foreground">
+                {language === 'ru'
+                  ? 'Перейдите по ссылке, чтобы убедиться, что профиль указан верно'
+                  : 'Click the link to verify the profile is correct'}
+              </p>
             </div>
           )}
         </div>
