@@ -579,7 +579,7 @@ export const infantQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'age',
         type: 'number',
-        label: { ru: 'Возраст', en: 'Age' },
+        label: { ru: 'Год рождения', en: 'Year of birth' },
         icon: 'calendar',
         required: true,
         hasAdditional: false,
@@ -797,7 +797,7 @@ export const childQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'age',
         type: 'number',
-        label: { ru: 'Возраст', en: 'Age' },
+        label: { ru: 'Год рождения', en: 'Year of birth' },
         icon: 'calendar',
         required: true,
         hasAdditional: false,
@@ -977,7 +977,7 @@ export const womanQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'age',
         type: 'number',
-        label: { ru: 'Возраст', en: 'Age' },
+        label: { ru: 'Год рождения', en: 'Year of birth' },
         icon: 'calendar',
         required: true,
         hasAdditional: false,
@@ -1317,7 +1317,7 @@ export const manQuestionnaire: QuestionnaireSection[] = [
       {
         id: 'age',
         type: 'number',
-        label: { ru: 'Возраст', en: 'Age' },
+        label: { ru: 'Год рождения', en: 'Year of birth' },
         icon: 'calendar',
         required: true,
         hasAdditional: false,
