@@ -161,7 +161,7 @@ export const ContactSection: React.FC<ContactSectionProps> = (props) => {
     return (
       <div className={wrap}>
         <label className="text-sm text-muted-foreground mb-1 block">
-          {t('phone')}
+          {t('phoneContactLabel')}
           {isPrimary && <span className="text-destructive ml-0.5">*</span>}
         </label>
         <input
