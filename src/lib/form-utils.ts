@@ -10,10 +10,21 @@ export interface FormAdditionalData {
   [key: string]: string;
 }
 
+export type PreferredContactMethod = '' | 'telegram' | 'instagram' | 'phone';
+
 export interface ContactData {
+  preferred_contact_method: PreferredContactMethod;
   telegram: string;
   instagram: string;
+  phone: string;
 }
+
+export const emptyContactData = (): ContactData => ({
+  preferred_contact_method: '',
+  telegram: '',
+  instagram: '',
+  phone: '',
+});
 
 export interface SourceData {
   source: string;
@@ -22,6 +33,126 @@ export interface SourceData {
 
 export interface FormErrors {
   [key: string]: string;
+}
+
+const TELEGRAM_URL_RE = /(?:https?:\/\/)?(?:www\.)?(?:t\.me|telegram\.me)\/([^/?#]+)/i;
+const INSTAGRAM_URL_RE = /(?:https?:\/\/)?(?:www\.)?instagram\.com\/([^/?#]+)/i;
+
+function looksLikePhoneString(s: string): boolean {
+  const compact = s.replace(/[\s().-]/g, '');
+  return /^\+?\d{6,}$/.test(compact);
+}
+
+function normalizePhoneFromRaw(raw: string): string {
+  const t = raw.trim().replace(/[\s().-]/g, '');
+  if (!t) return '';
+  if (t.startsWith('+')) return `+${t.slice(1).replace(/\D/g, '')}`;
+  return t.replace(/\D/g, '');
+}
+
+/** Instagram: username or profile URL → username fragment for validation */
+export function parseInstagramInput(raw: string): string {
+  let t = raw.trim();
+  if (!t) return '';
+  const m = t.match(INSTAGRAM_URL_RE);
+  if (m) {
+    try {
+      t = decodeURIComponent(m[1]);
+    } catch {
+      t = m[1];
+    }
+  }
+  return t.replace(/^@/, '').trim();
+}
+
+function normalizeTelegramFromUrl(raw: string): string | null {
+  const m = raw.trim().match(TELEGRAM_URL_RE);
+  if (!m) return null;
+  const user = m[1].replace(/^@/, '').trim();
+  if (!user || user.toLowerCase() === 'share' || user.includes('/')) return null;
+  return `@${user}`;
+}
+
+function normalizeInstagramFromUrlField(raw: string): string {
+  const m = raw.trim().match(INSTAGRAM_URL_RE);
+  if (!m) return raw.trim();
+  try {
+    return `@${decodeURIComponent(m[1]).replace(/^@/, '')}`;
+  } catch {
+    return `@${m[1].replace(/^@/, '')}`;
+  }
+}
+
+/** Merge legacy and new shapes; infer preferred method when missing */
+export function migrateContactData(input: unknown): ContactData {
+  const out = emptyContactData();
+  if (!input || typeof input !== 'object') return out;
+
+  const o = { ...(input as Record<string, unknown>) };
+
+  if ('method' in o && 'username' in o) {
+    const method = String(o.method || '');
+    const username = String(o.username || '').trim();
+    if (method === 'telegram') o.telegram = username;
+    else if (method === 'instagram') o.instagram = username;
+  }
+
+  let telegram = String(o.telegram ?? '').trim();
+  let instagram = String(o.instagram ?? '').trim();
+  let phone = String(o.phone ?? '').trim();
+  let preferred: PreferredContactMethod =
+    (o.preferred_contact_method as PreferredContactMethod) || '';
+
+  if (telegram) {
+    const fromTgUrl = normalizeTelegramFromUrl(telegram);
+    if (fromTgUrl) telegram = fromTgUrl;
+    else if (!telegram.startsWith('@') && INSTAGRAM_URL_RE.test(telegram)) {
+      instagram = normalizeInstagramFromUrlField(telegram);
+      telegram = '';
+    } else if (!instagram && !phone && looksLikePhoneString(telegram)) {
+      phone = normalizePhoneFromRaw(telegram);
+      telegram = '';
+    }
+  }
+
+  if (instagram) {
+    instagram = normalizeInstagramFromUrlField(instagram);
+  }
+
+  if (phone) {
+    phone = normalizePhoneFromRaw(phone);
+  }
+
+  const validPref = (p: string): p is PreferredContactMethod =>
+    p === 'telegram' || p === 'instagram' || p === 'phone' || p === '';
+
+  if (!validPref(preferred)) preferred = '';
+
+  const hasT = telegram.length > 0;
+  const hasI = instagram.length > 0;
+  const hasP = phone.length > 0;
+
+  if (!preferred) {
+    if (hasT && !hasI && !hasP) preferred = 'telegram';
+    else if (hasI && !hasT && !hasP) preferred = 'instagram';
+    else if (hasP && !hasT && !hasI) preferred = 'phone';
+    else if (hasT && hasI && !hasP) preferred = 'telegram';
+    else if (hasT && hasP && !hasI) preferred = 'telegram';
+    else if (hasI && hasP && !hasT) preferred = 'instagram';
+    else if (hasT && hasI && hasP) preferred = 'telegram';
+  }
+
+  if (preferred === 'telegram' && !hasT && (hasI || hasP)) {
+    if (hasI && !hasP) preferred = 'instagram';
+    else if (hasP && !hasI) preferred = 'phone';
+  }
+
+  out.telegram = telegram;
+  out.instagram = instagram;
+  out.phone = phone;
+  out.preferred_contact_method = preferred;
+
+  return out;
 }
 
 // Storage keys
@@ -53,20 +184,7 @@ export const loadFormData = (type: QuestionnaireType, lang: Language) => {
       const data = JSON.parse(stored);
       // Only return if data is less than 24 hours old
       if (Date.now() - data.timestamp < 24 * 60 * 60 * 1000) {
-        // Migrate old ContactData structure (method + username, or telegram + instagram) to telegram only
-        let contactData: ContactData = data.contactData as ContactData;
-        if (contactData && 'method' in contactData && 'username' in contactData) {
-          const oldData = contactData as { method?: string; username?: string };
-          contactData = {
-            telegram: oldData.method === 'telegram' ? (oldData.username || '') : '',
-            instagram: oldData.method === 'instagram' ? (oldData.username || '') : '',
-          };
-        } else if (!contactData || !('telegram' in contactData)) {
-          contactData = { telegram: '', instagram: '' };
-        } else {
-          const c = contactData as { telegram?: string; instagram?: string };
-          contactData = { telegram: c.telegram || '', instagram: c.instagram || '' };
-        }
+        const contactData = migrateContactData(data.contactData);
         
         return {
           formData: data.formData as FormData,
@@ -111,13 +229,51 @@ export const validateInstagramUsername = (raw: string): ContactValidation => {
   return { valid: true };
 };
 
+/** Telegram: @ prefix, no spaces; then username rules */
+export const validateTelegramPreferred = (raw: string): ContactValidation => {
+  const s = raw.trim();
+  if (!s) return { valid: false, error: 'empty' };
+  if (/\s/.test(s)) return { valid: false, error: 'telegram_no_spaces' };
+  if (!s.startsWith('@')) return { valid: false, error: 'telegram_must_start_with_at' };
+  return validateTelegramUsername(s);
+};
+
+/** Instagram: nickname or instagram.com/… link */
+export const validateInstagramFlexible = (raw: string): ContactValidation => {
+  const trimmed = raw.trim();
+  if (!trimmed) return { valid: false, error: 'empty' };
+  const parsed = parseInstagramInput(trimmed);
+  if (!parsed) return { valid: false, error: 'instagram_invalid_input' };
+  return validateInstagramUsername(parsed);
+};
+
+export const validatePhoneNumber = (raw: string): ContactValidation => {
+  const s = raw.trim();
+  if (!s) return { valid: false, error: 'empty' };
+  if (!/^\+?[0-9]+$/.test(s)) return { valid: false, error: 'phone_invalid' };
+  const digits = s.startsWith('+') ? s.slice(1) : s;
+  if (digits.length < 6) return { valid: false, error: 'phone_too_short' };
+  return { valid: true };
+};
+
+export function sanitizePhoneInput(raw: string): string {
+  let out = '';
+  for (let i = 0; i < raw.length; i++) {
+    const c = raw[i];
+    if (c === '+' && out.length === 0) out += '+';
+    else if (/\d/.test(c)) out += c;
+  }
+  return out;
+}
+
 // Validate form
 export const validateForm = (
   sections: QuestionnaireSection[],
   formData: FormData,
   contactData: ContactData,
   lang: Language,
-  additionalData?: FormAdditionalData
+  additionalData?: FormAdditionalData,
+  sourceData?: SourceData
 ): FormErrors => {
   const errors: FormErrors = {};
   const t = translations[lang];
@@ -286,23 +442,63 @@ export const validateForm = (
     }
   }
 
-  // Validate contact - at least one: telegram or instagram
-  const hasTelegram = contactData.telegram && contactData.telegram.trim() !== '';
-  const hasInstagram = contactData.instagram && contactData.instagram.trim() !== '';
+  if (sourceData?.source === 'recommendation' && !sourceData.recommender?.trim()) {
+    errors['source_recommender'] = t.required;
+  }
 
-  if (!hasTelegram && !hasInstagram) {
-    errors['contact'] = (t as Record<string, string>).atLeastOneContactRequired ?? t.telegramRequired;
-  } else {
-    if (hasTelegram) {
-      const r = validateTelegramUsername(contactData.telegram);
+  const tr = t as Record<string, string>;
+  const fillMsg = tr.fillPreferredContact || t.required;
+  const selectMethodMsg = tr.selectContactMethod || tr.atLeastOneContactRequired;
+  const pcm = contactData.preferred_contact_method;
+
+  if (!pcm) {
+    errors['contact'] = selectMethodMsg;
+  } else if (pcm === 'telegram') {
+    const v = contactData.telegram?.trim() ?? '';
+    if (!v) errors['telegram'] = fillMsg;
+    else {
+      const r = validateTelegramPreferred(v);
       if (!r.valid && r.error && r.error !== 'empty') {
-        errors['telegram'] = (t as Record<string, string>)[r.error] || t.required;
+        errors['telegram'] = tr[r.error] || t.required;
       }
     }
-    if (hasInstagram) {
-      const r = validateInstagramUsername(contactData.instagram);
+  } else if (pcm === 'instagram') {
+    const v = contactData.instagram?.trim() ?? '';
+    if (!v) errors['instagram'] = fillMsg;
+    else {
+      const r = validateInstagramFlexible(v);
       if (!r.valid && r.error && r.error !== 'empty') {
-        errors['instagram'] = (t as Record<string, string>)[r.error] || t.required;
+        errors['instagram'] = tr[r.error] || t.required;
+      }
+    }
+  } else if (pcm === 'phone') {
+    const v = contactData.phone?.trim() ?? '';
+    if (!v) errors['phone'] = fillMsg;
+    else {
+      const r = validatePhoneNumber(v);
+      if (!r.valid && r.error && r.error !== 'empty') {
+        errors['phone'] = tr[r.error] || t.required;
+      }
+    }
+  }
+
+  if (pcm) {
+    if (pcm !== 'telegram' && contactData.telegram?.trim()) {
+      const r = validateTelegramPreferred(contactData.telegram);
+      if (!r.valid && r.error && r.error !== 'empty' && !errors['telegram']) {
+        errors['telegram'] = tr[r.error] || t.required;
+      }
+    }
+    if (pcm !== 'instagram' && contactData.instagram?.trim()) {
+      const r = validateInstagramFlexible(contactData.instagram);
+      if (!r.valid && r.error && r.error !== 'empty' && !errors['instagram']) {
+        errors['instagram'] = tr[r.error] || t.required;
+      }
+    }
+    if (pcm !== 'phone' && contactData.phone?.trim()) {
+      const r = validatePhoneNumber(contactData.phone);
+      if (!r.valid && r.error && r.error !== 'empty' && !errors['phone']) {
+        errors['phone'] = tr[r.error] || t.required;
       }
     }
   }
@@ -410,6 +606,7 @@ export const generateMarkdown = (
 
   // Contact section (enhanced)
   const contacts: string[] = [];
+  const pcm = contactData.preferred_contact_method;
   if (contactData.telegram && contactData.telegram.trim() !== '') {
     const cleanTelegram = contactData.telegram.replace(/^@/, '').trim();
     contacts.push(`📱 Telegram: @${cleanTelegram}\n🔗 https://t.me/${cleanTelegram}`);
@@ -418,10 +615,26 @@ export const generateMarkdown = (
     const cleanInstagram = contactData.instagram.replace(/^@/, '').trim();
     contacts.push(`📷 Instagram: @${cleanInstagram}\n🔗 https://instagram.com/${cleanInstagram}`);
   }
+  if (contactData.phone && contactData.phone.trim() !== '') {
+    contacts.push(`📞 ${lang === 'ru' ? 'Телефон' : 'Phone'}: ${contactData.phone.trim()}`);
+  }
 
-  if (contacts.length > 0) {
+  if (pcm || contacts.length > 0) {
+    const prefLabel =
+      pcm === 'telegram'
+        ? 'Telegram'
+        : pcm === 'instagram'
+          ? 'Instagram'
+          : pcm === 'phone'
+            ? lang === 'ru'
+              ? 'Телефон'
+              : 'Phone'
+            : '';
     md += `\n━━━━━━━━━━━━━━━━━━━━\n`;
     md += `**${t.mdContacts}**\n`;
+    if (pcm && prefLabel) {
+      md += `➤ **${lang === 'ru' ? 'Предпочитаемый способ связи' : 'Preferred contact'}:** ${prefLabel}\n`;
+    }
     contacts.forEach((contact) => {
       md += `➤ ${contact}\n`;
     });
@@ -534,45 +747,56 @@ Current status:
   try {
     timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-    const response = await fetch(
-      `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
-      {
+    const sendMessage = async (withMarkdown: boolean) => {
+      const payload: Record<string, string> = {
+        chat_id: CHAT_ID,
+        text: markdown,
+      };
+      if (withMarkdown) {
+        payload.parse_mode = 'Markdown';
+      }
+
+      const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: markdown,
-          parse_mode: 'Markdown',
-        }),
+        body: JSON.stringify(payload),
         signal: controller.signal,
-      }
-    );
+      });
+
+      const data = await response.json();
+      return { response, data };
+    };
+
+    // First try with Markdown, then fallback to plain text for reliability.
+    let { response, data } = await sendMessage(true);
+    if ((!response.ok || !data?.ok) && String(data?.description || '').toLowerCase().includes('parse')) {
+      console.warn('Markdown parse failed, retrying without parse_mode...', data);
+      ({ response, data } = await sendMessage(false));
+    }
 
     if (timeoutId) clearTimeout(timeoutId);
 
-    const responseData = await response.json();
-
     if (!response.ok) {
-      const errorMsg = responseData.description || `HTTP ${response.status}`;
+      const errorMsg = data?.description || `HTTP ${response.status}`;
       console.error('Telegram API error:', {
         status: response.status,
         statusText: response.statusText,
-        error: responseData
+        error: data
       });
-      return { 
-        success: false, 
-        error: `Telegram API error: ${errorMsg}` 
+      return {
+        success: false,
+        error: `Telegram API error: ${errorMsg}`
       };
     }
 
-    if (!responseData.ok) {
-      const errorMsg = responseData.description || 'Unknown Telegram API error';
-      console.error('Telegram API returned error:', responseData);
-      return { 
-        success: false, 
-        error: `Telegram API error: ${errorMsg}` 
+    if (!data?.ok) {
+      const errorMsg = data?.description || 'Unknown Telegram API error';
+      console.error('Telegram API returned error:', data);
+      return {
+        success: false,
+        error: `Telegram API error: ${errorMsg}`
       };
     }
 

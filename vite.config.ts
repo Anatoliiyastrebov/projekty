@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -13,6 +14,14 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+    },
+  },
+  test: {
+    globals: true,
+    environment: "node",
+    env: {
+      VITE_TELEGRAM_BOT_TOKEN: "test-token-for-ci",
+      VITE_TELEGRAM_CHAT_ID: "123456789",
     },
   },
 }));

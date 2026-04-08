@@ -20,6 +20,7 @@ import {
   ContactData,
   SourceData,
   FormErrors,
+  emptyContactData,
   validateForm,
   generateMarkdown,
   saveFormData,
@@ -27,6 +28,7 @@ import {
   clearFormData,
   sendToTelegram,
   sendDocumentToTelegram,
+  type PreferredContactMethod,
 } from '@/lib/form-utils';
 import { Eye, Send, Trash2, Loader2, AlertCircle, Upload, X } from 'lucide-react';
 import { toast } from 'sonner';
@@ -64,10 +66,8 @@ const Anketa: React.FC = () => {
 
   const [formData, setFormData] = useState<FormData>({});
   const [additionalData, setAdditionalData] = useState<FormAdditionalData>({});
-  const [contactData, setContactData] = useState<ContactData>({
-    telegram: '',
-    instagram: '',
-  });
+  const [contactData, setContactData] = useState<ContactData>(() => emptyContactData());
+  const [showExtraContacts, setShowExtraContacts] = useState(false);
   const [sourceData, setSourceData] = useState<SourceData>({ source: '', recommender: '' });
   const [dsgvoAccepted, setDsgvoAccepted] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -76,17 +76,20 @@ const Anketa: React.FC = () => {
   const [attachmentFiles, setAttachmentFiles] = useState<File[]>([]);
   const attachmentFilesRef = useRef<File[]>([]);
 
-  // Load saved form data on mount
+  // Load saved form data on mount / when type or language changes
   useEffect(() => {
     const saved = loadFormData(type, language);
     if (saved) {
       setFormData(saved.formData || {});
       setAdditionalData(saved.additionalData || {});
-      // Ensure contactData has the correct structure
-      const contact = saved.contactData || { telegram: '' };
-      setContactData({
-        telegram: contact.telegram || '',
-      });
+      const c = saved.contactData || emptyContactData();
+      setContactData(c);
+      setSourceData(saved.sourceData || { source: '', recommender: '' });
+      const extra =
+        (c.preferred_contact_method !== 'telegram' && c.telegram.trim()) ||
+        (c.preferred_contact_method !== 'instagram' && c.instagram.trim()) ||
+        (c.preferred_contact_method !== 'phone' && c.phone.trim());
+      setShowExtraContacts(!!extra);
     }
   }, [type, language]);
 
@@ -238,7 +241,8 @@ const Anketa: React.FC = () => {
   const handleClearForm = () => {
     setFormData({});
     setAdditionalData({});
-    setContactData({ telegram: '' });
+    setContactData(emptyContactData());
+    setShowExtraContacts(false);
     setDsgvoAccepted(false);
     setErrors({});
     setAttachmentFiles([]);
@@ -483,11 +487,27 @@ const Anketa: React.FC = () => {
 
           {/* Contact Section */}
           <ContactSection
-            telegram={contactData.telegram}
-            instagram={contactData.instagram}
-            error={errors['contact']}
-            telegramError={errors['telegram']}
-            instagramError={errors['instagram']}
+            contactData={contactData}
+            showExtraContacts={showExtraContacts}
+            onToggleExtraContacts={() => setShowExtraContacts(true)}
+            errors={{
+              contact: errors['contact'],
+              telegram: errors['telegram'],
+              instagram: errors['instagram'],
+              phone: errors['phone'],
+            }}
+            onPreferredChange={(value: PreferredContactMethod) => {
+              if (!value) return;
+              setContactData((prev) => ({ ...prev, preferred_contact_method: value }));
+              setErrors((prev) => {
+                const next = { ...prev };
+                delete next['contact'];
+                delete next['telegram'];
+                delete next['instagram'];
+                delete next['phone'];
+                return next;
+              });
+            }}
             onTelegramChange={(value) => {
               setContactData((prev) => ({ ...prev, telegram: value }));
               setErrors((prev) => {
@@ -503,6 +523,15 @@ const Anketa: React.FC = () => {
                 const next = { ...prev };
                 delete next['contact'];
                 delete next['instagram'];
+                return next;
+              });
+            }}
+            onPhoneChange={(value) => {
+              setContactData((prev) => ({ ...prev, phone: value }));
+              setErrors((prev) => {
+                const next = { ...prev };
+                delete next['contact'];
+                delete next['phone'];
                 return next;
               });
             }}
