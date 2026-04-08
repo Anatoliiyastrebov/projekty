@@ -201,6 +201,7 @@ export const translations = {
     previewMarkdown: 'Предпросмотр',
     close: 'Закрыть',
     backToHome: 'Вернуться на главную',
+    footerLegalLink: 'Политика конфиденциальности',
     sendAnother: 'Отправить ещё одну анкету',
     
     // Success page
@@ -421,6 +422,7 @@ export const translations = {
     previewMarkdown: 'Preview',
     close: 'Close',
     backToHome: 'Back to home',
+    footerLegalLink: 'Privacy policy',
     sendAnother: 'Submit another questionnaire',
     
     // Success page
